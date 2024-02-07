@@ -11,9 +11,18 @@ import Jobs from '../components/jobs';
 export default function HomeScreen() {
   const [activeCategory, setActiveCategory] = useState('Günlük');
   const [categories, setCategories] = useState([]);
+  const [meals, setMeals] = useState([]);
   useEffect(() => {
     getCategories();
+    getJobs();
   }, [])
+
+const handleChangeCategory=category=>{
+  getJobs(category);
+  setActiveCategory(category);
+  setMeals([]);
+}
+
   const getCategories = async () => {
     try {
       const response = await axios.get('https://themealdb.com/api/json/v1/1/categories.php');
@@ -22,6 +31,19 @@ export default function HomeScreen() {
         setCategories(response.data.categories);
 
       }
+    }
+    catch (err) {
+      console.log('error:', err.message);
+    }
+  }
+  const getJobs = async (category="Beef") => {
+    try {  
+      const response = await axios.get(`https://themealdb.com/api/json/v1/1/filter.php?c=${category}`);
+      //console.log('got categories:',response.data);
+       if (response && response.data) {
+        setMeals(response.data.meals);
+
+       }
     }
     catch (err) {
       console.log('error:', err.message);
@@ -66,12 +88,12 @@ export default function HomeScreen() {
         </View>
 
         <View>
-        { categories.length>0 && <Categories categories={categories} activeCategory={activeCategory} /> }
+        { categories.length>0 && <Categories categories={categories} activeCategory={activeCategory}  handleChangeCategory={handleChangeCategory} /> }
 
         </View>
 
         <View>
-          <Jobs />
+          <Jobs meals={meals} categories={categories}/>
         </View>
       </ScrollView >
     </View >
