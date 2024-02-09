@@ -9,7 +9,7 @@ import Jobs from '../components/jobs';
 
 
 export default function HomeScreen() {
-  const [activeCategory, setActiveCategory] = useState('Günlük');
+  const [activeCategory, setActiveCategory] = useState('Beef');
   const [categories, setCategories] = useState([]);
   const [meals, setMeals] = useState([]);
   useEffect(() => {

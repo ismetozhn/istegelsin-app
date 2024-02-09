@@ -1,6 +1,6 @@
 export const categoryData = [
     {
-        name: 'Beef',
+        name: 'Günlük',
         image: 'https://cdn-icons-png.flaticon.com/512/7025/7025912.png'
     },
     {
