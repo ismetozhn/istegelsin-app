@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View, Image, TextInput } from 'react-native'
+import { ScrollView, StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { StatusBar } from 'expo-status-bar'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
@@ -6,22 +6,24 @@ import { Bars3BottomRightIcon, MagnifyingGlassIcon } from 'react-native-heroicon
 import Categories from '../components/categories';
 import axios from 'axios';
 import Jobs from '../components/jobs';
+import { useNavigation } from '@react-navigation/native';
 
 
 export default function HomeScreen() {
   const [activeCategory, setActiveCategory] = useState('Beef');
   const [categories, setCategories] = useState([]);
   const [meals, setMeals] = useState([]);
+  const navigation = useNavigation();
   useEffect(() => {
     getCategories();
     getJobs();
   }, [])
 
-const handleChangeCategory=category=>{
-  getJobs(category);
-  setActiveCategory(category);
-  setMeals([]);
-}
+  const handleChangeCategory = category => {
+    getJobs(category);
+    setActiveCategory(category);
+    setMeals([]);
+  }
 
   const getCategories = async () => {
     try {
@@ -36,14 +38,14 @@ const handleChangeCategory=category=>{
       console.log('error:', err.message);
     }
   }
-  const getJobs = async (category="Beef") => {
-    try {  
+  const getJobs = async (category = "Beef") => {
+    try {
       const response = await axios.get(`https://themealdb.com/api/json/v1/1/filter.php?c=${category}`);
       //console.log('got categories:',response.data);
-       if (response && response.data) {
+      if (response && response.data) {
         setMeals(response.data.meals);
 
-       }
+      }
     }
     catch (err) {
       console.log('error:', err.message);
@@ -57,9 +59,14 @@ const handleChangeCategory=category=>{
         contentContainerStyle={{ paddingBottom: 50 }}
         className="space-y-6 pt-14"
       >
+
         <View className="mx-4 flex-row justify-between items-center mb-2">
-          <Image source={require('../../assets/images/man.jpg')} style={{ height: hp(5), width: hp(5.5), borderRadius: 25 }} />
-          <Bars3BottomRightIcon size={hp(4)} color="gray" />
+          <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+
+            <Image source={require('../../assets/images/man.jpg')} style={{ height: hp(5), width: hp(5.5), borderRadius: 25 }} />
+
+          </TouchableOpacity>
+          <Bars3BottomRightIcon onPress={() => navigation.navigate('Profile')} size={hp(4)} color="gray" />
         </View>
 
 
@@ -88,12 +95,12 @@ const handleChangeCategory=category=>{
         </View>
 
         <View>
-        { categories.length>0 && <Categories categories={categories} activeCategory={activeCategory}  handleChangeCategory={handleChangeCategory} /> }
+          {categories.length > 0 && <Categories categories={categories} activeCategory={activeCategory} handleChangeCategory={handleChangeCategory} />}
 
         </View>
 
         <View>
-          <Jobs meals={meals} categories={categories}/>
+          <Jobs meals={meals} categories={categories} />
         </View>
       </ScrollView >
     </View >
