@@ -16,8 +16,9 @@ export default function LoginScreen() {
     <View className="flex-1 bg-indigo-400">
       <SafeAreaView className="flex">
         <View className="flex-row justify-start">
-          <TouchableOpacity onPress={() => navigation.goBack()} className="bg-yellow-400 p-2 rounded-tr-2xl rounded-bl-2xl ml-4">
+          <TouchableOpacity onPress={() => navigation.goBack()} className="bg-sky-400 p-2 rounded-tr-2xl rounded-bl-2xl ml-4">
             <ArrowLeftIcon size="20" color="black" />
+            
           </TouchableOpacity>
 
         </View>
@@ -67,7 +68,7 @@ export default function LoginScreen() {
         </View>
         <View className="flex-row justify-center mt-7">
           <Text className="text-gray-500 font-semibold">
-            Don't have an account?
+            Hesabın yok mu?
           </Text>
           <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
             <Text className="font-semibold text-yellow-500"> Kayıt Ol</Text>

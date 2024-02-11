@@ -7,6 +7,8 @@ import JobDetailScreen from '../screens/JobDetailScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 import LoginScreen from '../screens/LoginScreen';
+import MenuScreen from '../screens/MenuScreen';
+import ContactScreen from '../screens/ContactScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -21,6 +23,8 @@ function AppNavigation() {
         <Stack.Screen name="Profile" component={ProfileScreen} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Menu" component={MenuScreen} />
+        <Stack.Screen name="İletişim" component={ContactScreen} />
 
        
 

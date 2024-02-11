@@ -6,7 +6,7 @@ import Animated, { useSharedValue, withSpring } from 'react-native-reanimated';
 import { useNavigation } from '@react-navigation/core';
 import { ChevronLeftIcon } from 'react-native-heroicons/outline';
 
-export default function WelcomeScreen() {
+export default function ProfileScreen() {
     const ring1padding = useSharedValue(0);
     const ring2padding = useSharedValue(0);
     const navigation = useNavigation();
@@ -58,13 +58,13 @@ export default function WelcomeScreen() {
                     <Text
                         className="text-xl font-bold text-center text-gray-900"
                     >
-                        Sign Up
+                        Kayıt Ol
                     </Text>
                 </TouchableOpacity>
                 <View className="flex-row justify-center">
-                    <Text className="text-white font-semibold">Already have an account?</Text>
+                    <Text className="text-white font-semibold">Zaten bir hesabın var mı?</Text>
                     <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                        <Text className="font-semibold text-indigo-400"> Log In</Text>
+                        <Text className="font-semibold text-indigo-400"> Giriş Yap</Text>
                     </TouchableOpacity>
                 </View>
             </View>

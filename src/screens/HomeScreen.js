@@ -66,7 +66,7 @@ export default function HomeScreen() {
             <Image source={require('../../assets/images/man.jpg')} style={{ height: hp(5), width: hp(5.5), borderRadius: 25 }} />
 
           </TouchableOpacity>
-          <Bars3BottomRightIcon onPress={() => navigation.navigate('Profile')} size={hp(4)} color="gray" />
+          <Bars3BottomRightIcon onPress={() => navigation.navigate('Menu')} size={hp(4)} color="gray" />
         </View>
 
 
