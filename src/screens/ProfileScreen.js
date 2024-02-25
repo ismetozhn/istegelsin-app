@@ -58,7 +58,16 @@ export default function ProfileScreen() {
                     <Text
                         className="text-xl font-bold text-center text-gray-900"
                     >
-                        Kayıt Ol
+                        Aday Kayıt Ol
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('SignUp2')}
+                    className="py-3 bg-indigo-400 mx-7 rounded-xl">
+                    <Text
+                        className="text-xl font-bold text-center text-gray-900"
+                    >
+                       İşveren Kayıt Ol
                     </Text>
                 </TouchableOpacity>
                 <View className="flex-row justify-center">

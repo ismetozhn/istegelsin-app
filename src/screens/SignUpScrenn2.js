@@ -10,7 +10,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 
 
-export default function SignUpScreen() {
+export default function SignUpScreen2() {
   const navigation = useNavigation();
   return (
     <View className="flex-1 bg-indigo-400">
@@ -23,7 +23,7 @@ export default function SignUpScreen() {
         </View>
         <View className="flex-row  justify-center ">
           <Image source={require('../../assets/images/bman.png')}
-            style={{ width: 140, height: 150, borderRadius: 100 }}
+            style={{ width: 90, height: 90, borderRadius: 100 }}
           />
         </View>
       </SafeAreaView>
@@ -31,22 +31,34 @@ export default function SignUpScreen() {
         style={{ borderTopLeftRadius: 50, borderTopRightRadius: 50 }}
       >
         <View className="from space-y-2">
-          <Text className="text-gray-400 ml-4">Ad-Soyad</Text>
+          <Text className="text-gray-400 ml-4">Firma Adı</Text>
+          <TextInput
+            className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
+            value='İşte Gelsin'
+            placeholder='Adınızı ve Soyadınızı Girin'
+          />
+          <Text className="text-gray-400 ml-4">Adınız</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
             value='berkan'
-            placeholder='Adınızı ve Soyadınızı Girin'
+            placeholder='Kullanıcı Adı Gir'
           />
-          <Text className="text-gray-400 ml-4">Kullanıcı Adı</Text>
+          <Text className="text-gray-400 ml-4">Soyadınız</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
-            value='berkan123456'
+            value='ismet'
             placeholder='Kullanıcı Adı Gir'
           />
           <Text className="text-gray-400 ml-4">Email Adresi</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
             value='berkan@gmail.com'
+            placeholder='Mail Gir'
+          />
+          <Text className="text-gray-400 ml-4">Cep Telefonu</Text>
+          <TextInput
+            className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
+            value='05325554442878'
             placeholder='Mail Gir'
           />
           <Text className="text-gray-400 ml-4">Şifre</Text>
@@ -56,6 +68,7 @@ export default function SignUpScreen() {
             value='1234'
             placeholder='Şifre Gir'
           />
+          
          
           <TouchableOpacity className="py-3 bg-indigo-400 rounded-xl">
             <Text className="font-xl font-bold text-center text-gray-900">Kayıt Ol</Text>
@@ -63,18 +76,8 @@ export default function SignUpScreen() {
 
 
         </View>
-        <Text className="text-xl text-gray-700 font-bold text-center py-5">Veya</Text>
-        <View className="flex-row justify-center space-x-12">
-          <TouchableOpacity className="p-2 bg-gray-100 rounded-2xl">
-            <Image source={require('../../assets/images/google.jpg')} className="w-10 h-10" />
-          </TouchableOpacity>
-          <TouchableOpacity className="p-2 bg-gray-100 rounded-2xl">
-            <Image source={require('../../assets/images/apple.jpg')} className="w-10 h-10" />
-          </TouchableOpacity>
-          <TouchableOpacity className="p-2 bg-gray-100 rounded-2xl">
-            <Image source={require('../../assets/images/Facebook.png')} className="w-10 h-10" />
-          </TouchableOpacity>
-        </View>
+        
+       
         <View className="flex-row justify-center mt-7">
           <Text className="text-gray-500 font-semibold">
             Zaten bir hesabın var mı?
