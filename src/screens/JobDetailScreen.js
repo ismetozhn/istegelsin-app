@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { StatusBar } from 'expo-status-bar'
 import { CachedImage } from '../helpers/image'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { ChevronLeftIcon, ClockIcon, UsersIcon } from 'react-native-heroicons/outline';
-import { HeartIcon } from 'react-native-heroicons/solid';
+import { AcademicCapIcon, BanknotesIcon, ChevronLeftIcon, ClockIcon, UsersIcon } from 'react-native-heroicons/outline';
+import { BookmarkIcon } from 'react-native-heroicons/solid';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import Loading from '../components/loading';
@@ -41,11 +41,11 @@ export default function JobDetailScreen(props) {
         const regex = /[?&]v=([^&]+)/;
         const match = url.match(regex);
         if (match && match[1]) {
-            return match [1];
+            return match[1];
 
         }
         return null
-        
+
     }
 
     return (
@@ -64,12 +64,12 @@ export default function JobDetailScreen(props) {
             </View>
 
 
-            <Animated.View  entering={FadeIn.delay(200).duration(1000)} className="w-full absolute flex-row justify-between items-center pt-14 ">
+            <Animated.View entering={FadeIn.delay(200).duration(1000)} className="w-full absolute flex-row justify-between items-center pt-14 ">
                 <TouchableOpacity onPress={() => navigation.goBack()} className="p-2 rounded-full ml-5 bg-white">
                     <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color="rgb(56 189 248)" />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => setIsFavourite(!isFavourite)} className="p-2 rounded-full mr-5 bg-white">
-                    <HeartIcon size={hp(3.5)} strokeWidth={4.5} color={isFavourite ? "red" : "gray"} />
+                    <BookmarkIcon size={hp(3.5)} strokeWidth={4.5} color={isFavourite ? "red" : "gray"} />
                 </TouchableOpacity>
             </Animated.View>
 
@@ -82,11 +82,19 @@ export default function JobDetailScreen(props) {
                         <Animated.View entering={FadeInDown.duration(700).springify().damping(12)} className="space-y-2">
                             <Text style={{ fontSize: hp(3) }} className="font-bold flex-1 text-neutral-700">
                                 {meal?.strMeal}
+
                             </Text>
+
+
 
                             <Text style={{ fontSize: hp(2) }} className="font-medium flex-1 text-neutral-500">
                                 {meal?.strArea}
                             </Text>
+                            <TouchableOpacity onPress={() => navigation.goBack()} className="p-2 rounded-full ">
+                                <Text className=" bg-cyan-700 w-1/2 text-cyan-50" style={{ fontSize: hp(3), borderRadius: 10, textAlign: 'center' }} >Başvur</Text>
+                            </TouchableOpacity>
+
+
                         </Animated.View>
 
 
@@ -96,8 +104,8 @@ export default function JobDetailScreen(props) {
                                     <ClockIcon size={hp(4)} strokeWidth={2.5} color="#525252" />
                                 </View>
                                 <View className="flex items-center py-2 space-y-1">
-                                    <Text style={{ fontSize: hp(2) }} className="font-bold text-neutral-700">8</Text>
-                                    <Text style={{ fontSize: hp(2) }} className="font-bold text-neutral-700">Saat</Text>
+                                    <Text style={{ fontSize: hp(2) }} className="font-bold text-neutral-700">Tam</Text>
+                                    <Text style={{ fontSize: hp(2) }} className="font-bold text-neutral-700">Zamanlı</Text>
                                 </View>
                             </View>
                             <View className="flex rounded-full bg-sky-400 p-2">
@@ -105,26 +113,26 @@ export default function JobDetailScreen(props) {
                                     <UsersIcon size={hp(4)} strokeWidth={2.5} color="#525252" />
                                 </View>
                                 <View className="flex items-center py-2 space-y-1">
-                                    <Text style={{ fontSize: hp(2) }} className="font-bold text-neutral-700">8</Text>
-                                    <Text style={{ fontSize: hp(2) }} className="font-bold text-neutral-700">Saat</Text>
+                                    <Text style={{ fontSize: hp(2) }} className="font-bold text-neutral-700">500+</Text>
+                                    <Text style={{ fontSize: hp(2) }} className="font-bold text-neutral-700"></Text>
                                 </View>
                             </View>
                             <View className="flex rounded-full bg-sky-400 p-2">
                                 <View style={{ height: hp(6.5), width: hp(6.5) }} className="bg-white rounded-full flex items-center justify-center">
-                                    <ClockIcon size={hp(4)} strokeWidth={2.5} color="#525252" />
+                                    <AcademicCapIcon size={hp(4)} strokeWidth={2.5} color="#525252" />
                                 </View>
                                 <View className="flex items-center py-2 space-y-1">
-                                    <Text style={{ fontSize: hp(2) }} className="font-bold text-neutral-700">8</Text>
-                                    <Text style={{ fontSize: hp(2) }} className="font-bold text-neutral-700">Saat</Text>
+                                    <Text style={{ fontSize: hp(2) }} className="font-bold text-neutral-700">Junior</Text>
+                                    <Text style={{ fontSize: hp(2) }} className="font-bold text-neutral-700"></Text>
                                 </View>
                             </View>
                             <View className="flex rounded-full bg-sky-400 p-2">
                                 <View style={{ height: hp(6.5), width: hp(6.5) }} className="bg-white rounded-full flex items-center justify-center">
-                                    <ClockIcon size={hp(4)} strokeWidth={2.5} color="#525252" />
+                                    <BanknotesIcon size={hp(4)} strokeWidth={2.5} color="#525252" />
                                 </View>
                                 <View className="flex items-center py-2 space-y-1">
-                                    <Text style={{ fontSize: hp(2) }} className="font-bold text-neutral-700">8</Text>
-                                    <Text style={{ fontSize: hp(2) }} className="font-bold text-neutral-700">Saat</Text>
+                                    <Text style={{ fontSize: hp(2) }} className="font-bold text-neutral-700">16.000-</Text>
+                                    <Text style={{ fontSize: hp(2) }} className="font-bold text-neutral-700">20.000</Text>
                                 </View>
                             </View>
 
@@ -135,7 +143,7 @@ export default function JobDetailScreen(props) {
 
                         <Animated.View entering={FadeInDown.delay(300).duration(700).springify().damping(12)} className="space-y-4">
                             <Text style={{ fontSize: hp(2.5) }} className="font-bold flex-1 text-neutral-700">
-                                İş Hakkında
+                                İş Tanımı
                             </Text>
                             <Text style={{ fontSize: hp(1.8) }} className="text-neutral-700">
                                 {
@@ -151,14 +159,14 @@ export default function JobDetailScreen(props) {
 
                         {
                             meal.strYoutube && (
-                                <View className="space-y-4"> 
+                                <View className="space-y-4">
                                     <Text style={{ fontSize: hp(2.5) }} className="font-bold flex-1 text-neutral-700">
-                                        Şirket Tanıtımı
+                                        İşveren Hakkında
                                     </Text>
                                     <View>
-                                        <YoutubeIframe 
-                                        videoId={getYoutubeVideoId(meal.strYoutube)}
-                                        height={hp(30)}
+                                        <YoutubeIframe
+                                            videoId={getYoutubeVideoId(meal.strYoutube)}
+                                            height={hp(30)}
                                         />
                                     </View>
 
