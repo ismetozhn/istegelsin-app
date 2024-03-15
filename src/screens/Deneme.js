@@ -3,19 +3,25 @@ import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { ArrowLeftIcon } from 'react-native-heroicons/outline'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { useState } from 'react'
+import { saveData, readData } from '../helpers/storage';
 
-
-
-
-
-
-
-export default function LoginScreen() {
+export default function Deneme() {
   const navigation = useNavigation();
 
-  const saveData = () => {
-    
-  }
+  const [userId, setUserId] = useState('');
+
+  const handleSaveUserId = async (id) => {
+    await saveData('user_id', id);
+  };
+
+  const handleReadUserId = async () => {
+    const id = await readData('user_id');
+    setUserId(id);
+  };
+
+
+  
 
   return (
     <View className="flex-1 bg-indigo-400">
@@ -53,9 +59,13 @@ export default function LoginScreen() {
           <TouchableOpacity className="flex items-end mb-5">
             <Text className="text-gray-700">Şifremi Unuttum?</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={saveData} className="py-3 bg-indigo-400 rounded-xl">
+          <TouchableOpacity onPress={() => handleSaveUserId('12345')} className="py-3 bg-indigo-400 rounded-xl">
             <Text className="font-xl font-bold text-center text-gray-900">Giriş Yap</Text>
           </TouchableOpacity>
+          <TouchableOpacity  onPress={handleReadUserId}  className="py-3 bg-indigo-400 rounded-xl">
+            <Text className="font-xl font-bold text-center text-gray-900">Giriş Yap</Text>
+          </TouchableOpacity>
+          <Text>Kullanıcı ID: {userId}</Text>
 
 
         </View>
