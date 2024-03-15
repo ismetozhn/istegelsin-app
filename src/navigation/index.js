@@ -12,6 +12,8 @@ import ContactScreen from '../screens/ContactScreen';
 import SignUpScreen2 from '../screens/SignUpScrenn2';
 import SettingsScreen from '../screens/SettingsScreen';
 import Deneme from '../screens/Deneme';
+import App from '../screens/SilRequest';
+
 
 
 const Stack = createNativeStackNavigator();
@@ -31,6 +33,7 @@ function AppNavigation() {
         <Stack.Screen name="SignUp2" component={SignUpScreen2} />
         <Stack.Screen name="Settings" component={SettingsScreen} />
         <Stack.Screen name="Deneme" component={Deneme} />
+        <Stack.Screen name="Sil" component={App} />
         
         
 

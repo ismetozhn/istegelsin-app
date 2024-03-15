@@ -25,7 +25,7 @@ export default function Jobs({ categories, meals }) {
             <MasonryList
 
               data={meals}
-              keyExtractor={(item) => item.idMeal}
+              keyExtractor={(item) => item.title}
               numColumns={1}
               showsVerticalScrollIndicator={false}
               renderItem={({ item, i }) => <JobCard item={item} index={i} navigation={navigation} />}
@@ -58,35 +58,29 @@ const JobCard = ({ item, index, navigation }) => {
           className="bg-black/5"
         /> */}
         <View className="flex-row">
-          <CachedImage
-            uri={item.strMealThumb}
+          {/* <CachedImage
+            uri={item.logoPath}
             style={{ width: '50%', height: hp(10), borderRadius: 35 }}
             className="bg-black/5"
-            sharedTransitionTag={item.strMeal}
+            sharedTransitionTag={item.title}
 
-          />
+          /> */}
 
           <View>
             <Text style={{ fontSize: hp(2.0) }} className=" font-bold ml-2 text-neutral-700">
               {
-                item.strMeal.length > 20 ? item.strMeal.slice(0, 20) + '...' : item.strMeal
+                item.title.length > 20 ? item.title.slice(0, 20) + '...' : item.title
               }
 
             </Text>
             <Text style={{ fontSize: hp(2.0) }} className=" 
          font-semibold ml-2 text-neutral-500">
               {
-                item.strMeal.length > 20 ? item.strMeal.slice(0, 20) + '...' : item.strMeal
+                item.description.length > 20 ? item.description.slice(0, 20) + '...' : item.description
               }
 
             </Text>
-            <Text style={{ fontSize: hp(2.0) }} className=" 
-         font-semibold ml-2 text-neutral-400">
-              {
-                item.strMeal.length > 20 ? item.strMeal.slice(0, 20) + '...' : item.strMeal
-              }
-
-            </Text>
+          
           </View>
 
 

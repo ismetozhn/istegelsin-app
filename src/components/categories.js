@@ -6,7 +6,7 @@ import Animated,{FadeInDown} from 'react-native-reanimated';
 import { categoryData } from '../constants'
 import { CachedImage } from '../helpers/image';
 
-export default function Categories({categories,activeCategory,handleChangeCategory}) {
+export default function Categories({jobPostings,activeCategory,handleChangeCategory}) {
   return (
     <Animated.View entering={FadeInDown.duration(500).springify()}>
       <ScrollView
@@ -16,13 +16,13 @@ export default function Categories({categories,activeCategory,handleChangeCatego
       contentContainerStyle={{paddingHorizontal:15}}
       >
         {
-            categories.map((cat,index)=>{
-              let isActive=cat.strCategory==activeCategory;
+            jobPostings.map((item,index)=>{
+              let isActive=item.companyId==activeCategory;
               let activeButtonClass=isActive? ' bg-sky-400':' bg-black/10';
                 return(
                     <TouchableOpacity
                 key={index}
-                onPress={()=> handleChangeCategory(cat.strCategory)}
+                onPress={()=> handleChangeCategory(item.companyId)}
                 className="flex items-center space-y-1">
                     <View className={"rounded-full p-[6px]"+activeButtonClass}>
                         {/* <Image
@@ -34,14 +34,14 @@ export default function Categories({categories,activeCategory,handleChangeCatego
 
                         /> */}
                         <CachedImage
-                        uri={cat.strCategoryThumb}
+                        uri={item.logoPath}
                         style={{width:hp(7),height:hp(7)}}
                         className="rounded-full"
                         />
                         
                     </View>
                         <Text className="text-neutral-600" style={{fontSize:hp(1.6)}}>
-                            {cat.strCategory}
+                            {item.companyId}
 
                         </Text>
 

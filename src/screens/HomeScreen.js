@@ -27,10 +27,10 @@ export default function HomeScreen() {
 
   const getCategories = async () => {
     try {
-      const response = await axios.get('https://themealdb.com/api/json/v1/1/categories.php');
+      const response = await axios.get('https://ig.colaksoft.online/api/v1/JobPosting/List');
       //console.log('got categories:',response.data);
       if (response && response.data) {
-        setCategories(response.data.categories);
+        setCategories(response.data.data);
 
       }
     }
@@ -40,10 +40,11 @@ export default function HomeScreen() {
   }
   const getJobs = async (category = "Beef") => {
     try {
-      const response = await axios.get(`https://themealdb.com/api/json/v1/1/filter.php?c=${category}`);
+      //const response = await axios.get(`https://themealdb.com/api/json/v1/1/filter.php?c=${category}`);
+      const response = await axios.get('https://ig.colaksoft.online/api/v1/JobPosting/List');
       //console.log('got categories:',response.data);
       if (response && response.data) {
-        setMeals(response.data.meals);
+        setMeals(response.data.data);
 
       }
     }
@@ -95,7 +96,7 @@ export default function HomeScreen() {
         </View>
 
         <View>
-          {categories.length > 0 && <Categories categories={categories} activeCategory={activeCategory} handleChangeCategory={handleChangeCategory} />}
+          {categories.length > 0 && <Categories jobPostings={categories} activeCategory={activeCategory} handleChangeCategory={handleChangeCategory} />}
 
         </View>
 
