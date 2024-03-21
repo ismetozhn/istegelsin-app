@@ -53,18 +53,26 @@ const JobCard = ({ item, index, navigation }) => {
         onPress={() => navigation.navigate('JobDetail', { ...item })}
       >
         {/* <Image
-          source={{ uri: item.strMealThumb }}
+          source={{ uri:{'https://cdn.colaksoft.online' + item.logoPath} }}
           style={{ width: '100%', height: hp(35), borderRadius: 35 }}
           className="bg-black/5"
         /> */}
         <View className="flex-row">
-          {/* <CachedImage
-            uri={item.logoPath}
+          {/* { <CachedImage
+            uri={'https://cdn.colaksoft.online' + item.logoPath}
+            
             style={{ width: '50%', height: hp(10), borderRadius: 35 }}
             className="bg-black/5"
             sharedTransitionTag={item.title}
 
-          /> */}
+          /> } */}
+
+          {
+            <Image
+              source={{ uri: 'https://cdn.colaksoft.online' + item.logoPath }}
+              style={{ width: '50%', height: hp(10), borderRadius: 35 }}
+            />
+          }
 
           <View>
             <Text style={{ fontSize: hp(2.0) }} className=" font-bold ml-2 text-neutral-700">
@@ -74,13 +82,13 @@ const JobCard = ({ item, index, navigation }) => {
 
             </Text>
             <Text style={{ fontSize: hp(2.0) }} className=" 
-         font-semibold ml-2 text-neutral-500">
+            font-semibold ml-2 text-neutral-500">
               {
                 item.description.length > 20 ? item.description.slice(0, 20) + '...' : item.description
               }
 
             </Text>
-          
+
           </View>
 
 

@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { StatusBar } from 'expo-status-bar'
 import { CachedImage } from '../helpers/image'
@@ -19,15 +19,16 @@ export default function JobDetailScreen(props) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        getJobData(item.idMeal);
+        getJobData(item.jobPostingId);
     }, [])
 
     const getJobData = async (id) => {
         try {
-            const response = await axios.get(`https://themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+            //const response = await axios.get(`https://themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+            const response = await axios.get(`https://ig.colaksoft.online/api/v1/JobPosting?jobPostingId=${id}`);
             //console.log('got meal:',response.data);
             if (response && response.data) {
-                setMeal(response.data.meals[0]);
+                setMeal(response.data.data[0]);
                 setLoading(false);
 
             }
@@ -37,16 +38,16 @@ export default function JobDetailScreen(props) {
         }
     }
 
-    const getYoutubeVideoId = url => {
-        const regex = /[?&]v=([^&]+)/;
-        const match = url.match(regex);
-        if (match && match[1]) {
-            return match[1];
+    // const getYoutubeVideoId = url => {
+    //     const regex = /[?&]v=([^&]+)/;
+    //     const match = url.match(regex);
+    //     if (match && match[1]) {
+    //         return match[1];
 
-        }
-        return null
+    //     }
+    //     return null
 
-    }
+    // }
 
     return (
         <ScrollView className="bg-white flex-1"
@@ -56,11 +57,19 @@ export default function JobDetailScreen(props) {
             <StatusBar style={'light'} />
 
             <View className="flex-row justify-center">
-                <CachedImage
-                    uri={item.strMealThumb}
-                    sharedTransitionTag={item.strMeal}
+                {/* <CachedImage
+                    uri={item.logoPath}
+                    sharedTransitionTag={item.title}
                     style={{ width: wp(98), height: hp(50), borderRadius: 53, borderBottomLeftRadius: 40, borderBottomRightRadius: 40, marginTop: 4 }}
-                />
+                /> */}
+
+                {
+                    <Image
+                        source={{ uri: 'https://cdn.colaksoft.online' + item.logoPath }}
+                        sharedTransitionTag={item.title}
+                        style={{ width: wp(98), height: hp(50), borderRadius: 53, borderBottomLeftRadius: 40, borderBottomRightRadius: 40, marginTop: 4 }}
+                    />
+                }
             </View>
 
 
@@ -81,15 +90,17 @@ export default function JobDetailScreen(props) {
                     <View className="px-4 flex justify-between space-y-4 pt-8" >
                         <Animated.View entering={FadeInDown.duration(700).springify().damping(12)} className="space-y-2">
                             <Text style={{ fontSize: hp(3) }} className="font-bold flex-1 text-neutral-700">
-                                {meal?.strMeal}
+                                {item?.title}
 
                             </Text>
 
 
 
                             <Text style={{ fontSize: hp(2) }} className="font-medium flex-1 text-neutral-500">
-                                {meal?.strArea}
+                                {item?.companyId}
                             </Text>
+
+
                             <TouchableOpacity onPress={() => navigation.goBack()} className="p-2 rounded-full ">
                                 <Text className=" bg-cyan-700 w-1/2 text-cyan-50" style={{ fontSize: hp(3), borderRadius: 10, textAlign: 'center' }} >Başvur</Text>
                             </TouchableOpacity>
@@ -131,8 +142,8 @@ export default function JobDetailScreen(props) {
                                     <BanknotesIcon size={hp(4)} strokeWidth={2.5} color="#525252" />
                                 </View>
                                 <View className="flex items-center py-2 space-y-1">
-                                    <Text style={{ fontSize: hp(2) }} className="font-bold text-neutral-700">16.000-</Text>
-                                    <Text style={{ fontSize: hp(2) }} className="font-bold text-neutral-700">20.000</Text>
+                                    <Text style={{ fontSize: hp(2) }} className="font-bold text-neutral-700">  {item.totalSalary.toString().length > 4 ? item.totalSalary.toString().slice(0, 3) + 'k' : item.totalSalary.toString()} </Text>
+                                    
                                 </View>
                             </View>
 
@@ -147,7 +158,7 @@ export default function JobDetailScreen(props) {
                             </Text>
                             <Text style={{ fontSize: hp(1.8) }} className="text-neutral-700">
                                 {
-                                    meal?.strInstructions
+                                    item?.description
                                 }
                             </Text>
                         </Animated.View>
@@ -157,7 +168,7 @@ export default function JobDetailScreen(props) {
 
 
 
-                        {
+                        {/* {
                             meal.strYoutube && (
                                 <View className="space-y-4">
                                     <Text style={{ fontSize: hp(2.5) }} className="font-bold flex-1 text-neutral-700">
@@ -173,6 +184,7 @@ export default function JobDetailScreen(props) {
                                 </View>
                             )
                         }
+                         */}
                     </View>
                 )
             }

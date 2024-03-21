@@ -27,7 +27,7 @@ export default function HomeScreen() {
 
   const getCategories = async () => {
     try {
-      const response = await axios.get('https://ig.colaksoft.online/api/v1/JobPosting/List');
+      const response = await axios.get('https://ig.colaksoft.online/api/v1/Helper/ListWorkModel');
       //console.log('got categories:',response.data);
       if (response && response.data) {
         setCategories(response.data.data);
@@ -38,18 +38,24 @@ export default function HomeScreen() {
       console.log('error:', err.message);
     }
   }
-  const getJobs = async (category = "Beef") => {
-    try {
+  const getJobs = async (category = 0) => {
+   var response;
+    try { 
+      console.log(category);
       //const response = await axios.get(`https://themealdb.com/api/json/v1/1/filter.php?c=${category}`);
-      const response = await axios.get('https://ig.colaksoft.online/api/v1/JobPosting/List');
+      response = await axios.get(`https://ig.colaksoft.online/api/v1/JobPosting/List?workModelId=${category}`);
       //console.log('got categories:',response.data);
+      // if(response.data == null ){
+       
+      // }
       if (response && response.data) {
         setMeals(response.data.data);
 
       }
     }
     catch (err) {
-      console.log('error:', err.message);
+      console.log(response)
+      //console.log('error:', err.message);
     }
   }
   return (
