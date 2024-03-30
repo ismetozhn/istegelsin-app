@@ -3,6 +3,8 @@ import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { ArrowLeftIcon } from 'react-native-heroicons/outline'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { useState } from 'react'
+import { saveData } from '../helpers/storage';
 
 
 
@@ -12,6 +14,14 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default function SignUpScreen() {
   const navigation = useNavigation();
+  const [userId, setUserId] = useState('');
+
+  const handleSaveUserId = async (id) => {
+    await saveData('user_id', id);
+  };
+
+  
+  
   return (
     <View className="flex-1 bg-indigo-400">
       <SafeAreaView className="flex">
@@ -57,7 +67,7 @@ export default function SignUpScreen() {
             placeholder='Şifre Gir'
           />
          
-          <TouchableOpacity className="py-3 bg-indigo-400 rounded-xl">
+         <TouchableOpacity onPress={() => handleSaveUserId('123456')} className="py-3 bg-indigo-400 rounded-xl">
             <Text className="font-xl font-bold text-center text-gray-900">Kayıt Ol</Text>
           </TouchableOpacity>
 
