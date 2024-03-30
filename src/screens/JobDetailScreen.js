@@ -8,7 +8,6 @@ import { BookmarkIcon } from 'react-native-heroicons/solid';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import Loading from '../components/loading';
-import YoutubeIframe from 'react-native-youtube-iframe';
 import Animated, { FadeInDown, FadeIn } from 'react-native-reanimated';
 
 export default function JobDetailScreen(props) {
@@ -38,16 +37,7 @@ export default function JobDetailScreen(props) {
         }
     }
 
-    // const getYoutubeVideoId = url => {
-    //     const regex = /[?&]v=([^&]+)/;
-    //     const match = url.match(regex);
-    //     if (match && match[1]) {
-    //         return match[1];
-
-    //     }
-    //     return null
-
-    // }
+    
 
     return (
         <ScrollView className="bg-white flex-1"
@@ -57,11 +47,7 @@ export default function JobDetailScreen(props) {
             <StatusBar style={'light'} />
 
             <View className="flex-row justify-center">
-                {/* <CachedImage
-                    uri={item.logoPath}
-                    sharedTransitionTag={item.title}
-                    style={{ width: wp(98), height: hp(50), borderRadius: 53, borderBottomLeftRadius: 40, borderBottomRightRadius: 40, marginTop: 4 }}
-                /> */}
+                
 
                 {
                     <Image

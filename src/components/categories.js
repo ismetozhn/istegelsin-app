@@ -3,8 +3,6 @@ import React from 'react'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 
-import { categoryData } from '../constants'
-import { CachedImage } from '../helpers/image';
 
 export default function Categories({ jobPostings, activeCategory, handleChangeCategory }) {
   return (
@@ -25,19 +23,6 @@ export default function Categories({ jobPostings, activeCategory, handleChangeCa
                 onPress={() => handleChangeCategory(item.workModelId)}
                 className="flex items-center space-y-1">
                 <View className={"rounded-full p-[6px]" + activeButtonClass}>
-                  {/* <Image
-                        
-                        source={{uri:cat.strCategoryThumb}}
-                        style={{width:hp(7),height:hp(7)}}
-                        className="rounded-full"
-                        
-
-                        /> */}
-                  {/* <CachedImage
-                        uri={item.logoPath}
-                        style={{width:hp(7),height:hp(7)}}
-                        className="rounded-full"
-                        /> */}
 
                   {
                     <Image

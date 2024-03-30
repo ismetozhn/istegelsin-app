@@ -44,28 +44,19 @@ export default function Jobs({ categories, meals }) {
 }
 
 const JobCard = ({ item, index, navigation }) => {
-  let isEven = index % 2 == 0;
+  //let isEven = index % 2 == 0;
+  let isEven = index % 1 == 0;
   return (
     <Animated.View entering={FadeInDown.delay(index * 100).duration(600).springify().damping(12)}>
       <Pressable
-        style={{ width: '50%', paddingLeft: isEven ? 0 : 8, paddingRight: isEven ? 8 : 0 }}
+        //style={{ width: '50%', paddingLeft: isEven ? 0 : 8, paddingRight: isEven ? 8 : 0 }}
+        style={{ width: '100%'}}
         className="flex justify-center mb-4 space-y-1 "
         onPress={() => navigation.navigate('JobDetail', { ...item })}
       >
-        {/* <Image
-          source={{ uri:{'https://cdn.colaksoft.online' + item.logoPath} }}
-          style={{ width: '100%', height: hp(35), borderRadius: 35 }}
-          className="bg-black/5"
-        /> */}
-        <View className="flex-row">
-          {/* { <CachedImage
-            uri={'https://cdn.colaksoft.online' + item.logoPath}
-            
-            style={{ width: '50%', height: hp(10), borderRadius: 35 }}
-            className="bg-black/5"
-            sharedTransitionTag={item.title}
 
-          /> } */}
+
+        <View className="flex-row" >
 
           {
             <Image
@@ -79,8 +70,8 @@ const JobCard = ({ item, index, navigation }) => {
               {
                 item.title.length > 20 ? item.title.slice(0, 20) + '...' : item.title
               }
-
             </Text>
+
             <Text style={{ fontSize: hp(2.0) }} className=" 
             font-semibold ml-2 text-neutral-500">
               {
@@ -88,6 +79,24 @@ const JobCard = ({ item, index, navigation }) => {
               }
 
             </Text>
+
+            <Text style={{ fontSize: hp(2.0) }} className=" 
+            font-semibold ml-2 text-neutral-500">
+              {
+                item.cityId.length > 20 ? item.cityId.slice(0, 20) + '...' : item.cityId
+              }
+
+            </Text>
+
+
+            <View style={{ justifyContent: 'space-between', alignItems: 'flex-end' }}>
+              <Text style={{ fontSize: hp(2.0), fontWeight: '600', color: '#666' }}>
+                {item.totalSalary}
+              </Text>
+            </View>
+
+
+
 
           </View>
 
