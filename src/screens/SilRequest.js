@@ -1,29 +1,31 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, ScrollView } from 'react-native';
-import sendApiRequest from '../api/apiHelper';
-
+import { View, Text, TextInput, Button, StyleSheet, ScrollView } from 'react-native';
+import sendApiRequest from '../api/apiHelper'; // Önceden oluşturduğunuz helper fonksiyon
 
 const App = () => {
   const [formData, setFormData] = useState({
-    idNo: '',
-    username: '',
-    password: '',
-    name: '',
-    surname: '',
-    gsm: '',
+    countryName: '',
+    cityName: '',
+    districtName: '',
+    streetName: '',
+    companyId: '',
+    companyName: '',
+    logoPath: '',
+    isActive: '',
+    fax: '',
+    phone: '',
     email: '',
-    genderType: '',
     countryId: '',
     cityId: '',
     districtId: '',
     streetId: '',
-    logoPath: '',
-    iban: '',
-    bankAccountCode: '',
-    workingWithBankId: '',
-    isActive: false,
-    birthday: new Date().toISOString().split('T')[0], // default birthday value
+    apartmentNumber: '',
+    username: '',
+    password: '',
+    createdAt: '',
+    logoFile: null
   });
+  const [response, setResponse] = useState(null);
 
   const handleChange = (name, value) => {
     setFormData(prevFormData => ({
@@ -32,37 +34,74 @@ const App = () => {
     }));
   };
 
-  const handleSubmit = (method) => {
-    // Burada endpoint ve customBaseUrl gerektiği gibi ayarlanmalıdır.
-    sendApiRequest(method, 'User', formData);
+  const handleRequest = async (method) => {
+    try {
+      const apiResponse = await sendApiRequest(method, 'endpoint', formData);
+      setResponse(apiResponse);
+      setFormData(apiResponse.data); // Yanıttaki verileri form verilerine dönüştür
+    } catch (error) {
+      console.error('API isteği sırasında hata oluştu:', error);
+    }
   };
 
   return (
-    
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text style={{ fontSize: 20 }}>API İstek Formu</Text>
-      <View style={{ width: '80%' }}>
-        {/* Form inputları burada yer alacak */}
-        {Object.keys(formData).map(key => (
-          <TextInput
-            key={key}
-            value={formData[key]}
-            onChangeText={(value) => handleChange(key, value)}
-            placeholder={key}
-            style={{ borderWidth: 1, borderColor: 'gray', marginBottom: 1, padding: 1 }}
-            {...(key === 'isActive' && { keyboardType: 'numeric' })} // For numeric inputs
-            {...(key === 'birthday' && { type: 'date' })} // For date inputs
-          />
-        ))}
+    <ScrollView style={styles.container}>
+      <Text style={styles.title}>API İstek Gönderici</Text>
+      {Object.keys(formData).map(key => (
+        <TextInput
+          key={key}
+          value={formData[key]}
+          onChangeText={(value) => handleChange(key, value)}
+          placeholder={key}
+          style={styles.input}
+        />
+      ))}
+      <View style={styles.buttonContainer}>
+        <Button title="GET" onPress={() => handleRequest('get')} />
+        <Button title="POST" onPress={() => handleRequest('post')} />
+        <Button title="PUT" onPress={() => handleRequest('put')} />
+        <Button title="PATCH" onPress={() => handleRequest('patch')} />
       </View>
-      <View style={{ marginTop: 20 }}>
-        <Button title="GET İsteği Gönder" onPress={() => handleSubmit('get')} />
-        <Button title="POST İsteği Gönder" onPress={() => handleSubmit('post')} />
-        <Button title="PUT İsteği Gönder" onPress={() => handleSubmit('put')} />
-        <Button title="PATCH İsteği Gönder" onPress={() => handleSubmit('patch')} />
-      </View>
-    </View>
+      {response && (
+        <View style={styles.responseContainer}>
+          <Text style={styles.responseTitle}>Yanıt:</Text>
+          <Text>{JSON.stringify(response, null, 2)}</Text>
+        </View>
+      )}
+    </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: 'gray',
+    marginBottom: 10,
+    padding: 10,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+  },
+  responseContainer: {
+    marginTop: 20,
+    borderWidth: 1,
+    borderColor: 'gray',
+    padding: 10,
+  },
+  responseTitle: {
+    fontWeight: 'bold',
+  },
+});
 
 export default App;
