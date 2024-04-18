@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
-import { get, add } from '../api/apiHelperDeneme'; // apiHelper dosyasının bulunduğu yolu doğru olarak güncelleyin
+import { get, add,update } from '../api/apiHelperDeneme'; // apiHelper dosyasının bulunduğu yolu doğru olarak güncelleyin
 import { saveDataByKey, readDataByKey, Keys, clearAllData } from '../helpers/storage';
 
 const GetDataPage = () => {
@@ -23,7 +23,12 @@ const GetDataPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await get('Company/Login?email=test1@gmail.com&password=123'); // İstediğiniz endpoint'i buraya yazın
+        const headers = {
+          'Content-Type': 'application/json-patch+json',
+          'company': 'true',
+        };
+        const response = await get('Company/Login?email=test1@gmail.com&password=123', headers);
+        console.log('API yanıtı:', response);
         setResponseData(response);
         
         setLoading(false);
@@ -34,6 +39,8 @@ const GetDataPage = () => {
 
     fetchData();
   }, []);
+
+
 
   const handleGetButtonClick = async () => {
     // API'den gelen verileri formData'ya yerleştir
@@ -56,15 +63,20 @@ const GetDataPage = () => {
 
       clearAllData();
       // saveDataByKey fonksiyonunu çağırarak veriyi kaydet
-saveDataByKey(Keys.email, 'berkan@gmail.com')
+saveDataByKey(Keys.email, responseData.email);
+saveDataByKey(Keys.password, responseData.password);
+saveDataByKey(Keys.companyid, responseData.companyid);
+saveDataByKey(Keys.isLoggedIn, true);
+
 // Değişken atama işlemi
-let assignedEmail;
-try {
-  assignedEmail = await readDataByKey(Keys.email);
-  console.log(`Atanan Email: ${assignedEmail}`);
-} catch (error) {
-  console.error('Bir hata oluştu:', error);
-}
+//örnek kullanım
+// let assignedEmail;
+// try {
+//   assignedEmail = await readDataByKey(Keys.email);
+//   console.log(`Atanan Email: ${assignedEmail}`);
+// } catch (error) {
+//   console.error('Bir hata oluştu:', error);
+// }
 
 
   
@@ -72,31 +84,40 @@ try {
 
 
   
-       //saveDataByKey(Keys.email, 'berkan@gmail.com');
-   
-      // var email = responseData.email
-     //  saveDataByKey(Keys.email, email);
-    //     saveDataByKey(Keys.password, responseData.password);
-    //     saveDataByKey(Keys.companyid, String(responseData.companyid));
-    //   console.log('--- Stored Data ---');
-     //console.log(`Email: ${ readDataByKey(Keys.email)}`);
-    //   console.log(`Password: ${ readDataByKey(Keys.password)}`);
-    //   console.log(`Company ID: ${ readDataByKey(Keys.companyid)}`);
-    //   console.log('--- End of Stored Data ---');
     }
     
   };
 
   const handlePostButtonClick = async () => {
-    try {
-      const response = await add('Company', formData); // 'Company' endpoint'i doğru olmalıdır
-      console.log('Post işlemi başarılı:', response);
-      // Post işlemi başarılı olduğunda yapılacak işlemler buraya eklenebilir
-    } catch (error) {
-      console.error('Post işlemi hatası:', error);
-    }
    
+    try {
+        const headers = {
+        'Content-Type': 'application/json-patch+json',
+        'company': 'true',
+      };
+      const response = await add('Company', formData, headers);
+      console.log('API yanıtı:', response);
+    } catch (error) {
+      console.error('Veri gönderme hatası:', error);
+    }
   };
+
+  
+    const handleUpdate = async () => {
+      try {
+        const endpoint = 'Company'; // Güncellenecek kaydın endpoint'i
+        
+        const headers = {
+          'Content-Type': 'multipart/form-data',
+          'company': 'true',
+        };
+        const response = await update(endpoint, formData, headers,true);
+        console.log('Güncelleme işlemi başarılı:', response);
+      } catch (error) {
+        console.error('Güncelleme işlemi hatası:', error);
+      }
+    };
+  
 
 
   return (
@@ -174,6 +195,7 @@ try {
             style={styles.input}
           />
           <Button title="Post" onPress={handlePostButtonClick} />
+          <Button title="Update" onPress={handleUpdate} />
         </View>
       )}
     </View>
