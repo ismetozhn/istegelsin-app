@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export const Keys = {
   isLoggedIn: '@is_logged_in',
   email: '@email',
-  password: '@user_password',
+  password: '@password',
   companyid: '@companyid',
   // Diğer özelleştirilmiş anahtarlar buraya eklenebilir
 };
@@ -46,4 +46,17 @@ export const showAllData = async () => {
   } catch (error) {
     console.error('Error showing data:', error);
   }
+
 };
+
+export const clearAllData = async () => {
+  try {
+    await AsyncStorage.clear();
+    console.log('AsyncStorage verileri başarıyla sıfırlandı.');
+  } catch (e) {
+    console.error('AsyncStorage verilerini sıfırlarken bir hata oluştu:', e);
+  }
+}
+
+
+

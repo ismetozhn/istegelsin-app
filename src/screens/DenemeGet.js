@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { get, add } from '../api/apiHelperDeneme'; // apiHelper dosyasının bulunduğu yolu doğru olarak güncelleyin
-import { saveDataByKey, readDataByKey, Keys } from '../helpers/storage';
+import { saveDataByKey, readDataByKey, Keys, clearAllData } from '../helpers/storage';
 
 const GetDataPage = () => {
   const [responseData, setResponseData] = useState(null);
@@ -13,11 +13,11 @@ const GetDataPage = () => {
     password: '',
     fax: '',
     phone: '',
-    adresss: '',
+    adress: '',
     logo_path: '',
     is_active: '',
     created_at: '',
-    logo_file: null,
+    logo_file: '',
   });
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const GetDataPage = () => {
     fetchData();
   }, []);
 
-  const handleGetButtonClick = () => {
+  const handleGetButtonClick = async () => {
     // API'den gelen verileri formData'ya yerleştir
     if (responseData) {
       setFormData({
@@ -45,25 +45,33 @@ const GetDataPage = () => {
         password: responseData.password || '',
         fax: responseData.fax || '',
         phone: responseData.phone || '',
-        adresss: String(responseData.adresss) || '',
+        adress: String(responseData.adress) || '',
         logo_path: responseData.logo_path || '',
         is_active: String(responseData.is_active) || '',
         created_at: responseData.created_at || '',
-        logo_file: String(responseData.logo_file) || null,
+        logo_file:  '',
         
         
       });
-      saveDataByKey(Keys.email, 'berkan@gmail.com')
-  .then(() => {
-    // Kaydedildikten sonra konsolda email'i gösterelim
-    return readDataByKey(Keys.email);
-  })
-  .then((savedEmail) => {
-    console.log(`Kaydedilen Email: ${savedEmail}`);
-  })
-  .catch((error) => {
-    console.error('Bir hata oluştu:', error);
-  });
+
+      clearAllData();
+      // saveDataByKey fonksiyonunu çağırarak veriyi kaydet
+saveDataByKey(Keys.email, 'berkan@gmail.com')
+// Değişken atama işlemi
+let assignedEmail;
+try {
+  assignedEmail = await readDataByKey(Keys.email);
+  console.log(`Atanan Email: ${assignedEmail}`);
+} catch (error) {
+  console.error('Bir hata oluştu:', error);
+}
+
+
+  
+
+
+
+  
        //saveDataByKey(Keys.email, 'berkan@gmail.com');
    
       // var email = responseData.email
@@ -136,8 +144,8 @@ const GetDataPage = () => {
             style={styles.input}
           />
           <TextInput
-            value={formData.adresss}
-            onChangeText={(text) => setFormData({ ...formData, adresss: text })}
+            value={formData.adress}
+            onChangeText={(text) => setFormData({ ...formData, adress: text })}
             placeholder="Address"
             style={styles.input}
           />
