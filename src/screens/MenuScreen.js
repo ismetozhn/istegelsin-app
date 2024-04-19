@@ -7,10 +7,10 @@ import { useNavigation } from '@react-navigation/core';
 import { ChevronLeftIcon } from 'react-native-heroicons/outline';
 
 export default function MenuScreen() {
-    
+
     const navigation = useNavigation();
 
-    
+
 
 
 
@@ -21,28 +21,65 @@ export default function MenuScreen() {
                     <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color="rgb(56 189 248)" />
                 </TouchableOpacity>
             </View>
-           
+
 
             <View className=" items-center mb-5 ">
-            <Image source={require("../../assets/images/istegelsin.png")} style={{ width: hp(15), height: hp(15), borderRadius: 180 }} />
+                <Image source={require("../../assets/images/istegelsin.png")} style={{ width: hp(15), height: hp(15), borderRadius: 180 }} />
             </View>
 
-            <View className=" mb-3">
+            <View className="flex flex-row mb-3">
+
                 <TouchableOpacity
                     onPress={() => navigation.navigate('SignUp')}
-                    className="py-3 bg-indigo-400 mx-7 rounded-xl">
+                    className="flex-1 py-3 bg-indigo-400 ml-7 rounded-xl">
                     <Text
                         className="text-xl font-bold text-center text-gray-900"
                     >
-                        Aktif İş
+                        Kullanıcı İş
                     </Text>
                 </TouchableOpacity>
-              
+
+                {/* Pasif İş Butonu */}
+                <TouchableOpacity
+                    //onPress={() => /* Pasif işin yönlendirme işlemi */ }
+                    className="flex-1 py-3 bg-gray-400 mx-7 rounded-xl">
+                    <Text
+                        className="text-xl font-bold text-center text-gray-900"
+                    >
+                        Şirket İş
+                    </Text>
+                </TouchableOpacity>
             </View>
+
+
+            <View className="flex flex-row mb-3">
+
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('SignUp')}
+                    className="flex-1 py-3 bg-indigo-400 ml-7 rounded-xl">
+                    <Text
+                        className="text-xl font-bold text-center text-gray-900"
+                    >
+                        Başvurular
+                    </Text>
+                </TouchableOpacity>
+
+                {/* Pasif İş Butonu */}
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('UserD')}
+                    className="flex-1 py-3 bg-gray-400 mx-7 rounded-xl">
+                    <Text
+                        className="text-xl font-bold text-center text-gray-900"
+                    >
+                        Şirket İlan
+                    </Text>
+                </TouchableOpacity>
+            </View>
+
 
             <View className=" mb-3">
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('SignUp')}
+                    onPress={() => navigation.navigate('Sil')}
                     className="py-3 bg-indigo-400 mx-7 rounded-xl">
                     <Text
                         className="text-xl font-bold text-center text-gray-900"
@@ -50,7 +87,7 @@ export default function MenuScreen() {
                         Profili Düzenle
                     </Text>
                 </TouchableOpacity>
-              
+
             </View>
 
             <View className=" mb-3">
@@ -60,10 +97,10 @@ export default function MenuScreen() {
                     <Text
                         className="text-xl font-bold text-center text-gray-900"
                     >
-                        İlan Ekle
+                        Ödeme Sayfası
                     </Text>
                 </TouchableOpacity>
-              
+
             </View>
 
 
@@ -77,7 +114,7 @@ export default function MenuScreen() {
                         İletişim
                     </Text>
                 </TouchableOpacity>
-              
+
             </View>
 
 
@@ -91,7 +128,7 @@ export default function MenuScreen() {
                         Ayarlar
                     </Text>
                 </TouchableOpacity>
-              
+
             </View>
 
             <View className=" mb-3">
@@ -104,7 +141,7 @@ export default function MenuScreen() {
                         Görüş Bildir
                     </Text>
                 </TouchableOpacity>
-              
+
             </View>
 
             <View className=" mb-3">
@@ -117,10 +154,10 @@ export default function MenuScreen() {
                         Çıkış Yap
                     </Text>
                 </TouchableOpacity>
-              
+
             </View>
 
-        
+
 
 
         </View>
