@@ -18,14 +18,14 @@ export default function JobDetailScreen(props) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        getJobData(item.jobPostingId);
+        getJobData(item.job_postingid);
     }, [])
 
-    const getJobData = async (id) => {
+    const getJobData = async (id=1) => {
         try {
             //const response = await axios.get(`https://themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
             const response = await axios.get(`https://ig.colaksoft.online/api/v1/JobPosting?jobPostingId=${id}`);
-            //console.log('got meal:',response.data);
+            //console.log('got meal:',response);
             if (response && response.data) {
                 setMeal(response.data.data[0]);
                 setLoading(false);
@@ -51,7 +51,7 @@ export default function JobDetailScreen(props) {
 
                 {
                     <Image
-                        source={{ uri: 'https://cdn.colaksoft.online' + item.logoPath }}
+                        source={{ uri: 'https://cdn.colaksoft.online' + item.logo_path }}
                         sharedTransitionTag={item.title}
                         style={{ width: wp(98), height: hp(50), borderRadius: 53, borderBottomLeftRadius: 40, borderBottomRightRadius: 40, marginTop: 4 }}
                     />
@@ -83,7 +83,7 @@ export default function JobDetailScreen(props) {
 
 
                             <Text style={{ fontSize: hp(2) }} className="font-medium flex-1 text-neutral-500">
-                                {item?.companyId}
+                                {item?.companyid}
                             </Text>
 
 
@@ -128,7 +128,7 @@ export default function JobDetailScreen(props) {
                                     <BanknotesIcon size={hp(4)} strokeWidth={2.5} color="#525252" />
                                 </View>
                                 <View className="flex items-center py-2 space-y-1">
-                                    <Text style={{ fontSize: hp(2) }} className="font-bold text-neutral-700">  {item.totalSalary.toString().length > 4 ? item.totalSalary.toString().slice(0, 3) + 'k' : item.totalSalary.toString()} </Text>
+                                    <Text style={{ fontSize: hp(2) }} className="font-bold text-neutral-700">  {item.total_salary.toString().length > 4 ? item.total_salary.toString().slice(0, 3) + 'k' : item.total_salary.toString()} </Text>
                                     
                                 </View>
                             </View>

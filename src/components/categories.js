@@ -15,18 +15,18 @@ export default function Categories({ jobPostings, activeCategory, handleChangeCa
       >
         {
           jobPostings.map((item, index) => {
-            let isActive = item.workModelId == activeCategory;
-            let activeButtonClass = isActive ? ' bg-sky-400' : ' bg-black/10';
+            let is_active = item.work_modelid == activeCategory;
+            let activeButtonClass = is_active ? ' bg-sky-400' : ' bg-black/10';
             return (
               <TouchableOpacity
                 key={index}
-                onPress={() => handleChangeCategory(item.workModelId)}
+                onPress={() => handleChangeCategory(item.work_modelid)}
                 className="flex items-center space-y-1">
                 <View className={"rounded-full p-[6px]" + activeButtonClass}>
 
                   {
                     <Image
-                      source={{ uri: 'https://cdn.colaksoft.online' + item.logoPath }}
+                      source={{ uri: 'https://cdn.colaksoft.online' + item.logo_path }}
                       style={{ width: hp(7), height: hp(7) }}
                       className="rounded-full"
                     />

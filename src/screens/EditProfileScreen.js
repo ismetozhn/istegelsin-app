@@ -6,7 +6,7 @@ import Animated, { useSharedValue, withSpring } from 'react-native-reanimated';
 import { useNavigation } from '@react-navigation/core';
 import { ChevronLeftIcon } from 'react-native-heroicons/outline';
 
-export default function ProfileScreen() {
+export default function EditProfileScreen() {
     const ring1padding = useSharedValue(0);
     const ring2padding = useSharedValue(0);
     const navigation = useNavigation();
@@ -32,46 +32,35 @@ export default function ProfileScreen() {
                     <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color="rgb(56 189 248)" />
                 </TouchableOpacity>
             </View>
-            <View className="mt-20 items-center ">
-                <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white' }}
-                >
-                    İş Dünyasına Hoşgeldin!
-
-                </Text>
-            </View>
+        
 
             <Animated.View className="bg-white/20 rounded-full " style={{ padding: ring2padding }} >
                 <Animated.View className="bg-white/20 rounded-full " style={{ padding: ring1padding, justifyContent: 'center', alignItems: 'center' }}>
-                    <Image source={require("../../assets/images/man.jpg")} style={{ width: hp(25), height: hp(25), borderRadius: 180 }} />
+                    <Image source={require("../../assets/images/istegelsin.png")} style={{ width: hp(25), height: hp(25), borderRadius: 180 }} />
                 </Animated.View>
             </Animated.View>
 
 
             <View className="space-y-4">
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('SignUp')}
+                    onPress={() => navigation.navigate('EditUser')}
                     className="py-3 bg-indigo-400 mx-7 rounded-xl">
                     <Text
                         className="text-xl font-bold text-center text-gray-900"
                     >
-                        Aday Kayıt Ol
+                        Kullanıcı Profil Düzenle
                     </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('SignUp2')}
+                    onPress={() => navigation.navigate('EditCompany')}
                     className="py-3 bg-indigo-400 mx-7 rounded-xl">
                     <Text
                         className="text-xl font-bold text-center text-gray-900"
                     >
-                        İşveren Kayıt Ol
+                       Şirket Profili Düzenle
                     </Text>
                 </TouchableOpacity>
-                <View className="flex-row justify-center">
-                    <Text className="text-white font-semibold">Zaten bir hesabın var mı?</Text>
-                    <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                        <Text className="font-semibold text-indigo-400"> Giriş Yap</Text>
-                    </TouchableOpacity>
-                </View>
+               
             </View>
 
 

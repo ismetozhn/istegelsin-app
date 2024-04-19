@@ -1,11 +1,9 @@
 import { Pressable, StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { mealData } from '../constants';
 import MasonryList from '@react-native-seoul/masonry-list';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import Loading from './loading';
-import { CachedImage } from '../helpers/image';
 import { useNavigation } from '@react-navigation/native';
 
 
@@ -13,7 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function Jobs({ categories, meals }) {
   const navigation = useNavigation();
-
+  console.log(categories)
   return (
     <View className="flex mx-4 space-y-3">
       <Text style={{ fontSize: hp(3) }} className="font-semibold text-neutral-600">İş İlanları</Text>
@@ -25,7 +23,7 @@ export default function Jobs({ categories, meals }) {
             <MasonryList
 
               data={meals}
-              keyExtractor={(item) => item.title}
+              keyExtractor={(item) => item.job_postingid}
               numColumns={1}
               showsVerticalScrollIndicator={false}
               renderItem={({ item, i }) => <JobCard item={item} index={i} navigation={navigation} />}
@@ -60,7 +58,7 @@ const JobCard = ({ item, index, navigation }) => {
 
           {
             <Image
-              source={{ uri: 'https://cdn.colaksoft.online' + item.logoPath }}
+              source={{ uri: 'https://cdn.colaksoft.online' + item.logo_path }}
               style={{ width: '50%', height: hp(10), borderRadius: 35 }}
             />
           }
@@ -83,7 +81,7 @@ const JobCard = ({ item, index, navigation }) => {
             <Text style={{ fontSize: hp(2.0) }} className=" 
             font-semibold ml-2 text-neutral-500">
               {
-                item.cityId.length > 20 ? item.cityId.slice(0, 20) + '...' : item.cityId
+                item.adress.length > 20 ? item.adress.slice(0, 20) + '...' : item.adress
               }
 
             </Text>
@@ -91,7 +89,7 @@ const JobCard = ({ item, index, navigation }) => {
 
             <View style={{ justifyContent: 'space-between', alignItems: 'flex-end' }}>
               <Text style={{ fontSize: hp(2.0), fontWeight: '600', color: '#666' }}>
-                {item.totalSalary}
+                {item.total_salary}
               </Text>
             </View>
 

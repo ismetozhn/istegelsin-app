@@ -80,15 +80,6 @@ saveDataByKey(Keys.password, responseData.password);
 saveDataByKey(Keys.userid, responseData.userid);
 saveDataByKey(Keys.isLoggedIn, true);
 
-// Değişken atama işlemi
-//örnek kullanım
-// let assignedEmail;
-// try {
-//   assignedEmail = await readDataByKey(Keys.email);
-//   console.log(`Atanan Email: ${assignedEmail}`);
-// } catch (error) {
-//   console.error('Bir hata oluştu:', error);
-// }
     }
     
   };

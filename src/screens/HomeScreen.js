@@ -43,8 +43,8 @@ export default function HomeScreen() {
     try { 
       console.log(category);
       //const response = await axios.get(`https://themealdb.com/api/json/v1/1/filter.php?c=${category}`);
-      response = await axios.get(`https://ig.colaksoft.online/api/v1/JobPosting/List?workModelId=${category}&pageNumber=0&pageSize=0`);
-      //console.log('got categories:',response.data);
+      response = await axios.get(`https://ig.colaksoft.online/api/v1/JobPosting/List?workModelId=${category}&pageNumber=1&pageSize=10`);
+      //console.log('got categories:',response.data.data.items);
       // if(response.data == null ){
        
       // }

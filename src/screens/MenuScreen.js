@@ -41,7 +41,7 @@ export default function MenuScreen() {
 
                 {/* Pasif İş Butonu */}
                 <TouchableOpacity
-                    //onPress={() => /* Pasif işin yönlendirme işlemi */ }
+                    onPress={() => navigation.navigate('UserD')/* Pasif işin yönlendirme işlemi */ }
                     className="flex-1 py-3 bg-gray-400 mx-7 rounded-xl">
                     <Text
                         className="text-xl font-bold text-center text-gray-900"
@@ -66,7 +66,7 @@ export default function MenuScreen() {
 
                 {/* Pasif İş Butonu */}
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('UserD')}
+                    //onPress={() => navigation.navigate('')}
                     className="flex-1 py-3 bg-gray-400 mx-7 rounded-xl">
                     <Text
                         className="text-xl font-bold text-center text-gray-900"
@@ -79,7 +79,7 @@ export default function MenuScreen() {
 
             <View className=" mb-3">
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('Sil')}
+                    onPress={() => navigation.navigate('EditProfile')}
                     className="py-3 bg-indigo-400 mx-7 rounded-xl">
                     <Text
                         className="text-xl font-bold text-center text-gray-900"

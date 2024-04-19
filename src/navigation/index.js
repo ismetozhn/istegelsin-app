@@ -14,6 +14,11 @@ import SettingsScreen from '../screens/SettingsScreen';
 import DenemeGet from '../screens/DenemeGet';
 import App from '../screens/SilRequest';
 import DenemeGet2 from '../screens/DenemeGet2';
+import EditProfileScreen from '../screens/EditProfileScreen';
+import EditUserScreen from '../screens/EditUserScreen';
+import EditCompanyScreen from '../screens/EditCompanyScreen';
+import AddCompanyJob from '../screens/AddCompanyJob';
+import UpdateCompanyJob from '../screens/UpdateCompanyJob';
 
 
 
@@ -36,7 +41,11 @@ function AppNavigation() {
         <Stack.Screen name="Deneme" component={DenemeGet} />
         <Stack.Screen name="Sil" component={App} />
         <Stack.Screen name="UserD" component={DenemeGet2} />
-        
+        <Stack.Screen name="EditProfile" component={EditProfileScreen} />
+        <Stack.Screen name="EditUser" component={EditUserScreen} />
+        <Stack.Screen name="EditCompany" component={EditCompanyScreen} />
+        <Stack.Screen name="AddCompanyJob" component={AddCompanyJob} />
+        <Stack.Screen name="UpdateCompanyJob" component={UpdateCompanyJob} />
         
 
        
