@@ -74,14 +74,14 @@ export default function LoginScreen() {
 
 
         <View className="from space-y-2">
-          <Text className="text-gray-400 ml-4">Email Adresi</Text>
+          <Text className="text-gray-1000 ml-4">Email Adresi</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
             onChangeText={setEmail}
             value={email}
             placeholder='Mail Gir'
           />
-          <Text className="text-gray-400 ml-4">Şifre</Text>
+          <Text className="text-gray-1000 ml-4">Şifre</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
             secureTextEntry
@@ -94,8 +94,8 @@ export default function LoginScreen() {
           <TouchableOpacity className="flex items-end mb-5">
             <Text className="text-gray-700">Şifremi Unuttum?</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => fetchData(email, password)} className="py-3 bg-indigo-400 rounded-xl">
-            <Text className="font-xl font-bold text-center text-gray-900">Giriş Yap</Text>
+          <TouchableOpacity onPress={() => fetchData(email, password)} className="py-3 bg-indigo-400 rounded-xl h-12">
+            <Text className="font-xl font-bold text-base text-center align-middle text-gray-1000">Giriş Yap</Text>
           </TouchableOpacity>
           
 

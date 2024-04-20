@@ -9,7 +9,7 @@ const axiosInstance = axios.create({
 
 const handleApiResponse = (response) => {
   if (response && response.data && response.data.isSuccess) {
-    console.log('Başarılı:', response.data);
+    console.log('Başarılı:', response.data.data);
     return response.data;
   } else {
     const message = response && response.data && response.data.message ? response.data.message : 'Bilinmeyen hata';
