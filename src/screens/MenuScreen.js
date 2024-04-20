@@ -1,16 +1,36 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, Alert } from 'react-native'
 import React, { useEffect } from 'react'
-
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Animated, { useSharedValue, withSpring } from 'react-native-reanimated';
 import { useNavigation } from '@react-navigation/core';
 import { ChevronLeftIcon } from 'react-native-heroicons/outline';
+import { clearAllData } from '../helpers/storage';
+
 
 export default function MenuScreen() {
 
     const navigation = useNavigation();
 
-
+    const handleLogout = () => {
+        Alert.alert(
+            'Çıkış Yap',
+            'Emin misiniz?',
+            [
+                {
+                    text: 'Vazgeç',
+                    style: 'cancel',
+                },
+                {
+                    text: 'Evet',
+                    onPress: () => {
+                        clearAllData(); // Verileri temizle
+                        navigation.navigate('Login'); // Giriş yap sayfasına yönlendir
+                    },
+                },
+            ],
+            { cancelable: false }
+        );
+    };
 
 
 
@@ -41,7 +61,7 @@ export default function MenuScreen() {
 
                 {/* Pasif İş Butonu */}
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('UserD')/* Pasif işin yönlendirme işlemi */ }
+                    onPress={() => navigation.navigate('UserD')/* Pasif işin yönlendirme işlemi */}
                     className="flex-1 py-3 bg-gray-400 mx-7 rounded-xl">
                     <Text
                         className="text-xl font-bold text-center text-gray-900"
@@ -146,7 +166,7 @@ export default function MenuScreen() {
 
             <View className=" mb-3">
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('SignUp')}
+                    onPress={handleLogout}
                     className="py-3 bg-indigo-400 mx-7 rounded-xl">
                     <Text
                         className="text-xl font-bold text-center text-gray-900"

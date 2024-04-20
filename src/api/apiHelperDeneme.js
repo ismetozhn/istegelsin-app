@@ -10,7 +10,7 @@ const axiosInstance = axios.create({
 const handleApiResponse = (response) => {
   if (response && response.data && response.data.isSuccess) {
     console.log('Başarılı:', response.data);
-    return response.data.data;
+    return response.data;
   } else {
     const message = response && response.data && response.data.message ? response.data.message : 'Bilinmeyen hata';
     throw new Error(message);
@@ -27,9 +27,10 @@ const handleError = (error) => {
   }
 };
 
-export const get = async (endpoint, headers = {}) => {
+export const get = async (endpoint, headers = {}, requireAuthorization = false) => {
   try {
-    const response = await axiosInstance.get(endpoint, { headers });
+    const updatedHeaders = await addHeaders(headers, requireAuthorization);
+    const response = await axiosInstance.get(endpoint, { headers: updatedHeaders });
     return handleApiResponse(response);
   } catch (error) {
     handleError(error);
@@ -69,18 +70,20 @@ export const update = async (endpoint, data, headers = {}, requireAuthorization 
 };
 
 
-export const del = async (endpoint, headers = {}) => {
+export const del = async (endpoint, headers = {}, requireAuthorization = false,) => {
   try {
-    const response = await axiosInstance.delete(endpoint, { headers });
+    const updatedHeaders = await addHeaders(headers, requireAuthorization);
+    const response = await axiosInstance.delete(endpoint, { headers: updatedHeaders });
     return handleApiResponse(response);
   } catch (error) {
     handleError(error);
   }
 };
 
-export const add = async (endpoint, data, headers = {}) => {
+export const add = async (endpoint, data, headers = {}, requireAuthorization = false) => {
   try {
-    const response = await axiosInstance.post(endpoint, data, { headers });
+    const updatedHeaders = await addHeaders(headers, requireAuthorization);
+    const response = await axiosInstance.post(endpoint, data, { headers: updatedHeaders });
     return handleApiResponse(response);
   } catch (error) {
     handleError(error);

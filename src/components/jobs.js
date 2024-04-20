@@ -11,7 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function Jobs({ categories, meals }) {
   const navigation = useNavigation();
-  console.log(categories)
+  //console.log(categories)
   return (
     <View className="flex mx-4 space-y-3">
       <Text style={{ fontSize: hp(3) }} className="font-semibold text-neutral-600">İş İlanları</Text>

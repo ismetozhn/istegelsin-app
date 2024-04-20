@@ -4,25 +4,52 @@ import { useNavigation } from '@react-navigation/native'
 import { ArrowLeftIcon } from 'react-native-heroicons/outline'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useState } from 'react'
-import { saveData, readData } from '../helpers/storage';
-
-
+import { saveData, readData, saveDataByKey, Keys } from '../helpers/storage';
+import { get } from '../api/apiHelperDeneme'
 
 
 
 
 export default function LoginScreen() {
+  const fetchData = async (email, password) => {
+    try {
+      const headers = {
+        'Content-Type': 'application/json-patch+json',
+        'company': 'true',
+      };
+      const response = await get(`Company/Login?email=${email}&password=${password}`, headers);
+      console.log('API yanıtı:', response);
+
+      // API yanıtını kontrol et
+      if (response) {
+        // API yanıtından gelen verileri kaydet
+        saveDataByKey(Keys.email, response.email);
+        saveDataByKey(Keys.password, response.password);
+        saveDataByKey(Keys.companyid, response.companyid);
+        saveDataByKey(Keys.isLoggedIn, true);
+        navigation.navigate('Home');
+      } else {
+        // Yanıt boşsa veya hatalıysa uygun bir işlem yap
+        console.error('API yanıtı boş veya hatalı.');
+      }
+    } catch (error) {
+      console.error('Veri çekme hatası:', error);
+    }
+  };
+
+
   const navigation = useNavigation();
   const [userId, setUserId] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  
 
   const handleReadUserId = async () => {
     const id = await readData('user_id');
     setUserId(id);
   };
 
-  
+
 
   return (
     <View className="flex-1 bg-indigo-400">
@@ -30,40 +57,47 @@ export default function LoginScreen() {
         <View className="flex-row justify-start">
           <TouchableOpacity onPress={() => navigation.goBack()} className="bg-sky-400 p-2 rounded-tr-2xl rounded-bl-2xl ml-4">
             <ArrowLeftIcon size="20" color="black" />
-            
+
           </TouchableOpacity>
 
         </View>
         <View className="flex-row  justify-center mb-8">
-          <Image source={require('../../assets/images/kayıt.jpg')}
-            style={{ width: 200, height: 200, borderRadius: 100 }}
+          <Image source={require('../../assets/images/istegelsin.png')}
+            style={{ width: 200, height: 200, borderRadius: 100, borderColor:'black', borderWidth: 3 }}
           />
         </View>
       </SafeAreaView>
       <View className="flex-1 bg-white px-8 pt-8"
         style={{ borderTopLeftRadius: 50, borderTopRightRadius: 50 }}
       >
+
+
+
         <View className="from space-y-2">
           <Text className="text-gray-400 ml-4">Email Adresi</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
-            value='berkan@gmail.com'
+            onChangeText={setEmail}
+            value={email}
             placeholder='Mail Gir'
           />
           <Text className="text-gray-400 ml-4">Şifre</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
             secureTextEntry
-            value='1234'
+            onChangeText={setPassword}
+            value={password}
             placeholder='Şifre Gir'
           />
+
+
           <TouchableOpacity className="flex items-end mb-5">
             <Text className="text-gray-700">Şifremi Unuttum?</Text>
           </TouchableOpacity>
-          <TouchableOpacity  onPress={handleReadUserId}  className="py-3 bg-indigo-400 rounded-xl">
+          <TouchableOpacity onPress={() => fetchData(email, password)} className="py-3 bg-indigo-400 rounded-xl">
             <Text className="font-xl font-bold text-center text-gray-900">Giriş Yap</Text>
           </TouchableOpacity>
-          <Text>Kullanıcı ID: {userId}</Text>
+          
 
 
         </View>

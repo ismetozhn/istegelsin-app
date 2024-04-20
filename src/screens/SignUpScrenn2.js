@@ -1,17 +1,58 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { ArrowLeftIcon } from 'react-native-heroicons/outline'
 import { SafeAreaView } from 'react-native-safe-area-context'
-
-
-
-
-
-
+import { add } from '../api/apiHelperDeneme'
 
 export default function SignUpScreen2() {
-  const navigation = useNavigation();
+
+  let newDate = new Date()
+  const [formData, setFormData] = useState({
+    companyid: 0,
+    company_name: '',
+    email: '',
+    password: '',
+    fax: '1',
+    phone: '',
+    adress: '1',
+    logo_path: '1',
+    is_active: true,
+    created_at: newDate,
+    logo_file: '',
+  });
+
+  const navigation = useNavigation(); // navigation objesini tanımlama
+
+
+  // TextInput değişikliklerini ele alacak genel bir handleChange fonksiyonu
+  const handleChange = (name, value) => {
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handlePostButtonClick = async () => {
+    try {
+      const headers = {
+        'Content-Type': 'application/json-patch+json',
+        'company': 'true',
+      };
+      const response = await add('Company', formData, headers);
+      console.log('API yanıtı:', response);
+      // response nesnesi ve data özelliği null değilse devam edin
+      if (response.eventStatus === 1) {
+        navigation.navigate('Home');
+      } else {
+        console.log('API yanıtı:', response);
+      }
+
+    } catch (e) {
+      console.error('Veri gönderme hatası:', e);
+    }
+  };
+
   return (
     <View className="flex-1 bg-indigo-400">
       <SafeAreaView className="flex">
@@ -31,53 +72,47 @@ export default function SignUpScreen2() {
         style={{ borderTopLeftRadius: 50, borderTopRightRadius: 50 }}
       >
         <View className="from space-y-2">
-          <Text className="text-gray-400 ml-4">Firma Adı</Text>
+          <Text className="text-gray-400 ml-4">Şirket Adı</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
-            value='İşte Gelsin'
-            placeholder='Adınızı ve Soyadınızı Girin'
-          />
-          <Text className="text-gray-400 ml-4">Adınız</Text>
-          <TextInput
-            className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
-            value='berkan'
-            placeholder='Kullanıcı Adı Gir'
-          />
-          <Text className="text-gray-400 ml-4">Soyadınız</Text>
-          <TextInput
-            className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
-            value='ismet'
-            placeholder='Kullanıcı Adı Gir'
+            onChangeText={(value) => handleChange('company_name', value)}
+            value={formData.company_name}
+            placeholder='Şirket Adı Girin'
           />
           <Text className="text-gray-400 ml-4">Email Adresi</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
-            value='berkan@gmail.com'
-            placeholder='Mail Gir'
-          />
-          <Text className="text-gray-400 ml-4">Cep Telefonu</Text>
-          <TextInput
-            className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
-            value='05325554442878'
-            placeholder='Mail Gir'
+            onChangeText={(value) => handleChange('email', value)}
+            value={formData.email}
+            placeholder='Email Adresinizi Girin'
           />
           <Text className="text-gray-400 ml-4">Şifre</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
+            onChangeText={(value) => handleChange('password', value)}
+            value={formData.password}
             secureTextEntry
-            value='1234'
-            placeholder='Şifre Gir'
+            placeholder='Şifrenizi Girin'
           />
-          
-         
-          <TouchableOpacity className="py-3 bg-indigo-400 rounded-xl">
+          <Text className="text-gray-400 ml-4">Telefon Numarası</Text>
+          <TextInput
+            className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
+            onChangeText={(value) => handleChange('phone', value)}
+            value={formData.phone}
+            placeholder='Telefon Numaranızı Girin'
+          />
+
+
+
+
+          <TouchableOpacity onPress={handlePostButtonClick} className="py-3 bg-indigo-400 rounded-xl">
             <Text className="font-xl font-bold text-center text-gray-900">Kayıt Ol</Text>
           </TouchableOpacity>
 
 
         </View>
-        
-       
+
+
         <View className="flex-row justify-center mt-7">
           <Text className="text-gray-500 font-semibold">
             Zaten bir hesabın var mı?
