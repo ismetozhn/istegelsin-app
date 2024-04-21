@@ -21,7 +21,7 @@ export default function JobDetailScreen(props) {
         getJobData(item.job_postingid);
     }, [])
 
-    const getJobData = async (id=1) => {
+    const getJobData = async (id = 1) => {
         try {
             //const response = await axios.get(`https://themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
             const response = await axios.get(`https://ig.colaksoft.online/api/v1/JobPosting?jobPostingId=${id}`);
@@ -37,7 +37,7 @@ export default function JobDetailScreen(props) {
         }
     }
 
-    
+
 
     return (
         <ScrollView className="bg-white flex-1"
@@ -47,7 +47,7 @@ export default function JobDetailScreen(props) {
             <StatusBar style={'light'} />
 
             <View className="flex-row justify-center">
-                
+
 
                 {
                     <Image
@@ -83,12 +83,12 @@ export default function JobDetailScreen(props) {
 
 
                             <Text style={{ fontSize: hp(2) }} className="font-medium flex-1 text-neutral-500">
-                                {item?.companyid}
+                                {item?.company_name}
                             </Text>
 
 
                             <TouchableOpacity onPress={() => navigation.goBack()} className="p-2 rounded-full ">
-                                <Text className=" bg-cyan-700 w-1/2 text-cyan-50" style={{ fontSize: hp(3), borderRadius: 10, textAlign: 'center' }} >Başvur</Text>
+                                <Text className=" bg-cyan-700 w-1/2 mx-20 text-cyan-50" style={{ fontSize: hp(3), borderRadius: 10, textAlign: 'center' }} >Başvur</Text>
                             </TouchableOpacity>
 
 
@@ -97,12 +97,22 @@ export default function JobDetailScreen(props) {
 
                         <Animated.View entering={FadeInDown.delay(100).duration(700).springify().damping(12)} className="flex-row justify-around">
                             <View className="flex rounded-full bg-sky-400 p-2">
-                                <View style={{ height: hp(6.5), width: hp(6.5) }} className="bg-white rounded-full flex items-center justify-center">
+                                <View style={{ height: hp(6.5), width: hp(6.5) }} className="bg-white rounded-full ml-5 flex items-center justify-center">
                                     <ClockIcon size={hp(4)} strokeWidth={2.5} color="#525252" />
                                 </View>
                                 <View className="flex items-center py-2 space-y-1">
-                                    <Text style={{ fontSize: hp(2) }} className="font-bold text-neutral-700">Tam</Text>
-                                    <Text style={{ fontSize: hp(2) }} className="font-bold text-neutral-700">Zamanlı</Text>
+                                    <Text
+                                        style={{ fontSize: hp(2) }}
+                                        className="font-bold text-neutral-700"
+                                    >
+                                        {item?.employment_name.length > 8 ?
+                                            item?.employment_name.slice(0, 11) + "\n" + item?.employment_name.slice(11) :
+                                            item?.employment_name
+                                        }
+                                    </Text>
+
+
+
                                 </View>
                             </View>
                             <View className="flex rounded-full bg-sky-400 p-2">
@@ -115,12 +125,12 @@ export default function JobDetailScreen(props) {
                                 </View>
                             </View>
                             <View className="flex rounded-full bg-sky-400 p-2">
-                                <View style={{ height: hp(6.5), width: hp(6.5) }} className="bg-white rounded-full flex items-center justify-center">
+                                <View style={{ height: hp(6.5), width: hp(6.5) }} className="bg-white rounded-full ml-3 flex items-center justify-center">
                                     <AcademicCapIcon size={hp(4)} strokeWidth={2.5} color="#525252" />
                                 </View>
                                 <View className="flex items-center py-2 space-y-1">
-                                    <Text style={{ fontSize: hp(2) }} className="font-bold text-neutral-700">Junior</Text>
-                                    <Text style={{ fontSize: hp(2) }} className="font-bold text-neutral-700"></Text>
+                                    <Text style={{ fontSize: hp(2) }} className="font-bold text-neutral-700">{item?.experience_level_name}</Text>
+
                                 </View>
                             </View>
                             <View className="flex rounded-full bg-sky-400 p-2">
@@ -129,7 +139,7 @@ export default function JobDetailScreen(props) {
                                 </View>
                                 <View className="flex items-center py-2 space-y-1">
                                     <Text style={{ fontSize: hp(2) }} className="font-bold text-neutral-700">  {item.total_salary.toString().length > 4 ? item.total_salary.toString().slice(0, 3) + 'k' : item.total_salary.toString()} </Text>
-                                    
+
                                 </View>
                             </View>
 

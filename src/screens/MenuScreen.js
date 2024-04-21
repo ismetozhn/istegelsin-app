@@ -59,7 +59,6 @@ export default function MenuScreen() {
                     </Text>
                 </TouchableOpacity>
 
-                {/* Pasif İş Butonu */}
                 <TouchableOpacity
                     onPress={() => navigation.navigate('UserD')/* Pasif işin yönlendirme işlemi */}
                     className="flex-1 py-3 bg-gray-400 mx-7 rounded-xl">
@@ -84,7 +83,6 @@ export default function MenuScreen() {
                     </Text>
                 </TouchableOpacity>
 
-                {/* Pasif İş Butonu */}
                 <TouchableOpacity
                     //onPress={() => navigation.navigate('')}
                     className="flex-1 py-3 bg-gray-400 mx-7 rounded-xl">
