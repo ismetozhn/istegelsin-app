@@ -42,7 +42,7 @@ export default function SignUpScreen() {
     try {
       const headers = {
         'Content-Type': 'application/json-patch+json',
-        'user': 'true',
+        
       };
       const response = await add('User', formData, headers);
       console.log('API yanıtı:', response);

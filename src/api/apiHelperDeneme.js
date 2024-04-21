@@ -9,7 +9,7 @@ const axiosInstance = axios.create({
 
 const handleApiResponse = (response) => {
   if (response && response.data && response.data.isSuccess) {
-    console.log('Başarılı:', response.data.data);
+    console.log('Başarılı:', response.data);
     return response.data;
   } else {
     const message = response && response.data && response.data.message ? response.data.message : 'Bilinmeyen hata';
@@ -48,6 +48,9 @@ const addHeaders = async (headers, requireAuthorization) => {
     } catch (error) {
       throw new Error('Authorization gerekiyor, ancak accessToken bulunamadı.');
     }
+
+    console.log(assignedEmail,password)
+
     const basicAuthString = encode(`${assignedEmail}:${password}`);
     const updatedHeaders = { ...headers }; // Başlıkları kopyalayarak referansı değiştir
     updatedHeaders['Authorization'] = `Basic ${basicAuthString}`;

@@ -23,30 +23,31 @@ const EditCompanyScreen = () => {
     const fetchData = async () => {
       try {
         // AsyncStorage'den company id'yi al
-        const companyId = await readDataByKey(Keys.companyid);
-
+       
         // API'den ilgili şirket bilgilerini çek
         const headers = {
-          'Content-Type': 'application/json-patch+json',
-          'company': 'true',
+          
+          'Company': 'true',
         };
-        const response = await get(`Company/${companyId}`, headers);
+        const response = await get('Company', headers, true);
+        const companyId = await readDataByKey(Keys.companyid);
+        console.log('yanıtss', companyId)
         console.log('API yanıtı:', response);
-
+       
         
-        if (response && response.companyid) {
+        if (response && response.data.companyid) {
           setCompanyData({
-            companyid: response.companyid || '',
-            company_name: response.company_name || '',
-            email: response.email || '',
-            password: response.password || '',
-            fax: response.fax || '',
-            phone: response.phone || '',
-            adress : response.adress  || '',
-            logo_path: response.logo_path || '',
-            is_active: response.is_active || '',
-            created_at: response.created_at || '',
-            logo_file: response.logo_file || '',
+            companyid: response.data.companyid || '',
+            company_name: response.data.company_name || '',
+            email: response.data.email || '',
+            password: response.data.password || '',
+            fax: response.data.fax || '',
+            phone: response.data.phone || '',
+            adress : response.data.adress  || '',
+            logo_path: response.data.logo_path || '',
+            is_active: response.data.is_active || '',
+            created_at: response.data.created_at || '',
+            logo_file: response.data.logo_file || '',
           });
         } else {
           console.error('API yanıtı beklenen formatta değil veya companyid özelliği eksik.');
