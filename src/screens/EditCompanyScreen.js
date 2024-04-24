@@ -128,7 +128,7 @@ export default function EditCompanyScreen() {
         </View>
 
       </SafeAreaView>
-      <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 16 }} className="flex-1 bg-white px-8 pt-8"
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ flexGrow: 1, padding: 16, paddingBottom: 80 }} className="flex-1 bg-white px-8 pt-8"
         style={{ borderTopLeftRadius: 50, borderTopRightRadius: 50 }}
       >
         <Text className="text-lg text-center font-bold mb-4 text-indigo-800">Şirket Bilgilerini Düzenle</Text>

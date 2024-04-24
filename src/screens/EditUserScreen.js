@@ -73,21 +73,21 @@ export default function EditUserScreen() {
     fetchData();
   }, []);
 
-   const handleUpdate = async () => {
-     try {
-       const endpoint = 'User'; // Güncellenecek kaydın endpoint'i
+  const handleUpdate = async () => {
+    try {
+      const endpoint = 'User'; // Güncellenecek kaydın endpoint'i
 
-       const headers = {
-         'Content-Type': 'multipart/form-data',
+      const headers = {
+        'Content-Type': 'multipart/form-data',
 
-       };
-  
-       const response = await update(endpoint, userData, headers, true);
-       console.log('Güncelleme işlemi başarılı:', response);
-     } catch (error) {
-       console.error('Güncelleme işlemi hatası:', error);
+      };
+
+      const response = await update(endpoint, userData, headers, true);
+      console.log('Güncelleme işlemi başarılı:', response);
+    } catch (error) {
+      console.error('Güncelleme işlemi hatası:', error);
     }
- };
+  };
 
 
 
@@ -103,9 +103,12 @@ export default function EditUserScreen() {
         </View>
 
       </SafeAreaView>
-      <View className="flex-1 bg-white px-8 pt-8"
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ flexGrow: 1, padding: 16, paddingBottom: 80 }} className="flex-1 bg-white px-8 pt-8"
         style={{ borderTopLeftRadius: 50, borderTopRightRadius: 50 }}
       >
+        <Text className="text-lg text-center font-bold mb-4 text-indigo-800">Kullanıcı Bilgilerini Düzenle</Text>
         <View className="from space-y-2">
           <Text className="text-gray-400 ml-4">Ad</Text>
           <TextInput
@@ -119,6 +122,13 @@ export default function EditUserScreen() {
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
             value={userData.surname}
             onChangeText={(text) => setUserData({ ...userData, surname: text })}
+            placeholder="Soyadınız"
+          />
+          <Text className="text-gray-400 ml-4">TC Kimlik No</Text>
+          <TextInput
+            className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
+            value={userData.id_no}
+            onChangeText={(text) => setUserData({ ...userData, id_no: text })}
             placeholder="Soyadınız"
           />
           <Text className="text-gray-400 ml-4">Email Adresi</Text>
@@ -148,7 +158,6 @@ export default function EditUserScreen() {
             onChangeText={(text) => setUserData({ ...userData, iban: text })}
           />
 
-
           <Text className="text-gray-400 ml-4">Yeni Şifre</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
@@ -156,8 +165,7 @@ export default function EditUserScreen() {
             value={userData.password}
             onChangeText={(text) => setUserData({ ...userData, password: text })}
           />
-
-
+         
 
           <TouchableOpacity onPress={handleUpdate} className="py-3 bg-indigo-400 rounded-xl">
             <Text className="font-xl font-bold text-center text-gray-100">Güncelle</Text>
@@ -168,7 +176,7 @@ export default function EditUserScreen() {
 
 
 
-      </View>
+      </ScrollView>
     </View>
   )
 }

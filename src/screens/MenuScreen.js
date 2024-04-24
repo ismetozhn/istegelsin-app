@@ -24,7 +24,7 @@ export default function MenuScreen() {
                     text: 'Evet',
                     onPress: () => {
                         clearAllData(); // Verileri temizle
-                        navigation.navigate('Login'); // Giriş yap sayfasına yönlendir
+                        navigation.navigate('Profile'); // Giriş yap sayfasına yönlendir
                     },
                 },
             ],
