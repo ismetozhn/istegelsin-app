@@ -26,7 +26,7 @@ export default function ProfileScreen() {
 
     return (
 
-        <View className="flex-1   space-y-7  bg-blue-700" >
+        <View className="flex-1   space-y-5  bg-blue-700" >
             <View className="flex-row justify-between mt-20 ">
                 <TouchableOpacity onPress={() => navigation.goBack()} className="p-2 rounded-full ml-5 bg-white">
                     <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color="rgb(56 189 248)" />
@@ -45,33 +45,57 @@ export default function ProfileScreen() {
                     <Image source={require("../../assets/images/man.jpg")} style={{ width: hp(25), height: hp(25), borderRadius: 180 }} />
                 </Animated.View>
             </Animated.View>
+            <View className="flex flex-row mb-3">
 
-
-            <View className="space-y-4">
                 <TouchableOpacity
                     onPress={() => navigation.navigate('SignUp')}
-                    className="py-3 bg-indigo-400 mx-7 rounded-xl">
+                    className="flex-1 py-3 bg-indigo-400 ml-7 rounded-xl">
                     <Text
                         className="text-xl font-bold text-center text-gray-900"
                     >
                         Aday Kayıt Ol
                     </Text>
                 </TouchableOpacity>
+
                 <TouchableOpacity
                     onPress={() => navigation.navigate('SignUp2')}
-                    className="py-3 bg-indigo-400 mx-7 rounded-xl">
+                    className="flex-1 py-3 bg-gray-400 mx-7 rounded-xl">
                     <Text
                         className="text-xl font-bold text-center text-gray-900"
                     >
                         İşveren Kayıt Ol
                     </Text>
                 </TouchableOpacity>
-                <View className="flex-row justify-center">
+            </View>
+
+            <View className="">
+               <View className="flex-row justify-center">
                     <Text className="text-white font-semibold">Zaten bir hesabın var mı?</Text>
-                    <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                        <Text className="font-semibold text-indigo-400"> Giriş Yap</Text>
-                    </TouchableOpacity>
+                    
                 </View>
+            </View>
+
+            <View className="flex flex-row mb-3">
+
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('Login')}
+                    className="flex-1 py-3 bg-indigo-400 ml-7 rounded-xl">
+                    <Text
+                        className="text-xl font-bold text-center text-gray-900"
+                    >
+                        Aday Giriş
+                    </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('Login2')}
+                    className="flex-1 py-3 bg-gray-400 mx-7 rounded-xl">
+                    <Text
+                        className="text-xl font-bold text-center text-gray-900"
+                    >
+                        İşveren Giriş
+                    </Text>
+                </TouchableOpacity>
             </View>
 
 

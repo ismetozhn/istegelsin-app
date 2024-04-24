@@ -19,6 +19,7 @@ import EditUserScreen from '../screens/EditUserScreen';
 import EditCompanyScreen from '../screens/EditCompanyScreen';
 import AddCompanyJob from '../screens/AddCompanyJob';
 import UpdateCompanyJob from '../screens/UpdateCompanyJob';
+import LoginScreen2 from '../screens/LoginScreen2';
 
 
 
@@ -46,6 +47,7 @@ function AppNavigation() {
         <Stack.Screen name="EditCompany" component={EditCompanyScreen} />
         <Stack.Screen name="AddCompanyJob" component={AddCompanyJob} />
         <Stack.Screen name="UpdateCompanyJob" component={UpdateCompanyJob} />
+        <Stack.Screen name="Login2" component={LoginScreen2} />
         
 
        

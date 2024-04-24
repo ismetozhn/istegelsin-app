@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // Anahtar nesnesi
 export const Keys = {
   isLoggedIn: '@is_logged_in',
+  userid: '@userid',
   email: '@email',
   password: '@password',
   companyid: '@companyid',

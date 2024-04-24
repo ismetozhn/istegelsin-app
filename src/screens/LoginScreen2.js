@@ -10,15 +10,15 @@ import { get } from '../api/apiHelperDeneme'
 
 
 
-export default function LoginScreen() {
+export default function LoginScreen2() {
   const fetchData = async (email, password) => {
     console.log(email,password)
     try {
       const headers = {
         'Content-Type': 'application/json-patch+json',
-        
+        'Company' : 'true'
       };
-      const response = await get(`User/Login?email=${email}&password=${password}`, headers);
+      const response = await get(`Company/Login?email=${email}&password=${password}`, headers);
       console.log('API yanıtı:', response);
 
       // API yanıtını kontrol et
@@ -26,7 +26,7 @@ export default function LoginScreen() {
         // API yanıtından gelen verileri kaydet
         saveDataByKey(Keys.email, response.data.email);
         saveDataByKey(Keys.password, response.data.password);
-        saveDataByKey(Keys.userid, response.data.userid);
+        saveDataByKey(Keys.companyid, response.data.companyid);
         saveDataByKey(Keys.isLoggedIn, true);
         navigation.navigate('Home');
       } else {
