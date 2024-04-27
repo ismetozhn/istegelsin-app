@@ -41,13 +41,8 @@ export default function HomeScreen() {
   const getJobs = async (category = 0) => {
    var response;
     try { 
-      //console.log(category);
-      //const response = await axios.get(`https://themealdb.com/api/json/v1/1/filter.php?c=${category}`);
       response = await axios.get(`https://ig.colaksoft.online/api/v1/JobPosting/List?workModelId=${category}&pageNumber=1&pageSize=10`);
-      //console.log('got categories:',response.data.data.items);
-      // if(response.data == null ){
-       
-      // }
+      
       if (response && response.data) {
         setMeals(response.data.data.items);
 
