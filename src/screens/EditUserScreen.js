@@ -5,7 +5,7 @@ import { ArrowLeftIcon } from 'react-native-heroicons/outline'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { get, add, update } from '../api/apiHelperDeneme'; // apiHelper dosyasının bulunduğu yolu doğru olarak güncelleyin
 import { readDataByKey, Keys, clearAllData } from '../helpers/storage';
-
+import * as ImagePicker from 'expo-image-picker';
 
 
 export default function EditUserScreen() {
@@ -73,6 +73,20 @@ export default function EditUserScreen() {
     fetchData();
   }, []);
 
+
+  const handleChooseImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      setUserData({ ...userData, logo_file: result.uri });
+    }
+  };
+
   const handleUpdate = async () => {
     try {
       const endpoint = 'User'; // Güncellenecek kaydın endpoint'i
@@ -82,7 +96,25 @@ export default function EditUserScreen() {
 
       };
 
-      const response = await update(endpoint, userData, headers, true);
+      const formData = new FormData();
+      // companyData'nın tüm alanlarını formData'ya ekleyelim
+      for (const key in userData) {
+        formData.append(key, userData[key]);
+      }
+
+      // Eğer resim seçilmişse, formData'ya ekleyelim
+      if (userData.logo_file) {
+        const uriParts = userData.logo_file.split('.');
+        const fileType = uriParts[uriParts.length - 1];
+
+        formData.append('logo_file', {
+          uri: userData.logo_file,
+          name: `logo.${fileType}`,
+          type: `image/${fileType}`,
+        });
+      }
+
+      const response = await update(endpoint, formData, headers, true);
       console.log('Güncelleme işlemi başarılı:', response);
     } catch (error) {
       console.error('Güncelleme işlemi hatası:', error);
@@ -110,62 +142,68 @@ export default function EditUserScreen() {
       >
         <Text className="text-lg text-center font-bold mb-4 text-indigo-800">Kullanıcı Bilgilerini Düzenle</Text>
         <View className="from space-y-2">
-          <Text className="text-gray-400 ml-4">Ad</Text>
+          <Text className="text-gray-500 ml-4">Ad</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
             value={userData.name}
             onChangeText={(text) => setUserData({ ...userData, name: text })}
             placeholder="Şirket İsmi"
           />
-          <Text className="text-gray-400 ml-4">Soyad</Text>
+          <Text className="text-gray-500 ml-4">Soyad</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
             value={userData.surname}
             onChangeText={(text) => setUserData({ ...userData, surname: text })}
             placeholder="Soyadınız"
           />
-          <Text className="text-gray-400 ml-4">TC Kimlik No</Text>
+          <Text className="text-gray-500 ml-4">TC Kimlik No</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
             value={userData.id_no}
             onChangeText={(text) => setUserData({ ...userData, id_no: text })}
             placeholder="Soyadınız"
           />
-          <Text className="text-gray-400 ml-4">Email Adresi</Text>
+          <Text className="text-gray-500 ml-4">Email Adresi</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
             value={userData.email}
             onChangeText={(text) => setUserData({ ...userData, email: text })}
             placeholder="Şirket İsmi"
           />
-          <Text className="text-gray-400 ml-4">Telefon Numarası</Text>
+          <Text className="text-gray-500 ml-4">Telefon Numarası</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
             value={userData.gsm}
             onChangeText={(text) => setUserData({ ...userData, gsm: text })}
           />
-          <Text className="text-gray-400 ml-4">Cinsiyet</Text>
+          <Text className="text-gray-500 ml-4">Cinsiyet</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
             value={userData.gender_type}
             onChangeText={(text) => setUserData({ ...userData, gender_type: text })}
           />
 
-          <Text className="text-gray-400 ml-4">Iban Numarası</Text>
+          <Text className="text-gray-500 ml-4">Iban Numarası</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
             value={userData.iban}
             onChangeText={(text) => setUserData({ ...userData, iban: text })}
           />
 
-          <Text className="text-gray-400 ml-4">Yeni Şifre</Text>
+          <Text className="text-gray-500 ml-4">Yeni Şifre</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
             secureTextEntry
             value={userData.password}
             onChangeText={(text) => setUserData({ ...userData, password: text })}
           />
-         
+
+          <Text className="text-gray-500 ml-4" >Profil Resim</Text>
+          <TouchableOpacity onPress={handleChooseImage} style={{ padding: 10, backgroundColor: 'lightgray', borderRadius: 5 }}>
+            <Text>Resim Seç</Text>
+          </TouchableOpacity>
+          {userData.logo_file && <Image source={{ uri: userData.logo_file }} style={{ width: 100, height: 100, marginBottom: 16 }} />}
+
 
           <TouchableOpacity onPress={handleUpdate} className="py-3 bg-indigo-400 rounded-xl">
             <Text className="font-xl font-bold text-center text-gray-100">Güncelle</Text>
