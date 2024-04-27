@@ -84,7 +84,8 @@ export default function MenuScreen() {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    //onPress={() => navigation.navigate('')}
+                   
+                    onPress={() => navigation.navigate('CompanyJob')}
                     className="flex-1 py-3 bg-gray-400 mx-7 rounded-xl">
                     <Text
                         className="text-xl font-bold text-center text-gray-900"

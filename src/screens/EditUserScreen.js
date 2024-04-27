@@ -5,7 +5,12 @@ import { ArrowLeftIcon } from 'react-native-heroicons/outline'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { get, add, update } from '../api/apiHelperDeneme'; // apiHelper dosyasının bulunduğu yolu doğru olarak güncelleyin
 import { readDataByKey, Keys, clearAllData } from '../helpers/storage';
+
 import * as ImagePicker from 'expo-image-picker';
+import { Picker } from '@react-native-picker/picker';
+
+
+
 
 
 export default function EditUserScreen() {
@@ -177,11 +182,26 @@ export default function EditUserScreen() {
             onChangeText={(text) => setUserData({ ...userData, gsm: text })}
           />
           <Text className="text-gray-500 ml-4">Cinsiyet</Text>
-          <TextInput
-            className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
-            value={userData.gender_type}
-            onChangeText={(text) => setUserData({ ...userData, gender_type: text })}
-          />
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 4 }}>
+            <TouchableOpacity
+              onPress={() => setUserData({ ...userData, gender_type: '1' })}
+              style={{ flexDirection: 'row', alignItems: 'center' }}
+            >
+              <View style={{ height: 24, width: 24, borderRadius: 12, borderWidth: 2, borderColor: userData.gender_type === '1' ? 'blue' : 'lightgray', justifyContent: 'center', alignItems: 'center' }}>
+                {userData.gender_type === '1' && <View style={{ height: 12, width: 12, borderRadius: 6, backgroundColor: 'blue' }} />}
+              </View>
+              <Text style={{ marginLeft: 8 }}>Erkek</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => setUserData({ ...userData, gender_type: '2' })}
+              style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 16 }}
+            >
+              <View style={{ height: 24, width: 24, borderRadius: 12, borderWidth: 2, borderColor: userData.gender_type === '2' ? 'blue' : 'lightgray', justifyContent: 'center', alignItems: 'center' }}>
+                {userData.gender_type === '2' && <View style={{ height: 12, width: 12, borderRadius: 6, backgroundColor: 'blue' }} />}
+              </View>
+              <Text style={{ marginLeft: 8 }}>Kadın</Text>
+            </TouchableOpacity>
+          </View>
 
           <Text className="text-gray-500 ml-4">Iban Numarası</Text>
           <TextInput
@@ -189,6 +209,18 @@ export default function EditUserScreen() {
             value={userData.iban}
             onChangeText={(text) => setUserData({ ...userData, iban: text })}
           />
+          <Text className="text-gray-500 ml-4">Banka Bilgileri</Text>
+          <Picker
+            selectedValue={userData.working_with_bankid}
+            onValueChange={(itemValue, itemIndex) => setUserData({ ...userData, working_with_bankid: itemValue })}
+            style={{ height: 50, width: '100%', backgroundColor: '#f0f0f0', borderRadius: 8 }}
+          >
+            <Picker.Item label="Fibabanka" value="1" />
+            <Picker.Item label="Ziraat Bankası" value="2" />
+            <Picker.Item label="Garanti Bankası" value="3" />
+            <Picker.Item label="Finansbank" value="4" />
+            <Picker.Item label="Enpara" value="5" />
+          </Picker>
 
           <Text className="text-gray-500 ml-4">Yeni Şifre</Text>
           <TextInput
@@ -208,9 +240,10 @@ export default function EditUserScreen() {
           <TouchableOpacity onPress={handleUpdate} className="py-3 bg-indigo-400 rounded-xl">
             <Text className="font-xl font-bold text-center text-gray-100">Güncelle</Text>
           </TouchableOpacity>
-
+          
 
         </View>
+        
 
 
 

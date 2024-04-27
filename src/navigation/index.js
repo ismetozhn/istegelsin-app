@@ -17,9 +17,10 @@ import DenemeGet2 from '../screens/DenemeGet2';
 import EditProfileScreen from '../screens/EditProfileScreen';
 import EditUserScreen from '../screens/EditUserScreen';
 import EditCompanyScreen from '../screens/EditCompanyScreen';
-import AddCompanyJob from '../screens/AddCompanyJob';
+import CompanyJobAdd from '../screens/CompanyJobAdd';
 import UpdateCompanyJob from '../screens/UpdateCompanyJob';
 import LoginScreen2 from '../screens/LoginScreen2';
+import CompanyJobAll from '../screens/CompanyJobAll';
 
 
 
@@ -45,9 +46,10 @@ function AppNavigation() {
         <Stack.Screen name="EditProfile" component={EditProfileScreen} />
         <Stack.Screen name="EditUser" component={EditUserScreen} />
         <Stack.Screen name="EditCompany" component={EditCompanyScreen} />
-        <Stack.Screen name="AddCompanyJob" component={AddCompanyJob} />
+        <Stack.Screen name="AddJob" component={CompanyJobAdd} />
         <Stack.Screen name="UpdateCompanyJob" component={UpdateCompanyJob} />
         <Stack.Screen name="Login2" component={LoginScreen2} />
+        <Stack.Screen name="CompanyJob" component={CompanyJobAll} />
         
 
        
