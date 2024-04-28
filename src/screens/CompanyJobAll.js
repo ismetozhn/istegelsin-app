@@ -4,8 +4,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import { useNavigation } from '@react-navigation/core';
 import { ChevronLeftIcon } from 'react-native-heroicons/outline';
 import { readDataByKey, Keys } from '../helpers/storage';
-
-
+import { get, add, update } from '../api/apiHelperDeneme'; // apiHelper dosyasının bulunduğu yolu doğru olarak güncelleyin
 
 export default function CompanyJob() {
 
@@ -30,44 +29,26 @@ export default function CompanyJob() {
     });
 
     const [jobs, setJobs] = useState([]);
-
-    // useEffect(() => {
-    //     async function fetchCompanyIdAndJobs() {
-    //         try {
-    //             const storedCompanyId = await readDataByKey('@companyid');
-    //             if (storedCompanyId) {
-    //                 setFormData(prevState => ({ ...prevState, companyid: storedCompanyId }));
-    //                 // API'ye istek gönder
-    //                 const response = await fetch(`https://ig.colaksoft.online/api/v1/JobPosting/ListByCompany?companyId=${storedCompanyId}&pageNumber=1&pageSize=10`);
-    //                 if (response.ok) {
-    //                     const data = await response.json();
-    //                     // Gelen veriyi işle, örneğin bir state içine koyarak ekranda göster
-    //                     console.log(data); // Gelen veriyi kontrol etmek için konsola yazdır
-    //                 } else {
-    //                     console.error('API request failed:', response.status);
-    //                 }
-    //             }
-    //         } catch (error) {
-    //             console.error('Error fetching company id and jobs:', error);
-    //         }
-    //     }
-    //     fetchCompanyIdAndJobs();
-    // }, []);
     
-
     useEffect(() => {
         async function fetchCompanyIdAndJobs() {
             try {
                 const storedCompanyId = await readDataByKey('@companyid');
-                if (storedCompanyId) {
-                    const response = await fetch(`https://ig.colaksoft.online/api/v1/JobPosting/ListByCompany?companyId=${storedCompanyId}&pageNumber=1&pageSize=10`);
-                    if (response.ok) {
-                        console.log(formData.logo_path)
-                        const data = await response.json();
-                        setJobs(data.data.items); // API'den gelen ilanları state'e kaydet
-                    } else {
-                        console.error('API request failed:', response.status);
-                    }
+                if (!storedCompanyId) {
+                    console.error('Storage companyid equal 0');
+                }
+
+                const headers = {
+                    'Company': 'true',
+                  };
+
+                const response = await get(`JobPosting/ListByCompany?companyId=${storedCompanyId}&pageNumber=1&pageSize=10`, headers, true);
+                if(response.isSuccess)
+                {
+                    setJobs(response.data.items); // API'den gelen ilanları state'e kaydet
+                }
+                else{
+                    console.error('API request failed:', response.message);
                 }
             } catch (error) {
                 console.error('Error fetching company id and jobs:', error);
@@ -84,11 +65,9 @@ export default function CompanyJob() {
                 </TouchableOpacity>
             </View>
 
-
             <View className=" items-center mb-5 ">
-                
                 <Image
-                 source={{ uri: 'https://cdn.colaksoft.online' + formData.logo_path }}
+                 source={{ uri: 'https://cdn.colaksoft.online' + jobs[0].logo_path }}
                  style={{ width: hp(15), height: hp(15), borderRadius: 180 }} />
             </View>
 

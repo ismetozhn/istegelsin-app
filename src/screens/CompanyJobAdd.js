@@ -15,13 +15,13 @@ export default function CompanyJobAdd() {
   const [formData, setFormData] = useState({
   job_postingid: 2,
   companyid: 0,
-  employment_type: '',
-  education_level: '',
-  experience_level: '',
-  experience_years: '',
-  work_model: '',
-  work_per_hour: '',
-  total_salary: '',
+  employment_type: 0,
+  education_level: 0,
+  experience_level: 0,
+  experience_years: 0,
+  work_model: 0,
+  work_per_hour: 0,
+  total_salary: 0,
   title: '',
   description: '',
   logo_path: '1',
@@ -61,8 +61,8 @@ export default function CompanyJobAdd() {
       const headers = {
         'Content-Type': 'application/json-patch+json',
         'Company': 'true'
-        
       };
+      
       const response = await add('JobPosting', formData, headers,true);
       console.log('API yanıtı:', response);
       navigation.navigate('CompanyJob');
