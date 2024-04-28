@@ -29,7 +29,7 @@ export default function CompanyJob() {
     });
 
     const [jobs, setJobs] = useState([]);
-    
+
     useEffect(() => {
         async function fetchCompanyIdAndJobs() {
             try {
@@ -40,14 +40,13 @@ export default function CompanyJob() {
 
                 const headers = {
                     'Company': 'true',
-                  };
+                };
 
                 const response = await get(`JobPosting/ListByCompany?companyId=${storedCompanyId}&pageNumber=1&pageSize=10`, headers, true);
-                if(response.isSuccess)
-                {
+                if (response.isSuccess) {
                     setJobs(response.data.items); // API'den gelen ilanları state'e kaydet
                 }
-                else{
+                else {
                     console.error('API request failed:', response.message);
                 }
             } catch (error) {
@@ -56,7 +55,6 @@ export default function CompanyJob() {
         }
         fetchCompanyIdAndJobs();
     }, []);
-
     return (
         <View className="flex-1  bg-blue-600" >
             <View className="flex-row justify-between mt-20 ">
@@ -67,8 +65,8 @@ export default function CompanyJob() {
 
             <View className=" items-center mb-5 ">
                 <Image
-                 source={{ uri: 'https://cdn.colaksoft.online' + jobs[0].logo_path }}
-                 style={{ width: hp(15), height: hp(15), borderRadius: 180 }} />
+                    source={require("../../assets/images/istegelsin.png")} style={{ width: hp(15), height: hp(15), borderRadius: 180 }}
+                />
             </View>
 
             <View className=" mb-3">
@@ -81,10 +79,7 @@ export default function CompanyJob() {
                         İlan Ekle
                     </Text>
                 </TouchableOpacity>
-
             </View>
-
-            
 
             <FlatList
                 data={jobs}
@@ -98,14 +93,9 @@ export default function CompanyJob() {
                 )}
                 keyExtractor={(item, index) => index.toString()}
             />
-        
 
-          
+
         </View>
-
-
-
     )
 }
-
 const styles = StyleSheet.create({})
