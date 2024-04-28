@@ -184,6 +184,7 @@ export default function CompanyJobAdd() {
            
           </Picker>
           
+          
 
           <TouchableOpacity onPress={handlePostButtonClick} className="py-3 mb-10 bg-indigo-400 rounded-xl">
             <Text className="font-xl font-bold text-center text-gray-900">İlan Ekle</Text>

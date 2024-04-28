@@ -136,12 +136,7 @@ export default function EditCompanyScreen() {
           
         <Text className="text-lg text-center font-bold mb-4 text-indigo-800">Şirket Bilgilerini Düzenle</Text>
         <View className="from space-y-2">
-        {
-            <Image
-              source={{ uri: 'https://cdn.colaksoft.online' + companyData.logo_path }}
-              style={{ width: '50%', height: hp(10), borderRadius: 35 }}
-            />
-          }
+      
           <Text className="text-gray-500 ml-4">Şirket İsim</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"

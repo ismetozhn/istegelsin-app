@@ -9,6 +9,10 @@ import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import Loading from '../components/loading';
 import Animated, { FadeInDown, FadeIn } from 'react-native-reanimated';
+import { readDataByKey, Keys } from '../helpers/storage';
+import { add } from '../api/apiHelperDeneme';
+
+
 
 export default function JobDetailScreen(props) {
     let item = props.route.params;
@@ -37,6 +41,33 @@ export default function JobDetailScreen(props) {
         }
     }
 
+    const applyForJob = async () => {
+        try {
+            const userId = await readDataByKey(Keys.userid);
+            const jobPostingId = item.job_postingid;
+
+            const requestBody = {
+                userid: userId,
+                job_postingid: jobPostingId,
+                is_user_accepted: false,
+                created_at: new Date().toISOString()
+            };
+            const headers = {
+                'Content-Type': 'application/json-patch+json',
+                
+
+            };
+            const response = await add('https://ig.colaksoft.online/api/v1/JobApplication', requestBody, headers, true);
+
+
+
+            console.log('Başvuru sonucu:', response);
+            // Başvurunun başarılı olduğuna dair bir geri bildirim gösterebilirsiniz
+        } catch (error) {
+            console.log('Başvuru hatası:', error);
+            // Başvurunun başarısız olduğuna dair bir geri bildirim gösterebilirsiniz
+        }
+    }
 
 
     return (
@@ -87,7 +118,7 @@ export default function JobDetailScreen(props) {
                             </Text>
 
 
-                            <TouchableOpacity onPress={() => navigation.goBack()} className="p-2 rounded-full ">
+                            <TouchableOpacity onPress={applyForJob} className="p-2 rounded-full ">
                                 <Text className=" bg-cyan-700 w-1/2 mx-20 text-cyan-50" style={{ fontSize: hp(3), borderRadius: 10, textAlign: 'center' }} >Başvur</Text>
                             </TouchableOpacity>
 
