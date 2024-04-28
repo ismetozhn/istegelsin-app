@@ -21,6 +21,8 @@ import CompanyJobAdd from '../screens/CompanyJobAdd';
 import UpdateCompanyJob from '../screens/UpdateCompanyJob';
 import LoginScreen2 from '../screens/LoginScreen2';
 import CompanyJobAll from '../screens/CompanyJobAll';
+import ApplyScreen from '../screens/ApplyScreen';
+import UserApplyScreen from '../screens/UserApplyScreen';
 
 
 
@@ -50,6 +52,8 @@ function AppNavigation() {
         <Stack.Screen name="UpdateCompanyJob" component={UpdateCompanyJob} />
         <Stack.Screen name="Login2" component={LoginScreen2} />
         <Stack.Screen name="CompanyJob" component={CompanyJobAll} />
+        <Stack.Screen name="Basvurular" component={ApplyScreen} />
+        <Stack.Screen name="KullanıcıBasvuru" component={UserApplyScreen} />
         
 
        

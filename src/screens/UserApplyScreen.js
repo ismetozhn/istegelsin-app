@@ -6,10 +6,8 @@ import { ChevronLeftIcon } from 'react-native-heroicons/outline';
 import { readDataByKey, Keys } from '../helpers/storage';
 import { get, add, update } from '../api/apiHelperDeneme'; // apiHelper dosyasının bulunduğu yolu doğru olarak güncelleyin
 
-export default function CompanyJob() {
-    const navigateToApplications = (jobPostingId) => {
-        navigation.navigate('Basvurular', { jobPostingId });
-    }
+export default function UserApplyScreen() {
+
     const navigation = useNavigation();
     const [formData, setFormData] = useState({
         job_postingid: 2,
@@ -30,29 +28,30 @@ export default function CompanyJob() {
         end_at: '2024-05-20T15:56:22'
     });
 
-    const [jobs, setJobs] = useState([]);
+    const [apply, setApply] = useState([]);
 
     useEffect(() => {
         async function fetchCompanyIdAndJobs() {
             try {
-                const storedCompanyId = await readDataByKey('@companyid');
-                if (!storedCompanyId) {
-                    console.error('Storage companyid equal 0');
+                const storedUserId = await readDataByKey('@userid');
+                if (!storedUserId) {
+                    console.error('Storage userid equal 0');
                 }
 
                 const headers = {
-                    'Company': 'true',
+
                 };
 
-                const response = await get(`JobPosting/ListByCompany?companyId=${storedCompanyId}&pageNumber=1&pageSize=10`, headers, true);
+                const response = await get('https://ig.colaksoft.online/api/v1/JobApplication/ListByUser', headers, true);
                 if (response.isSuccess) {
-                    setJobs(response.data.items); // API'den gelen ilanları state'e kaydet
+                    setApply(response.data); // API'den gelen ilanları state'e kaydet
+                    console.log(apply)
                 }
                 else {
                     console.error('API request failed:', response.message);
                 }
             } catch (error) {
-                console.error('Error fetching company id and jobs:', error);
+                console.error('Error fetching user,, id and apply:', error);
             }
         }
         fetchCompanyIdAndJobs();
@@ -71,25 +70,16 @@ export default function CompanyJob() {
                 />
             </View>
 
-            <View className=" mb-3">
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('AddJob')}
-                    className="py-3 bg-indigo-400 mx-7 rounded-xl">
-                    <Text
-                        className="text-xl font-bold text-center text-gray-900"
-                    >
-                        İlan Ekle
-                    </Text>
-                </TouchableOpacity>
-            </View>
-
+            <Text className="text-xl font-bold text-center text-gray-50" >
+                Başvurularım
+            </Text>
             <FlatList
-                data={jobs}
+                data={apply}
                 renderItem={({ item }) => (
-                    <TouchableOpacity onPress={() => navigateToApplications(item.job_postingid)} style={{ padding: hp(1.5), borderBottomWidth: 4, borderBottomColor: '#ccc' }}>
-                        <Text style={{ fontSize: hp(2.5), fontWeight: 'bold', marginBottom: hp(1) }}>{item.title}</Text>
+                    <TouchableOpacity style={{ padding: hp(1.5), borderBottomWidth: 4, borderBottomColor: '#ccc' }}>
+                        <Text style={{ fontSize: hp(2.5), fontWeight: 'bold', marginBottom: hp(1) }}>{item.company_name}</Text>
+                        <Text className='text-base'>{item.title}</Text>
                         <Text>{item.description}</Text>
-                        <Text>{item.total_salary}</Text>
                     </TouchableOpacity>
                 )}
                 keyExtractor={(item, index) => index.toString()}
