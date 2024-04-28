@@ -47,52 +47,32 @@ export default function MenuScreen() {
                 <Image source={require("../../assets/images/istegelsin.png")} style={{ width: hp(15), height: hp(15), borderRadius: 180 }} />
             </View>
 
-            <View className="flex flex-row mb-3">
-
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('SignUp')}
-                    className="flex-1 py-3 bg-indigo-400 ml-7 rounded-xl">
-                    <Text
-                        className="text-xl font-bold text-center text-gray-900"
-                    >
-                        Kullanıcı İş
-                    </Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('UserD')/* Pasif işin yönlendirme işlemi */}
-                    className="flex-1 py-3 bg-gray-400 mx-7 rounded-xl">
-                    <Text
-                        className="text-xl font-bold text-center text-gray-900"
-                    >
-                        Şirket İş
-                    </Text>
-                </TouchableOpacity>
-            </View>
-
+     
 
             <View className="flex flex-row mb-3">
-
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('SignUp')}
-                    className="flex-1 py-3 bg-indigo-400 ml-7 rounded-xl">
-                    <Text
-                        className="text-xl font-bold text-center text-gray-900"
-                    >
-                        Başvurular
-                    </Text>
-                </TouchableOpacity>
-
                 <TouchableOpacity
                    
                     onPress={() => navigation.navigate('CompanyJob')}
-                    className="flex-1 py-3 bg-gray-400 mx-7 rounded-xl">
+                    className="flex-1 py-3 bg-teal-500 mx-7 rounded-xl">
                     <Text
                         className="text-xl font-bold text-center text-gray-900"
                     >
                         Şirket İlan
                     </Text>
                 </TouchableOpacity>
+            </View>
+
+            <View className=" mb-3">
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('SignUp')}
+                    className="py-3 bg-indigo-400 mx-7 rounded-xl">
+                    <Text
+                        className="text-xl font-bold text-center text-gray-900"
+                    >
+                        Kullanıcı Aktif İş & Başvurular
+                    </Text>
+                </TouchableOpacity>
+
             </View>
 
 

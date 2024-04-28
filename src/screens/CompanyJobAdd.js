@@ -75,9 +75,9 @@ export default function CompanyJobAdd() {
   };
 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }} className="flex-1 bg-indigo-400">
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false} className="flex-1 bg-indigo-400">
       <SafeAreaView className="flex">
-        <View className="flex-row justify-start">
+        <View className="flex-row justify-start mb-2">
           <TouchableOpacity onPress={() => navigation.goBack()} className="bg-sky-400 p-2 rounded-tr-2xl rounded-bl-2xl ml-4">
             <ArrowLeftIcon size="20" color="black" />
           </TouchableOpacity>
@@ -101,7 +101,7 @@ export default function CompanyJobAdd() {
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
             onChangeText={(value) => handleChange('description', value)}
             value={formData.description}
-            placeholder='Açıklama Girin'
+            placeholder='İlan Açıklama Girin'
           />
           <Text className="text-gray-1000 ml-4">İlan Adresi</Text>
           <TextInput
@@ -116,15 +116,15 @@ export default function CompanyJobAdd() {
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
             onChangeText={(value) => handleChange('total_salary', value)}
             value={formData.total_salary}
-            placeholder='Maaş Girin'
+            placeholder='Belirlediğiniz Maaşı Girin'
           />
 
-          <Text className="text-gray-1000 ml-4">İş Saat</Text>
+          <Text className="text-gray-1000 ml-4">Çalışma Saati</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
             onChangeText={(value) => handleChange('work_per_hour', value)}
             value={formData.work_per_hour}
-            placeholder='Şifrenizi Girin'
+            placeholder='Çalışma Saatini Belirleyin'
           />
           
           <Text className="text-gray-1000 ml-4">Deneyim Yılı</Text>
@@ -147,7 +147,7 @@ export default function CompanyJobAdd() {
             <Picker.Item label="Dönemlik" value="4" />
             <Picker.Item label="Stajyer" value="5" />
           </Picker>
-          <Text className="text-gray-1000 ml-4">Seviyesi</Text>
+          <Text className="text-gray-1000 ml-4">Öğrenim Seviyesi</Text>
           <Picker
             selectedValue={formData.education_level}
             onValueChange={(itemValue, itemIndex) => setFormData({ ...formData, education_level: itemValue })}
@@ -185,7 +185,7 @@ export default function CompanyJobAdd() {
           </Picker>
           
 
-          <TouchableOpacity onPress={handlePostButtonClick} className="py-3 bg-indigo-400 rounded-xl">
+          <TouchableOpacity onPress={handlePostButtonClick} className="py-3 mb-10 bg-indigo-400 rounded-xl">
             <Text className="font-xl font-bold text-center text-gray-900">İlan Ekle</Text>
           </TouchableOpacity>
 
