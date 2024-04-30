@@ -35,7 +35,7 @@ export default function MenuScreen() {
 
 
     return (
-        <View className="flex-1  bg-blue-600" >
+        <View className="flex-1  bg-blue-800" >
             <View className="flex-row justify-between mt-20 ">
                 <TouchableOpacity onPress={() => navigation.goBack()} className="p-2 rounded-full ml-5 bg-white">
                     <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color="rgb(56 189 248)" />

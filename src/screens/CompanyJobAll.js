@@ -58,25 +58,25 @@ export default function CompanyJob() {
         fetchCompanyIdAndJobs();
     }, []);
     return (
-        <View className="flex-1  bg-blue-600" >
+        <View className="flex-1  bg-blue-800" >
             <View className="flex-row justify-between mt-20 ">
-                <TouchableOpacity onPress={() => navigation.goBack()} className="p-2 rounded-full ml-5 bg-white">
-                    <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color="rgb(56 189 248)" />
+                <TouchableOpacity onPress={() => navigation.goBack()} className="p-2 rounded-full ml-5 bg-blue-600">
+                    <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color="white" />
                 </TouchableOpacity>
             </View>
 
             <View className=" items-center mb-5 ">
                 <Image
-                    source={require("../../assets/images/istegelsin.png")} style={{ width: hp(15), height: hp(15), borderRadius: 180 }}
+                    source={require("../../assets/images/istegelsin.png")} style={{ width: hp(15), height: hp(15), borderRadius: 180, borderWidth: 3, borderColor:'white' }}
                 />
             </View>
 
             <View className=" mb-3">
                 <TouchableOpacity
                     onPress={() => navigation.navigate('AddJob')}
-                    className="py-3 bg-indigo-400 mx-7 rounded-xl">
+                    className="py-3 bg-indigo-500 mx-7 rounded-xl ">
                     <Text
-                        className="text-xl font-bold text-center text-gray-900"
+                        className="text-xl font-bold text-center text-gray-200 "
                     >
                         İlan Ekle
                     </Text>
@@ -86,14 +86,16 @@ export default function CompanyJob() {
             <FlatList
                 data={jobs}
                 renderItem={({ item }) => (
-                    <TouchableOpacity onPress={() => navigateToApplications(item.job_postingid)} style={{ padding: hp(1.5), borderBottomWidth: 4, borderBottomColor: '#ccc' }}>
-                        <Text style={{ fontSize: hp(2.5), fontWeight: 'bold', marginBottom: hp(1) }}>{item.title}</Text>
+                    <TouchableOpacity className=' border-4 space-y-2 border-slate-50 mx-5  rounded-2xl bg-indigo-400 ' onPress={() => navigateToApplications(item.job_postingid)} style={{ padding: hp(1.5) }}>
+                        <Text style={{color:'#ffffff', fontSize: hp(2.5), fontWeight: 'bold', marginBottom: hp(1) }}>{item.title}</Text>
                         <Text>{item.description}</Text>
                         <Text>{item.total_salary}</Text>
                     </TouchableOpacity>
                 )}
                 keyExtractor={(item, index) => index.toString()}
             />
+
+            
 
 
         </View>
