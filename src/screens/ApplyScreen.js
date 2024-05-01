@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, Image } from 'react-native';
-import { get } from '../api/apiHelperDeneme'; // API Helper dosyasını doğru şekilde güncellediğinizden emin olun
+import { View, Text, FlatList, TouchableOpacity, Alert } from 'react-native';
+import { get, update } from '../api/apiHelperDeneme'; // API Helper dosyasını doğru şekilde güncellediğinizden emin olun
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { ChevronLeftIcon } from 'react-native-heroicons/outline';
-import { useNavigation } from '@react-navigation/core';
 
 export default function ApplyScreen({ route }) {
   const { jobPostingId } = route.params;
   const [applications, setApplications] = useState([]);
-  const navigation = useNavigation();
 
   useEffect(() => {
     async function fetchApplications() {
       try {
         const headers = {
+          'Content-Type': 'application/json-patch+json',
           'Company': 'true',
         };
         const response = await get(`JobApplication/ListByJobPosting?job_postingid=${jobPostingId}`, headers, true);
@@ -29,53 +28,67 @@ export default function ApplyScreen({ route }) {
     fetchApplications();
   }, []);
 
+  const handleAccept = async (item) => {
+    try {
+      const headers = {
+        'Content-Type': 'application/json-patch+json',
+        'Company': 'true',
+      };
+
+      const updatedItem = { ...item, is_user_accepted: true };
+      const response = await update(`JobApplication`, updatedItem, headers, true);
+      if (response.isSuccess) {
+        Alert.alert('Başvuru Onaylandı');
+        // Burada başka bir işlem yapılabilir, örneğin başvuruları tekrar yükleme
+      } else {
+        Alert.alert('Hata', 'Başvuruyu onaylama işlemi başarısız oldu');
+      }
+    } catch (error) {
+      console.error('Error accepting application:', error);
+    }
+  };
+
+  const handleReject = async (item) => {
+    try {
+      const headers = {
+        'Content-Type': 'application/json-patch+json',
+        'Company': 'true',
+      };
+
+      const updatedItem = { ...item, is_user_rejected: true };
+      const response = await update(`JobApplication`, updatedItem, headers, true);
+      if (response.isSuccess) {
+        Alert.alert('Başvuru Reddedildi');
+        // Burada başka bir işlem yapılabilir, örneğin başvuruları tekrar yükleme
+      } else {
+        Alert.alert('Hata', 'Başvuruyu reddetme işlemi başarısız oldu');
+      }
+    } catch (error) {
+      console.error('Error rejecting application:', error);
+    }
+  };
+
   return (
-    <View className="flex-1  bg-sky-50">
-      <View className="flex-row justify-between mt-20 ">
-        <TouchableOpacity onPress={() => navigation.goBack()} className="p-2 rounded-full ml-5 bg-blue-600">
-          <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color="white" />
-        </TouchableOpacity>
-      </View>
-
-      <View className=" my-5">
-        <TouchableOpacity
-          onPress={() => navigation.navigate('AddJob')}
-          className="py-3 bg-indigo-500 mx-7 rounded-xl ">
-          <Text
-            className="text-xl font-bold text-center text-gray-200 "
-          >
-            İlana Başvuranlar
-          </Text>
-        </TouchableOpacity>
-      </View>
-
-
-
-      {/* <FlatList
+    <View>
+      <FlatList
         data={applications}
         renderItem={({ item }) => (
           <TouchableOpacity style={{ marginTop: hp(5.0), padding: hp(1.5), borderBottomWidth: 4, borderBottomColor: '#ccc' }}>
             <Text style={{ fontSize: hp(2.5), fontWeight: 'bold', marginBottom: hp(1) }}>{item.name}</Text>
             <Text>{item.surname}</Text>
             <Text>{item.email}</Text>
-          </TouchableOpacity>
-        )}
-        keyExtractor={(item, index) => index.toString()}
-      /> */}
-
-      <FlatList
-        data={applications}
-        renderItem={({ item }) => (
-          <TouchableOpacity className='border-4 space-y-2 border-indigo-500 mx-5  rounded-2xl '  style={{ padding: hp(1.5) }}>
-            <Text style={{ fontSize: hp(2.5), fontWeight: 'bold', marginBottom: hp(1) }}>{item.name}</Text>
-            <Text>{item.surname}</Text>
-            <Text>{item.email}</Text>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+              <TouchableOpacity onPress={() => handleAccept(item)} style={{ backgroundColor: 'green', padding: 10, borderRadius: 5 }}>
+                <Text style={{ color: 'white' }}>Onayla</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => handleReject(item)} style={{ backgroundColor: 'red', padding: 10, borderRadius: 5 }}>
+                <Text style={{ color: 'white' }}>Reddet</Text>
+              </TouchableOpacity>
+            </View>
           </TouchableOpacity>
         )}
         keyExtractor={(item, index) => index.toString()}
       />
-
-
     </View>
   );
 }

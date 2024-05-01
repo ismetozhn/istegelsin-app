@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/core';
 import { ChevronLeftIcon } from 'react-native-heroicons/outline';
 import { readDataByKey, Keys } from '../helpers/storage';
 import { get, add, update } from '../api/apiHelperDeneme'; // apiHelper dosyasının bulunduğu yolu doğru olarak güncelleyin
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function UserApplyScreen() {
 
@@ -57,7 +58,14 @@ export default function UserApplyScreen() {
         fetchCompanyIdAndJobs();
     }, []);
     return (
-        <View className="flex-1  bg-blue-600" >
+        <LinearGradient
+        colors={['#330867', '#075985']} 
+        style={{ flex: 1 }}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+      >
+
+        <View className="flex-1 " >
             <View className="flex-row justify-between mt-20 ">
                 <TouchableOpacity onPress={() => navigation.goBack()} className="p-2 rounded-full ml-5 bg-white">
                     <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color="rgb(56 189 248)" />
@@ -68,6 +76,18 @@ export default function UserApplyScreen() {
                 <Image
                     source={require("../../assets/images/istegelsin.png")} style={{ width: hp(15), height: hp(15), borderRadius: 180 }}
                 />
+            </View>
+
+            <View className=" mb-3">
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('ActiveJob')}
+                    className="py-3 bg-indigo-500 mx-7 rounded-xl ">
+                    <Text
+                        className="text-xl font-bold text-center text-gray-200 "
+                    >
+                        Aktif İş
+                    </Text>
+                </TouchableOpacity>
             </View>
 
             <Text className="text-xl font-bold text-center text-gray-50" >
@@ -87,6 +107,7 @@ export default function UserApplyScreen() {
 
 
         </View>
+        </LinearGradient>
     )
 }
 const styles = StyleSheet.create({})
