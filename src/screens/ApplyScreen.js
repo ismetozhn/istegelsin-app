@@ -6,67 +6,67 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 
 export default function ApplyScreen({ route }) {
   const { jobPostingId } = route.params;
-  const [applications, setApplications] = useState([]);
+const [applications, setApplications] = useState([]);
 
-  useEffect(() => {
-    async function fetchApplications() {
-      try {
-        const headers = {
-          'Content-Type': 'application/json-patch+json',
-          'Company': 'true',
-        };
-        const response = await get(`JobApplication/ListByJobPosting?job_postingid=${jobPostingId}`, headers, true);
-        if (response.isSuccess) {
-          setApplications(response.data);
-        } else {
-          console.error('API request failed:', response.message);
-        }
-      } catch (error) {
-        console.error('Error fetching applications:', error);
-      }
-    }
-    fetchApplications();
-  }, []);
-
-  const handleAccept = async (item) => {
+useEffect(() => {
+  async function fetchApplications() {
     try {
       const headers = {
         'Content-Type': 'application/json-patch+json',
         'Company': 'true',
       };
-
-      const updatedItem = { ...item, is_user_accepted: true };
-      const response = await update(`JobApplication`, updatedItem, headers, true);
+      const response = await get(`JobApplication/ListByJobPosting?job_postingid=${jobPostingId}`, headers, true);
       if (response.isSuccess) {
-        Alert.alert('Başvuru Onaylandı');
-        // Burada başka bir işlem yapılabilir, örneğin başvuruları tekrar yükleme
+        setApplications(response.data);
       } else {
-        Alert.alert('Hata', 'Başvuruyu onaylama işlemi başarısız oldu');
+        console.error('API request failed:', response.message);
       }
     } catch (error) {
-      console.error('Error accepting application:', error);
+      console.error('Error fetching applications:', error);
     }
-  };
+  }
+  fetchApplications();
+}, []);
 
-  const handleReject = async (item) => {
-    try {
-      const headers = {
-        'Content-Type': 'application/json-patch+json',
-        'Company': 'true',
-      };
+const handleAccept = async (item) => {
+  try {
+    const headers = {
+      'Content-Type': 'application/json-patch+json',
+      'Company': 'true',
+    };
 
-      const updatedItem = { ...item, is_user_rejected: true };
-      const response = await update(`JobApplication`, updatedItem, headers, true);
-      if (response.isSuccess) {
-        Alert.alert('Başvuru Reddedildi');
-        // Burada başka bir işlem yapılabilir, örneğin başvuruları tekrar yükleme
-      } else {
-        Alert.alert('Hata', 'Başvuruyu reddetme işlemi başarısız oldu');
-      }
-    } catch (error) {
-      console.error('Error rejecting application:', error);
+    const updatedItem = { ...item, is_user_accepted: true, is_user_rejected: false };
+    const response = await update(`JobApplication`, updatedItem, headers, true);
+    if (response.isSuccess) {
+      Alert.alert('Başvuru Onaylandı');
+      // Burada başka bir işlem yapılabilir, örneğin başvuruları tekrar yükleme
+    } else {
+      Alert.alert('Hata', 'Başvuruyu onaylama işlemi başarısız oldu');
     }
-  };
+  } catch (error) {
+    console.error('Error accepting application:', error);
+  }
+};
+
+const handleReject = async (item) => {
+  try {
+    const headers = {
+      'Content-Type': 'application/json-patch+json',
+      'Company': 'true',
+    };
+
+    const updatedItem = { ...item, is_user_accepted: false, is_user_rejected: true };
+    const response = await update(`JobApplication`, updatedItem, headers, true);
+    if (response.isSuccess) {
+      Alert.alert('Başvuru Reddedildi');
+      // Burada başka bir işlem yapılabilir, örneğin başvuruları tekrar yükleme
+    } else {
+      Alert.alert('Hata', 'Başvuruyu reddetme işlemi başarısız oldu');
+    }
+  } catch (error) {
+    console.error('Error rejecting application:', error);
+  }
+};
 
   return (
     <View>
