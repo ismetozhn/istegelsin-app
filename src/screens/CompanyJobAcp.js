@@ -17,7 +17,7 @@ export default function CompanyJobAcp() {
       };
 
       // API'den veri çekme
-      const response = await get(`JobApplication/ListAcceptedUsersByCompany`, {}, headers, true);
+      const response = await get(`JobApplication/ListAcceptedUsersByCompany`, headers, true);
 
       if (response && response.isSuccess) {
         setUserList(response.data);

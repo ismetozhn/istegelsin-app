@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Alert } from 'react-native';
-import { get,add } from '../api/apiHelperDeneme'; // API yardımcı fonksiyonunu doğru dosyaya göre güncelleyin
+import { get, add } from '../api/apiHelperDeneme'; // API yardımcı fonksiyonunu doğru dosyaya göre güncelleyin
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 export default function OtpUserScreen() {
@@ -8,6 +8,7 @@ export default function OtpUserScreen() {
   const route = useRoute();
   const activeJobData = route.params?.activeJobData; // ActiveJobScreen'den gelen verileri al
   const [otp, setOtp] = useState('');
+  const [isOtpVerified, setIsOtpVerified] = useState(false);
 
   useEffect(() => {
     fetchOtp(activeJobData, setOtp);
@@ -22,6 +23,9 @@ export default function OtpUserScreen() {
   
       // OTP değerini state'e ayarla
       setOtp(receivedOtp);
+
+      // is_otp_verified durumunu kontrol et ve state'i güncelle
+      setIsOtpVerified(response?.data?.is_otp_verified || false);
     } catch (error) {
       console.error('OTP alınırken hata oluştu:', error);
     }
@@ -50,6 +54,7 @@ export default function OtpUserScreen() {
       console.log('API yanıtı:', response);
 
       if (response && response.isSuccess) {
+        setIsOtpVerified(true); // OTP başarıyla doğrulandığını belirt
         Alert.alert('Başarılı', 'İstek başarıyla tamamlandı.');
       } else {
         Alert.alert('Hata', 'İstek sırasında bir hata oluştu.');
@@ -62,9 +67,15 @@ export default function OtpUserScreen() {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text style={{ marginBottom: 20 }}>OTP: {otp}</Text>
+     
       <TouchableOpacity onPress={handlePostButtonClick} style={{ padding: 10, backgroundColor: '#4c669f', borderRadius: 8 }}>
         <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold', textAlign: 'center' }}>OTP Gönder</Text>
       </TouchableOpacity>
+
+      {/* is_otp_verified durumuna göre metin gösterimi */}
+      <Text style={{ marginTop: 20 }}>
+        {isOtpVerified ? 'OTP başarıyla onaylandı.' : 'Şirket tarafından onay bekleniyor.'}
+      </Text>
     </View>
   );
 }
