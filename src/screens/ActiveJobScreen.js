@@ -3,10 +3,11 @@ import React, { useEffect, useState } from 'react'
 import { readDataByKey, Keys } from '../helpers/storage';
 import { get, add, update } from '../api/apiHelperDeneme'; // apiHelper dosyasının bulunduğu yolu doğru olarak güncelleyin
 import { LinearGradient } from 'expo-linear-gradient';
+import { useNavigation } from '@react-navigation/core';
 
 export default function ActiveJobScreen() {
     const [activeJob, setActiveJob] = useState(null);
-    
+    const navigation = useNavigation();
   
     useEffect(() => {
       const fetchActiveJob = async () => {
@@ -63,11 +64,23 @@ export default function ActiveJobScreen() {
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
             >
-              <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>Şirket: {activeJob.company_name}</Text>
-              <Text style={{ fontSize: 16, color: 'white' }}>Adres: {activeJob.adress}</Text>
-              <Text style={{ fontSize: 18, fontWeight: '600', color: 'white' }}>Pozisyon: {activeJob.title}</Text>
-              <Text style={{ fontSize: 16, color: 'white' }}>Başlangıç: {activeJob.start_at}</Text>
-              <Text style={{ fontSize: 16, color: 'white' }}>Bitiş: {activeJob.end_at}</Text>
+              <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', marginBottom:10 }}>Şirket: {activeJob.company_name}</Text>
+              <Text style={{ fontSize: 16, color: 'white',marginBottom:8 }}>Adres: {activeJob.adress}</Text>
+              <Text style={{ fontSize: 18, fontWeight: 'bold', color: 'white', marginBottom:8 }}>Pozisyon: {activeJob.title}</Text>
+              <Text style={{ fontSize: 16, color: 'white',marginBottom:8 }}>Başlangıç: {activeJob.start_at}</Text>
+              <Text style={{ fontSize: 16, color: 'white',marginBottom:8 }}>Bitiş: {activeJob.end_at}</Text>
+
+              <View className=" mb-3 mt-5">
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('Otp')}
+                    className="py-3 bg-indigo-500 mx-7 rounded-xl ">
+                    <Text
+                        className="text-xl font-bold text-center text-gray-200 "
+                    >
+                       Onaylama & Değerlendirme
+                    </Text>
+                </TouchableOpacity>
+            </View>
             </LinearGradient>
           ) : (
             <Text style={{ fontSize: 20, textAlign: 'center', fontWeight: '600', color: 'white' }}>Aktif iş bulunamadı.</Text>

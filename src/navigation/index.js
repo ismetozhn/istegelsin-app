@@ -24,6 +24,7 @@ import CompanyJobAll from '../screens/CompanyJobAll';
 import ApplyScreen from '../screens/ApplyScreen';
 import UserApplyScreen from '../screens/UserApplyScreen';
 import ActiveJobScreen from '../screens/ActiveJobScreen';
+import OtpUserScreen from '../screens/OtpUserScreen';
 
 
 
@@ -56,6 +57,7 @@ function AppNavigation() {
         <Stack.Screen name="Basvurular" component={ApplyScreen} />
         <Stack.Screen name="KullanıcıBasvuru" component={UserApplyScreen} />
         <Stack.Screen name="ActiveJob" component={ActiveJobScreen} />
+        <Stack.Screen name="Otp" component={OtpUserScreen} />
         
 
        
