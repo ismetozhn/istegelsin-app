@@ -5,6 +5,8 @@ import { useNavigation } from '@react-navigation/core';
 import { ChevronLeftIcon } from 'react-native-heroicons/outline';
 import { readDataByKey, Keys } from '../helpers/storage';
 import { get, add, update } from '../api/apiHelperDeneme'; // apiHelper dosyasının bulunduğu yolu doğru olarak güncelleyin
+import { LinearGradient } from 'expo-linear-gradient';
+
 
 export default function CompanyJob() {
     const navigateToApplications = (jobPostingId) => {
@@ -58,7 +60,13 @@ export default function CompanyJob() {
         fetchCompanyIdAndJobs();
     }, []);
     return (
-        <View className="flex-1  bg-blue-800" >
+        <LinearGradient
+        colors={['#330867', '#075985']} 
+        style={{ flex: 1 }}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+      >
+        <View className="flex-1  " >
             <View className="flex-row justify-between mt-20 ">
                 <TouchableOpacity onPress={() => navigation.goBack()} className="p-2 rounded-full ml-5 bg-blue-600">
                     <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color="white" />
@@ -82,6 +90,17 @@ export default function CompanyJob() {
                     </Text>
                 </TouchableOpacity>
             </View>
+            <View className=" mb-3">
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('SirketKabul')}
+                    className="py-3 bg-indigo-500 mx-7 rounded-xl ">
+                    <Text
+                        className="text-xl font-bold text-center text-gray-200 "
+                    >
+                        Onaylanan Başvurular
+                    </Text>
+                </TouchableOpacity>
+            </View>
 
             <FlatList
                 data={jobs}
@@ -99,6 +118,8 @@ export default function CompanyJob() {
 
 
         </View>
+        </LinearGradient>
+
     )
 }
 const styles = StyleSheet.create({})
