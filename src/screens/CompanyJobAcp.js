@@ -13,11 +13,11 @@ export default function CompanyJobAcp() {
   const fetchData = async (job_postingid) => {
     try {
       const headers = {
-        'company': 'true' // Şirket için header
+        'Company': 'true' // Şirket için header
       };
 
       // API'den veri çekme
-      const response = await get(`JobApplication/ListAcceptedUsersByCompany`, {}, headers, true);
+      const response = await get(`JobApplication/ListAcceptedUsersByCompany`, headers, true);
 
       if (response && response.isSuccess) {
         setUserList(response.data);
