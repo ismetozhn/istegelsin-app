@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, FlatList, Image, TextInput, TouchableOpacity, Alert, Modal } from 'react-native';
 import { get, update ,add} from '../api/apiHelperDeneme';
 import { readDataByKey,Keys } from '../helpers/storage'
+import { LinearGradient } from 'expo-linear-gradient'
+
+
 
 
 export default function CompanyJobAcp() {
@@ -109,7 +112,7 @@ export default function CompanyJobAcp() {
   const renderOTPInput = (userid) => (
     <TextInput
       style={styles.input}
-      placeholder="Enter OTP"
+      placeholder="Doğrulama Kodunu Giriniz"
       onChangeText={(text) => setOtpInputs({...otpInputs, [userid]: text})}
       value={otpInputs[userid]}
     />
@@ -126,22 +129,25 @@ export default function CompanyJobAcp() {
       <TouchableOpacity
         onPress={() => handleAcceptButtonPress(item.job_postingid, item.userid)}
         style={styles.button}>
-        <Text style={styles.buttonText}>Accept</Text>
+        <Text style={styles.buttonText}>Doğrulama Kodunu Gönder</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => handleEvaluateButtonPress(item.userid, item.job_postingid, item.companyid)}
         style={[styles.button, styles.evaluateButton]}>
-        <Text style={styles.buttonText}>Evaluate</Text>
+        <Text style={styles.buttonText}>Kullanıcıyı Değerlendir</Text>
       </TouchableOpacity>
     </View>
   );
 
   return (
-    <View style={styles.container}>
+    <LinearGradient
+      colors={['#330867', '#075985']}
+      style={styles.container}>
       <FlatList
         data={userList}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
+        contentContainerStyle={styles.flatListContent}
       />
       <Modal
         visible={modalVisible}
@@ -151,39 +157,45 @@ export default function CompanyJobAcp() {
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            <Text style={styles.modalText}>Evaluate</Text>
+            <Text style={styles.modalText}>Kullanıcıyı Değerlendir</Text>
             <TextInput
               style={styles.input}
-              placeholder="Enter question score"
+              placeholder="Kullanıcı Puanını Giriniz"
               onChangeText={setQuestionScore}
               keyboardType="numeric"
             />
             <TouchableOpacity onPress={handleSubmitFeedback} style={styles.button}>
-              <Text style={styles.buttonText}>Submit</Text>
+              <Text style={styles.buttonText}>Gönder</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setModalVisible(false)} style={[styles.button, styles.cancelButton]}>
-              <Text style={styles.buttonText}>Cancel</Text>
+              <Text style={styles.buttonText}>İptal</Text>
             </TouchableOpacity>
           </View>
         </View>
       </Modal>
-    </View>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 22,
+  },
+  flatListContent: {
+    paddingVertical: 20,
   },
   item: {
-    backgroundColor: '#f9c2ff',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
+    borderRadius: 10,
+    elevation: 3,
   },
   title: {
     fontSize: 20,
+    color: '#333',
+    marginBottom: 5,
   },
   logo: {
     width: 100,
@@ -196,20 +208,25 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 10,
     paddingHorizontal: 10,
+    backgroundColor: 'white',
+    borderRadius: 5,
   },
   button: {
-    backgroundColor: 'blue',
+    backgroundColor: '#4CAF50',
     padding: 10,
     borderRadius: 5,
     marginTop: 5,
     width: '100%',
+    alignItems: 'center',
   },
   buttonText: {
     color: 'white',
     textAlign: 'center',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   evaluateButton: {
-    backgroundColor: 'green',
+    backgroundColor: '#2196F3',
   },
   modalContainer: {
     flex: 1,
@@ -227,8 +244,10 @@ const styles = StyleSheet.create({
   modalText: {
     fontSize: 18,
     marginBottom: 10,
+    color: '#333',
+    fontWeight: 'bold',
   },
   cancelButton: {
-    backgroundColor: 'red',
+    backgroundColor: '#F44336',
   },
 });

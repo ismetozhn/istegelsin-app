@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Alert, TextInput, Modal, Button } from 'react-native';
+import { View, Text, TouchableOpacity, Alert, TextInput, Modal, Button, StyleSheet } from 'react-native';
 import { get, add } from '../api/apiHelperDeneme';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { LinearGradient } from 'expo-linear-gradient'
+
 
 export default function OtpUserScreen() {
   const navigation = useNavigation();
@@ -87,20 +89,37 @@ export default function OtpUserScreen() {
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text style={{ marginBottom: 20 }}>OTP: {otp}</Text>
-     
-      <TouchableOpacity onPress={handlePostButtonClick} style={{ padding: 10, backgroundColor: '#4c669f', borderRadius: 8 }}>
-        <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold', textAlign: 'center' }}>OTP Gönder</Text>
+    <LinearGradient
+      colors={['#4D83E3', '#6A11CB']}
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <Text style={{ marginBottom: 30, color: 'white', fontSize: 24, fontWeight: 'bold' }}>OTP: {otp}</Text>
+      
+      <TouchableOpacity onPress={handlePostButtonClick} style={{ marginBottom: 20, borderRadius: 25, overflow: 'hidden' }}>
+        <LinearGradient
+          colors={['#6A11CB', '#2575FC']}
+          style={{ paddingVertical: 15, paddingHorizontal: 50, borderRadius: 25 }}
+        >
+          <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold', textAlign: 'center' }}>OTP Gönder</Text>
+        </LinearGradient>
       </TouchableOpacity>
-           {/* is_otp_verified durumuna göre metin gösterimi */}
-           <Text style={{ marginTop: 20 }}>
+
+      <Text style={{ marginBottom: 20, color: 'white', fontSize: 18, textAlign: 'center' }}>
         {isOtpVerified ? 'OTP başarıyla onaylandı.' : 'Şirket tarafından onay bekleniyor....'}
       </Text>
 
       {isOtpVerified && (
-        <TouchableOpacity onPress={() => setModalVisible(true)} style={{ marginTop: 20, padding: 10, backgroundColor: '#4c669f', borderRadius: 8 }}>
-          <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold', textAlign: 'center' }}>Şirketi Değerlendir</Text>
+        <TouchableOpacity onPress={() => setModalVisible(true)} style={{ marginBottom: 20, borderRadius: 25, overflow: 'hidden' }}>
+          <LinearGradient
+            colors={['#6A11CB', '#2575FC']}
+            style={{ paddingVertical: 15, paddingHorizontal: 50, borderRadius: 25 }}
+          >
+            <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold', textAlign: 'center' }}>Şirketi Değerlendir</Text>
+          </LinearGradient>
         </TouchableOpacity>
       )}
 
@@ -112,19 +131,26 @@ export default function OtpUserScreen() {
           setModalVisible(false);
         }}
       >
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
           <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
-            <Text>İş deneyimine kaç puan verirsiniz?</Text>
+            <Text style={{ marginBottom: 10, fontSize: 18, textAlign: 'center' }}>İş deneyimine kaç puan verirsiniz?</Text>
             <TextInput
-              style={{ height: 40, borderColor: 'gray', borderWidth: 1, marginTop: 10, marginBottom: 10 }}
+              style={{ height: 40, borderColor: 'gray', borderWidth: 1, marginBottom: 20, paddingHorizontal: 10, borderRadius: 8 }}
               onChangeText={text => setFeedbackScore(text)}
               value={feedbackScore}
               keyboardType="numeric"
             />
-            <Button title="Gönder" onPress={handleFeedbackSubmit} />
+            <TouchableOpacity onPress={handleFeedbackSubmit}>
+              <LinearGradient
+                colors={['#6A11CB', '#2575FC']}
+                style={{ padding: 15, borderRadius: 10 }}
+              >
+                <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold', textAlign: 'center' }}>Gönder</Text>
+              </LinearGradient>
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>
-    </View>
+    </LinearGradient>
   );
 }
