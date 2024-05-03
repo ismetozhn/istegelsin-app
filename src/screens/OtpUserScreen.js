@@ -74,7 +74,7 @@ export default function OtpUserScreen() {
 
       {/* is_otp_verified durumuna göre metin gösterimi */}
       <Text style={{ marginTop: 20 }}>
-        {isOtpVerified ? 'OTP başarıyla onaylandı.' : 'Şirket tarafından onay bekleniyor.'}
+        {isOtpVerified ? 'OTP başarıyla onaylandı.' : 'Şirket tarafından onay bekleniyor....'}
       </Text>
     </View>
   );
