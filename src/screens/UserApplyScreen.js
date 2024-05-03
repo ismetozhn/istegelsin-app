@@ -59,54 +59,54 @@ export default function UserApplyScreen() {
     }, []);
     return (
         <LinearGradient
-        colors={['#330867', '#075985']} 
-        style={{ flex: 1 }}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-      >
+            colors={['#330867', '#075985']}
+            style={{ flex: 1 }}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+        >
 
-        <View className="flex-1 " >
-            <View className="flex-row justify-between mt-20 ">
-                <TouchableOpacity onPress={() => navigation.goBack()} className="p-2 rounded-full ml-5 bg-white">
-                    <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color="rgb(56 189 248)" />
-                </TouchableOpacity>
-            </View>
-
-            <View className=" items-center mb-5 ">
-                <Image
-                    source={require("../../assets/images/istegelsin.png")} style={{ width: hp(15), height: hp(15), borderRadius: 180 }}
-                />
-            </View>
-
-            <View className=" mb-3">
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('ActiveJob')}
-                    className="py-3 bg-indigo-500 mx-7 rounded-xl ">
-                    <Text
-                        className="text-xl font-bold text-center text-gray-200 "
-                    >
-                        Aktif İş
-                    </Text>
-                </TouchableOpacity>
-            </View>
-
-            <Text className="text-xl font-bold text-center text-gray-50" >
-                Başvurularım
-            </Text>
-            <FlatList
-                data={apply}
-                renderItem={({ item }) => (
-                    <TouchableOpacity style={{ padding: hp(1.5), borderBottomWidth: 4, borderBottomColor: '#ccc' }}>
-                        <Text style={{ fontSize: hp(2.5), fontWeight: 'bold', marginBottom: hp(1) }}>{item.company_name}</Text>
-                        <Text className='text-base'>{item.title}</Text>
-                        <Text>{item.description}</Text>
+            <View className="flex-1 " >
+                <View className="flex-row justify-between mt-20 ">
+                    <TouchableOpacity onPress={() => navigation.goBack()} className="bg-indigo-400 p-2 rounded-tr-2xl rounded-bl-2xl ml-4">
+                        <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color="#330867" />
                     </TouchableOpacity>
-                )}
-                keyExtractor={(item, index) => index.toString()}
-            />
+                </View>
+
+                <View className=" items-center mb-5 ">
+                    <Image
+                        source={require("../../assets/images/istegelsin.png")} style={{ width: hp(15), height: hp(15), borderRadius: 180 }}
+                    />
+                </View>
+
+                <View className=" mb-3">
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('ActiveJob')}
+                        className="py-3 bg-indigo-600 mx-7 rounded-xl ">
+                        <Text
+                            className="text-xl font-bold text-center text-gray-100 "
+                        >
+                            Aktif İş
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+
+                <Text className="text-xl font-bold text-center underline text-gray-50" >
+                    Başvurularım
+                </Text>
+                <FlatList
+                    data={apply}
+                    renderItem={({ item }) => (
+                        <TouchableOpacity style={{ padding: hp(1.5), borderBottomWidth: 4, borderBottomColor: '#ccc' }}>
+                            <Text style={{ fontSize: hp(2.5), fontWeight: 'bold', marginBottom: hp(1) }}>{item.company_name}</Text>
+                            <Text className='text-base'>{item.title}</Text>
+                            <Text>{item.description}</Text>
+                        </TouchableOpacity>
+                    )}
+                    keyExtractor={(item, index) => index.toString()}
+                />
 
 
-        </View>
+            </View>
         </LinearGradient>
     )
 }

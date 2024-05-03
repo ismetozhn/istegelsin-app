@@ -10,7 +10,7 @@ import LoginScreen from '../screens/LoginScreen';
 import MenuScreen from '../screens/MenuScreen';
 import ContactScreen from '../screens/ContactScreen';
 import SignUpScreen2 from '../screens/SignUpScrenn2';
-import SettingsScreen from '../screens/SettingsScreen';
+
 import DenemeGet from '../screens/DenemeGet';
 import App from '../screens/SilRequest';
 import DenemeGet2 from '../screens/DenemeGet2';
@@ -45,7 +45,7 @@ function AppNavigation() {
         <Stack.Screen name="Menu" component={MenuScreen} />
         <Stack.Screen name="İletişim" component={ContactScreen} />
         <Stack.Screen name="SignUp2" component={SignUpScreen2} />
-        <Stack.Screen name="Settings" component={SettingsScreen} />
+       
         <Stack.Screen name="Deneme" component={DenemeGet} />
         <Stack.Screen name="Sil" component={App} />
         <Stack.Screen name="UserD" component={DenemeGet2} />

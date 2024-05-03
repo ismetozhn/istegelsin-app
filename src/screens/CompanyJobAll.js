@@ -61,63 +61,71 @@ export default function CompanyJob() {
     }, []);
     return (
         <LinearGradient
-        colors={['#330867', '#075985']} 
-        style={{ flex: 1 }}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-      >
-        <View className="flex-1  " >
-            <View className="flex-row justify-between mt-20 ">
-                <TouchableOpacity onPress={() => navigation.goBack()} className="p-2 rounded-full ml-5 bg-blue-600">
-                    <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color="white" />
-                </TouchableOpacity>
-            </View>
-
-            <View className=" items-center mb-5 ">
-                <Image
-                    source={require("../../assets/images/istegelsin.png")} style={{ width: hp(15), height: hp(15), borderRadius: 180, borderWidth: 3, borderColor:'white' }}
-                />
-            </View>
-
-            <View className=" mb-3">
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('AddJob')}
-                    className="py-3 bg-indigo-500 mx-7 rounded-xl ">
-                    <Text
-                        className="text-xl font-bold text-center text-gray-200 "
-                    >
-                        İlan Ekle
-                    </Text>
-                </TouchableOpacity>
-            </View>
-            <View className=" mb-3">
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('SirketKabul')}
-                    className="py-3 bg-indigo-500 mx-7 rounded-xl ">
-                    <Text
-                        className="text-xl font-bold text-center text-gray-200 "
-                    >
-                        Onaylanan Başvurular
-                    </Text>
-                </TouchableOpacity>
-            </View>
-
-            <FlatList
-                data={jobs}
-                renderItem={({ item }) => (
-                    <TouchableOpacity className=' border-4 space-y-2 border-slate-50 mx-5  rounded-2xl bg-indigo-400 ' onPress={() => navigateToApplications(item.job_postingid)} style={{ padding: hp(1.5) }}>
-                        <Text style={{color:'#ffffff', fontSize: hp(2.5), fontWeight: 'bold', marginBottom: hp(1) }}>{item.title}</Text>
-                        <Text>{item.description}</Text>
-                        <Text>{item.total_salary}</Text>
+            colors={['#330867', '#075985']}
+            style={{ flex: 1 }}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+        >
+            <View className="flex-1  " >
+                <View className="flex-row justify-between mt-20 ">
+                    <TouchableOpacity onPress={() => navigation.goBack()} className="bg-indigo-400 p-2 rounded-tr-2xl rounded-bl-2xl ml-4">
+                        <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color="#330867" />
                     </TouchableOpacity>
-                )}
-                keyExtractor={(item, index) => index.toString()}
-            />
 
-            
+                </View>
+
+                <View className=" items-center mb-5 ">
+                    <Image
+                        source={require("../../assets/images/istegelsin.png")} style={{ width: hp(15), height: hp(15), borderRadius: 180, borderWidth: 3, borderColor: 'white' }}
+                    />
+                </View>
+
+                <View className=" mb-3">
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('AddJob')}
+                        className="py-3 bg-indigo-600 mx-7 rounded-xl ">
+                        <Text
+                            className="text-xl font-bold text-center text-gray-100 "
+                        >
+                            İlan Ekle
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+                <View className=" mb-3">
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('SirketKabul')}
+                        className="py-3 bg-indigo-600 mx-7 rounded-xl ">
+                        <Text
+                            className="text-xl font-bold text-center text-gray-100 "
+                        >
+                            Onaylanan Başvurular
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+
+                <FlatList
+                    data={jobs}
+                    renderItem={({ item }) => (
+                        <TouchableOpacity className=' space-y-2  mx-5  rounded-2xl ' onPress={() => navigateToApplications(item.job_postingid)} style={{ padding: hp(1.5) }}>
+                            <LinearGradient
+                                colors={['#4c669f', '#3b5998', '#192f6a']}
+                                style={{ padding: 16, borderRadius: 8, shadowOpacity: 0.3, shadowRadius: 10, elevation: 10 }}
+                                start={{ x: 0, y: 0 }}
+                                end={{ x: 1, y: 0 }}
+                            >
+                                <Text style={{ color: '#ffffff', fontSize: hp(2.5), fontWeight: 'bold', marginBottom: hp(1) }}>{item.title}</Text>
+                                <Text>{item.description}</Text>
+                                <Text>{item.total_salary}</Text>
+                            </LinearGradient>
+                        </TouchableOpacity>
+                    )}
+                    keyExtractor={(item, index) => index.toString()}
+                />
 
 
-        </View>
+
+
+            </View>
         </LinearGradient>
 
     )

@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { ArrowLeftIcon } from 'react-native-heroicons/outline'
+import { ChevronLeftIcon } from 'react-native-heroicons/outline'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { add } from '../api/apiHelperDeneme'
 import { LinearGradient } from 'expo-linear-gradient';
-
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 
 export default function SignUpScreen() {
@@ -70,8 +70,8 @@ export default function SignUpScreen() {
     <ScrollView contentContainerStyle={{ flexGrow: 1 }} className="flex-1 ">
       <SafeAreaView className="flex">
         <View className="flex-row justify-start">
-          <TouchableOpacity onPress={() => navigation.goBack()} className="bg-sky-400 p-2 rounded-tr-2xl rounded-bl-2xl ml-4">
-            <ArrowLeftIcon size="20" color="black" />
+          <TouchableOpacity onPress={() => navigation.goBack()} className="bg-indigo-400 p-2 rounded-tr-2xl rounded-bl-2xl ml-4">
+          <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color="#330867" />
           </TouchableOpacity>
 
         </View>
@@ -85,7 +85,7 @@ export default function SignUpScreen() {
         style={{ borderTopLeftRadius: 50, borderTopRightRadius: 50 }}
       >
         <View className="from space-y-2">
-          <Text className="text-gray-1000 ml-4">Ad</Text>
+          <Text className="text-gray-1000 ml-4 ">Ad</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
             onChangeText={(value) => handleChange('name', value)}
@@ -124,13 +124,13 @@ export default function SignUpScreen() {
             placeholder='Şifrenizi Girin'
           />
 
-          <TouchableOpacity onPress={handlePostButtonClick} className="py-3 bg-indigo-400 rounded-xl">
-            <Text className="font-xl font-bold text-center text-gray-900">Kayıt Ol</Text>
+          <TouchableOpacity onPress={handlePostButtonClick} className="py-3 bg-indigo-800 rounded-xl">
+            <Text className="font-xl font-bold text-center text-gray-100">Kayıt Ol</Text>
           </TouchableOpacity>
 
 
         </View>
-        <Text className="text-xl text-gray-700 font-bold text-center py-5">Veya</Text>
+        {/* <Text className="text-xl text-gray-700 font-bold text-center py-5">Veya</Text>
         <View className="flex-row justify-center space-x-12">
           <TouchableOpacity className="p-2 bg-gray-100 rounded-2xl">
             <Image source={require('../../assets/images/google.jpg')} className="w-10 h-10" />
@@ -141,13 +141,13 @@ export default function SignUpScreen() {
           <TouchableOpacity className="p-2 bg-gray-100 rounded-2xl">
             <Image source={require('../../assets/images/Facebook.png')} className="w-10 h-10" />
           </TouchableOpacity>
-        </View>
+        </View> */}
         <View className="flex-row justify-center my-5">
           <Text className="text-gray-500 font-semibold">
             Zaten bir hesabın var mı?
           </Text>
           <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-            <Text className="font-semibold text-yellow-500"> Giriş Yap</Text>
+            <Text className="font-bold text-indigo-800"> Giriş Yap</Text>
           </TouchableOpacity>
         </View>
       </View>

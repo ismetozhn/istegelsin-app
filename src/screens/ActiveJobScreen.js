@@ -73,8 +73,8 @@ export default function ActiveJobScreen() {
                 <View className=" mb-3 mt-5">
                   <TouchableOpacity
                     onPress={() => navigation.navigate('Otp', { activeJobData: activeJob })}
-                    className="py-3 bg-indigo-500 mx-7 rounded-xl">
-                    <Text className="text-xl font-bold text-center text-gray-200">
+                    className="py-3 bg-indigo-600 mx-7 rounded-xl">
+                    <Text className="text-xl font-bold text-center text-gray-100">
                       Onaylama & Değerlendirme
                     </Text>
                   </TouchableOpacity>

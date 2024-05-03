@@ -1,34 +1,35 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, ScrollView } from 'react-native'
-import React, { useState , useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { ArrowLeftIcon } from 'react-native-heroicons/outline'
+import { ChevronLeftIcon } from 'react-native-heroicons/outline'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { add } from '../api/apiHelperDeneme'
 import { Picker } from '@react-native-picker/picker'
 import { readDataByKey } from '../helpers/storage'
-
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { LinearGradient } from 'expo-linear-gradient'
 
 
 export default function CompanyJobAdd() {
 
   let newDate = new Date()
   const [formData, setFormData] = useState({
-  job_postingid: 2,
-  companyid: 0,
-  employment_type: '',
-  education_level: '',
-  experience_level: '',
-  experience_years: '',
-  work_model: '',
-  work_per_hour: '',
-  total_salary: '',
-  title: '',
-  description: '',
-  logo_path: '1',
-  adress: '',
-  is_active: true,
-  start_at: '2024-04-20T15:56:22',
-  end_at: '2024-05-20T15:56:22'
+    job_postingid: 2,
+    companyid: 0,
+    employment_type: '',
+    education_level: '',
+    experience_level: '',
+    experience_years: '',
+    work_model: '',
+    work_per_hour: '',
+    total_salary: '',
+    title: '',
+    description: '',
+    logo_path: '1',
+    adress: '',
+    is_active: true,
+    start_at: '2024-04-20T15:56:22',
+    end_at: '2024-05-20T15:56:22'
   });
 
   const navigation = useNavigation();
@@ -61,13 +62,13 @@ export default function CompanyJobAdd() {
       const headers = {
         'Content-Type': 'application/json-patch+json',
         'Company': 'true'
-        
+
       };
-      const response = await add('JobPosting', formData, headers,true);
+      const response = await add('JobPosting', formData, headers, true);
       console.log('API yanıtı:', response);
       navigation.navigate('CompanyJob');
       console.log('API yanıtı:', response);
-      
+
 
     } catch (e) {
       console.error('Veri gönderme hatası:', e);
@@ -75,15 +76,22 @@ export default function CompanyJobAdd() {
   };
 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false} className="flex-1 bg-indigo-400">
+    <LinearGradient
+    colors={['#330867', '#075985']}
+    style={{ flex: 1 }}
+    start={{ x: 0, y: 0 }}
+    end={{ x: 1, y: 1 }}
+  >
+
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false} className="flex-1 ">
       <SafeAreaView className="flex">
         <View className="flex-row justify-start mb-2">
-          <TouchableOpacity onPress={() => navigation.goBack()} className="bg-sky-400 p-2 rounded-tr-2xl rounded-bl-2xl ml-4">
-            <ArrowLeftIcon size="20" color="black" />
+          <TouchableOpacity onPress={() => navigation.goBack()} className="bg-indigo-400 p-2 rounded-tr-2xl rounded-bl-2xl ml-4">
+            <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color="#330867" />
           </TouchableOpacity>
 
         </View>
-       
+
       </SafeAreaView>
       <View className="flex-1 bg-white px-8 pt-8"
         style={{ borderTopLeftRadius: 50, borderTopRightRadius: 50 }}
@@ -101,14 +109,14 @@ export default function CompanyJobAdd() {
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
             onChangeText={(value) => handleChange('description', value)}
             value={formData.description}
-            placeholder='İlan Açıklama Girin'
+            placeholder='İlan Açıklaması Girin'
           />
           <Text className="text-gray-1000 ml-4">İlan Adresi</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
             onChangeText={(value) => handleChange('adress', value)}
             value={formData.adress}
-            placeholder='İlan Adresinizi Girin'
+            placeholder='İlan Adresini Girin'
           />
 
           <Text className="text-gray-1000 ml-4">Maaş</Text>
@@ -126,7 +134,7 @@ export default function CompanyJobAdd() {
             value={formData.work_per_hour}
             placeholder='Çalışma Saatini Belirleyin'
           />
-          
+
           <Text className="text-gray-1000 ml-4">Deneyim Yılı</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
@@ -136,7 +144,7 @@ export default function CompanyJobAdd() {
           />
 
           <Text className="text-gray-1000 ml-4">Çalışma Süresi</Text>
-           <Picker
+          <Picker
             selectedValue={formData.employment_type}
             onValueChange={(itemValue, itemIndex) => setFormData({ ...formData, employment_type: itemValue })}
             style={{ height: 50, width: '100%', backgroundColor: '#f0f0f0', borderRadius: 8 }}
@@ -181,21 +189,22 @@ export default function CompanyJobAdd() {
             <Picker.Item label="Uzaktan" value="1" />
             <Picker.Item label="Hibrit" value="2" />
             <Picker.Item label="Ofis" value="3" />
-           
-          </Picker>
-          
-          
 
-          <TouchableOpacity onPress={handlePostButtonClick} className="py-3 mb-10 bg-indigo-400 rounded-xl">
-            <Text className="font-xl font-bold text-center text-gray-900">İlan Ekle</Text>
+          </Picker>
+
+
+
+          <TouchableOpacity onPress={handlePostButtonClick} className="py-3 mb-10 bg-indigo-800 rounded-xl">
+            <Text className="font-xl font-bold text-center text-gray-100">İlan Ekle</Text>
           </TouchableOpacity>
 
 
         </View>
-        
-        
+
+
       </View>
     </ScrollView>
+    </LinearGradient>
   )
 }
 

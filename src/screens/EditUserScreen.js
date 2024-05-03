@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, ScrollView } from 'react-native'
 import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native'
-import { ArrowLeftIcon } from 'react-native-heroicons/outline'
+import { ChevronLeftIcon } from 'react-native-heroicons/outline'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { get, add, update } from '../api/apiHelperDeneme'; // apiHelper dosyasının bulunduğu yolu doğru olarak güncelleyin
 import { readDataByKey, Keys, clearAllData } from '../helpers/storage';
-
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import * as ImagePicker from 'expo-image-picker';
 import { Picker } from '@react-native-picker/picker';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -141,9 +141,10 @@ export default function EditUserScreen() {
     <View className="flex-1 ">
       <SafeAreaView className="flex">
         <View className="flex-row justify-start">
-          <TouchableOpacity onPress={() => navigation.goBack()} className="bg-sky-400 p-2 rounded-tr-2xl rounded-bl-2xl ml-4">
-            <ArrowLeftIcon size="20" color="black" />
-          </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.goBack()} className="bg-indigo-400 p-2 rounded-tr-2xl rounded-bl-2xl ml-4">
+              <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color="#330867" />
+            </TouchableOpacity>
+
 
         </View>
 
@@ -153,43 +154,43 @@ export default function EditUserScreen() {
         contentContainerStyle={{ flexGrow: 1, padding: 16, paddingBottom: 80 }} className="flex-1 bg-white px-8 pt-8"
         style={{ borderTopLeftRadius: 50, borderTopRightRadius: 50 }}
       >
-        <Text className="text-lg text-center font-bold mb-4 text-indigo-800">Kullanıcı Bilgilerini Düzenle</Text>
+        <Text className="text-lg text-center font-bold mb-4 underline text-indigo-800">Kullanıcı Bilgilerini Düzenle</Text>
         <View className="from space-y-2">
-          <Text className="text-gray-500 ml-4">Ad</Text>
+          <Text className="text-gray-1000 ml-4">Ad</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
             value={userData.name}
             onChangeText={(text) => setUserData({ ...userData, name: text })}
-            placeholder="Şirket İsmi"
+            placeholder="Adınız"
           />
-          <Text className="text-gray-500 ml-4">Soyad</Text>
+          <Text className="text-gray-1000 ml-4">Soyad</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
             value={userData.surname}
             onChangeText={(text) => setUserData({ ...userData, surname: text })}
             placeholder="Soyadınız"
           />
-          <Text className="text-gray-500 ml-4">TC Kimlik No</Text>
+          <Text className="text-gray-1000 ml-4">TC Kimlik No</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
             value={userData.id_no}
             onChangeText={(text) => setUserData({ ...userData, id_no: text })}
-            placeholder="Soyadınız"
+            placeholder="Kimlik Numaranız"
           />
-          <Text className="text-gray-500 ml-4">Email Adresi</Text>
+          <Text className="text-gray-1000 ml-4">Email Adresi</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
             value={userData.email}
             onChangeText={(text) => setUserData({ ...userData, email: text })}
-            placeholder="Şirket İsmi"
+            placeholder="Email Adresiniz"
           />
-          <Text className="text-gray-500 ml-4">Telefon Numarası</Text>
+          <Text className="text-gray-1000 ml-4">Telefon Numarası</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
             value={userData.gsm}
             onChangeText={(text) => setUserData({ ...userData, gsm: text })}
           />
-          <Text className="text-gray-500 ml-4">Cinsiyet</Text>
+          <Text className="text-gray-1000 ml-4">Cinsiyet</Text>
           <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 4 }}>
             <TouchableOpacity
               onPress={() => setUserData({ ...userData, gender_type: '1' })}
@@ -211,13 +212,13 @@ export default function EditUserScreen() {
             </TouchableOpacity>
           </View>
 
-          <Text className="text-gray-500 ml-4">Iban Numarası</Text>
+          <Text className="text-gray-1000 ml-4">Iban Numarası</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
             value={userData.iban}
             onChangeText={(text) => setUserData({ ...userData, iban: text })}
           />
-          <Text className="text-gray-500 ml-4">Banka Bilgileri</Text>
+          <Text className="text-gray-1000 ml-4">Banka Bilgileri</Text>
           <Picker
             selectedValue={userData.working_with_bankid}
             onValueChange={(itemValue, itemIndex) => setUserData({ ...userData, working_with_bankid: itemValue })}
@@ -230,7 +231,7 @@ export default function EditUserScreen() {
             <Picker.Item label="Enpara" value="5" />
           </Picker>
 
-          <Text className="text-gray-500 ml-4">Yeni Şifre</Text>
+          <Text className="text-gray-1000 ml-4">Yeni Şifre</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
             secureTextEntry
@@ -238,14 +239,14 @@ export default function EditUserScreen() {
             onChangeText={(text) => setUserData({ ...userData, password: text })}
           />
 
-          <Text className="text-gray-500 ml-4" >Profil Resim</Text>
+          <Text className="text-gray-1000 ml-4" >Profil Resim</Text>
           <TouchableOpacity onPress={handleChooseImage} style={{ padding: 10, backgroundColor: 'lightgray', borderRadius: 5 }}>
             <Text>Resim Seç</Text>
           </TouchableOpacity>
           {userData.logo_file && <Image source={{ uri: userData.logo_file }} style={{ width: 100, height: 100, marginBottom: 16 }} />}
 
 
-          <TouchableOpacity onPress={handleUpdate} className="py-3 bg-indigo-400 rounded-xl">
+          <TouchableOpacity onPress={handleUpdate} className="py-3 bg-indigo-800 rounded-xl">
             <Text className="font-xl font-bold text-center text-gray-100">Güncelle</Text>
           </TouchableOpacity>
           

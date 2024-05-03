@@ -28,51 +28,51 @@ export default function EditProfileScreen() {
 
     return (
         <LinearGradient
-        colors={['#330867', '#075985']} 
-        style={{ flex: 1 }}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-      >
+            colors={['#330867', '#075985']}
+            style={{ flex: 1 }}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+        >
 
-        <View className="flex-1   space-y-7  -" >
-            <View className="flex-row justify-between mt-20 ">
-                <TouchableOpacity onPress={() => navigation.goBack()} className="p-2 rounded-full ml-5 bg-white">
-                    <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color="rgb(56 189 248)" />
-                </TouchableOpacity>
-            </View>
-        
+            <View className="flex-1   space-y-7  -" >
+                <View className="flex-row justify-between mt-16 ">
+                    <TouchableOpacity onPress={() => navigation.goBack()} className="bg-indigo-400 p-2 rounded-tr-2xl rounded-bl-2xl ml-4">
+                        <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color="#330867" />
+                    </TouchableOpacity>
+                </View>
 
-            <Animated.View className="bg-white/20 rounded-full " style={{ padding: ring2padding }} >
-                <Animated.View className="bg-white/20 rounded-full " style={{ padding: ring1padding, justifyContent: 'center', alignItems: 'center' }}>
-                    <Image source={require("../../assets/images/istegelsin.png")} style={{ width: hp(25), height: hp(25), borderRadius: 180 }} />
+
+                <Animated.View className="bg-white/20 rounded-full " style={{ padding: ring2padding }} >
+                    <Animated.View className="bg-white/20 rounded-full " style={{ padding: ring1padding, justifyContent: 'center', alignItems: 'center' }}>
+                        <Image source={require("../../assets/images/istegelsin.png")} style={{ width: hp(25), height: hp(25), borderRadius: 180 }} />
+                    </Animated.View>
                 </Animated.View>
-            </Animated.View>
 
 
-            <View className="space-y-4">
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('EditUser')}
-                    className="py-3 bg-indigo-400 mx-7 rounded-xl">
-                    <Text
-                        className="text-xl font-bold text-center text-gray-900"
-                    >
-                        Kullanıcı Profil Düzenle
-                    </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('EditCompany')}
-                    className="py-3 bg-indigo-400 mx-7 rounded-xl">
-                    <Text
-                        className="text-xl font-bold text-center text-gray-900"
-                    >
-                       Şirket Profili Düzenle
-                    </Text>
-                </TouchableOpacity>
-               
+                <View className="space-y-4">
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('EditUser')}
+                        className="py-3 bg-indigo-600 mx-7 rounded-xl">
+                        <Text
+                            className="text-xl font-bold text-center text-gray-100"
+                        >
+                            Kullanıcı Profil Düzenle
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('EditCompany')}
+                        className="py-3 bg-indigo-600 mx-7 rounded-xl">
+                        <Text
+                            className="text-xl font-bold text-center text-gray-100"
+                        >
+                            Şirket Profili Düzenle
+                        </Text>
+                    </TouchableOpacity>
+
+                </View>
+
+
             </View>
-
-
-        </View>
         </LinearGradient>
 
 
