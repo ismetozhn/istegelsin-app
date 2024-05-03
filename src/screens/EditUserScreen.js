@@ -8,6 +8,7 @@ import { readDataByKey, Keys, clearAllData } from '../helpers/storage';
 
 import * as ImagePicker from 'expo-image-picker';
 import { Picker } from '@react-native-picker/picker';
+import { LinearGradient } from 'expo-linear-gradient';
 
 
 
@@ -130,7 +131,14 @@ export default function EditUserScreen() {
 
   const navigation = useNavigation();
   return (
-    <View className="flex-1 bg-indigo-400">
+
+    <LinearGradient
+    colors={['#330867', '#075985']}
+    style={{ flex: 1 }}
+    start={{ x: 0, y: 0 }}
+    end={{ x: 1, y: 1 }}
+  >
+    <View className="flex-1 ">
       <SafeAreaView className="flex">
         <View className="flex-row justify-start">
           <TouchableOpacity onPress={() => navigation.goBack()} className="bg-sky-400 p-2 rounded-tr-2xl rounded-bl-2xl ml-4">
@@ -249,6 +257,8 @@ export default function EditUserScreen() {
 
       </ScrollView>
     </View>
+
+    </LinearGradient>
   )
 }
 

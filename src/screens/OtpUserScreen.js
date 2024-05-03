@@ -1,66 +1,88 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
-import { get, add } from '../api/apiHelperDeneme'; // API yardımcı fonksiyonunu doğru dosyaya göre güncelleyin
+import { View, Text, TouchableOpacity, Alert, TextInput, Modal, Button } from 'react-native';
+import { get, add } from '../api/apiHelperDeneme';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 export default function OtpUserScreen() {
   const navigation = useNavigation();
   const route = useRoute();
-  const activeJobData = route.params?.activeJobData; // ActiveJobScreen'den gelen verileri al
+  const activeJobData = route.params?.activeJobData;
   const [otp, setOtp] = useState('');
   const [isOtpVerified, setIsOtpVerified] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [feedbackScore, setFeedbackScore] = useState('');
 
   useEffect(() => {
-    fetchOtp(activeJobData, setOtp);
+    fetchOtp(activeJobData);
   }, [activeJobData]); 
 
-  const fetchOtp = async (activeJobData, setOtp) => {
+  const fetchOtp = async (activeJobData) => {
     try {
       const response = await get(`https://ig.colaksoft.online/api/v1/WorkAttendance?job_postingid=${activeJobData.job_postingid}&userid=${activeJobData.userid}`, {}, {}, true);
-      
-      // Response'dan OTP değerini al
       const receivedOtp = response?.data?.otp;
-  
-      // OTP değerini state'e ayarla
       setOtp(receivedOtp);
-
-      // is_otp_verified durumunu kontrol et ve state'i güncelle
       setIsOtpVerified(response?.data?.is_otp_verified || false);
     } catch (error) {
       console.error('OTP alınırken hata oluştu:', error);
     }
   };
-  
 
-  // OtpUserScreen component
   const handlePostButtonClick = async () => {
     try {
       const headers = {
         'Content-Type': 'application/json-patch+json',
       };
 
-      // activeJobData'dan gelen verileri istek verilerine ekle
       const requestData = {
         job_postingid: activeJobData.job_postingid,
         userid: activeJobData.userid,
-        otp: otp, // Burada aldığımız OTP'yi kullanıyoruz
+        otp: otp,
         is_otp_verified: true,
-        created_at: new Date(), // Şu anki zamanı kullanarak created_at değerini oluştur
+        created_at: new Date(),
       };
 
-      // API'ye istek gönder
       const response = await add('WorkAttendance', requestData, headers, true);
 
       console.log('API yanıtı:', response);
 
       if (response && response.isSuccess) {
-        setIsOtpVerified(true); // OTP başarıyla doğrulandığını belirt
+        setIsOtpVerified(true);
         Alert.alert('Başarılı', 'İstek başarıyla tamamlandı.');
       } else {
         Alert.alert('Hata', 'İstek sırasında bir hata oluştu.');
       }
     } catch (e) {
       console.error('Veri gönderme hatası:', e);
+    }
+  };
+
+  const handleFeedbackSubmit = async () => {
+    try {
+      const headers = {
+        'Content-Type': 'application/json-patch+json',
+      };
+
+      const feedbackData = {
+        job_postingid: activeJobData.job_postingid,
+        userid: activeJobData.userid,
+        companyid: activeJobData.companyid,
+        question_score: feedbackScore,
+        is_feedback_for_user: true,
+        create_at: new Date(),
+      };
+
+      const response = await add('JobFeedback', feedbackData, headers, true);
+
+      console.log('Feedback API yanıtı:', response);
+
+      if (response && response.isSuccess) {
+        Alert.alert('Başarılı', 'Geri bildiriminiz başarıyla gönderildi.');
+        setModalVisible(false);
+      } else {
+        Alert.alert('Hata', 'Geri bildiriminiz gönderilirken bir hata oluştu.');
+      }
+    } catch (error) {
+      console.error('Geri bildirim gönderme hatası:', error);
     }
   };
 
@@ -71,11 +93,38 @@ export default function OtpUserScreen() {
       <TouchableOpacity onPress={handlePostButtonClick} style={{ padding: 10, backgroundColor: '#4c669f', borderRadius: 8 }}>
         <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold', textAlign: 'center' }}>OTP Gönder</Text>
       </TouchableOpacity>
-
-      {/* is_otp_verified durumuna göre metin gösterimi */}
-      <Text style={{ marginTop: 20 }}>
+           {/* is_otp_verified durumuna göre metin gösterimi */}
+           <Text style={{ marginTop: 20 }}>
         {isOtpVerified ? 'OTP başarıyla onaylandı.' : 'Şirket tarafından onay bekleniyor....'}
       </Text>
+
+      {isOtpVerified && (
+        <TouchableOpacity onPress={() => setModalVisible(true)} style={{ marginTop: 20, padding: 10, backgroundColor: '#4c669f', borderRadius: 8 }}>
+          <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold', textAlign: 'center' }}>Şirketi Değerlendir</Text>
+        </TouchableOpacity>
+      )}
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(false);
+        }}
+      >
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+          <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
+            <Text>İş deneyimine kaç puan verirsiniz?</Text>
+            <TextInput
+              style={{ height: 40, borderColor: 'gray', borderWidth: 1, marginTop: 10, marginBottom: 10 }}
+              onChangeText={text => setFeedbackScore(text)}
+              value={feedbackScore}
+              keyboardType="numeric"
+            />
+            <Button title="Gönder" onPress={handleFeedbackSubmit} />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }

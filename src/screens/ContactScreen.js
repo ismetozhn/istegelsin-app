@@ -3,10 +3,19 @@ import React from 'react'
 import { EnvelopeIcon, MapIcon } from 'react-native-heroicons/outline'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { PhoneIcon } from 'react-native-heroicons/outline';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function ContactScreen() {
     return (
-        <View className="flex-1 bg-blue-600" >
+
+        <LinearGradient
+        colors={['#330867', '#075985']}
+        style={{ flex: 1 }}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+      >
+
+        <View className="flex-1 " >
             <View className=" flex items-center mt-20 space-y-8" >
                 <Text className="text-3xl font-bold text-white" >İletişim Adresleri</Text>
                 <Text className="text-2xl mt-5 text-gray-200" >Bize aşağıdaki kanallardan da ulaşabilirsiniz.</Text>
@@ -39,6 +48,8 @@ export default function ContactScreen() {
             </View>
 
         </View>
+
+        </LinearGradient>
     )
 }
 
