@@ -67,7 +67,7 @@ export default function OtpUserScreen() {
         userid: activeJobData.userid,
         companyid: activeJobData.companyid,
         question_score: feedbackScore,
-        is_feedback_for_user: true,
+        is_feedback_for_user: false,
         create_at: new Date(),
       };
 
