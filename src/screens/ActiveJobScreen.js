@@ -4,6 +4,8 @@ import { readDataByKey, Keys } from '../helpers/storage';
 import { get, add, update } from '../api/apiHelperDeneme'; // apiHelper dosyasının bulunduğu yolu doğru olarak güncelleyin
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/core';
+import { ChevronLeftIcon } from 'react-native-heroicons/outline';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 export default function ActiveJobScreen() {
   const [activeJob, setActiveJob] = useState(null);
@@ -44,12 +46,19 @@ export default function ActiveJobScreen() {
 
   return (
     <LinearGradient
-      colors={['#118dbf', '#3b5998', '#7d3cf2']}
+      colors={['#330867', '#075985']}
       style={{ flex: 1 }}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
     >
+      <View className="flex-row justify-between mt-16 ">
+        <TouchableOpacity onPress={() => navigation.goBack()} className="bg-indigo-400 p-2 rounded-tr-2xl rounded-bl-2xl ml-4">
+          <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color="#330867" />
+        </TouchableOpacity>
+
+      </View>
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+
         <View style={{ width: '90%', maxWidth: 400 }}>
           <LinearGradient
             colors={['#4c669f', '#3b5998', '#192f6a']}

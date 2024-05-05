@@ -3,8 +3,8 @@ import { View, Text, TouchableOpacity, Alert, TextInput, Modal, Button, StyleShe
 import { get, add } from '../api/apiHelperDeneme';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient'
-
-
+import { ChevronLeftIcon } from 'react-native-heroicons/outline';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 export default function OtpUserScreen() {
   const navigation = useNavigation();
   const route = useRoute();
@@ -16,7 +16,7 @@ export default function OtpUserScreen() {
 
   useEffect(() => {
     fetchOtp(activeJobData);
-  }, [activeJobData]); 
+  }, [activeJobData]);
 
   const fetchOtp = async (activeJobData) => {
     try {
@@ -90,21 +90,29 @@ export default function OtpUserScreen() {
 
   return (
     <LinearGradient
-      colors={['#4D83E3', '#6A11CB']}
+      colors={['#330867', '#075985']}
       style={{
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'center'
       }}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
     >
+      <View className="flex-row justify-between ">
+        <TouchableOpacity onPress={() => navigation.goBack()} className="bg-indigo-400 p-2 rounded-tr-2xl rounded-bl-2xl mr-72  mb-20">
+          <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color="#330867" />
+        </TouchableOpacity>
+
+      </View>
       <Text style={{ marginBottom: 30, color: 'white', fontSize: 24, fontWeight: 'bold' }}>OTP: {otp}</Text>
-      
+
       <TouchableOpacity onPress={handlePostButtonClick} style={{ marginBottom: 20, borderRadius: 25, overflow: 'hidden' }}>
         <LinearGradient
-          colors={['#6A11CB', '#2575FC']}
+          colors={['#4c669f', '#3b5998', '#192f6a']}
           style={{ paddingVertical: 15, paddingHorizontal: 50, borderRadius: 25 }}
         >
-          <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold', textAlign: 'center' }}>OTP Gönder</Text>
+          <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold', textAlign: 'center' }}>Doğrulama Kodu Gönder</Text>
         </LinearGradient>
       </TouchableOpacity>
 
@@ -115,7 +123,7 @@ export default function OtpUserScreen() {
       {isOtpVerified && (
         <TouchableOpacity onPress={() => setModalVisible(true)} style={{ marginBottom: 20, borderRadius: 25, overflow: 'hidden' }}>
           <LinearGradient
-            colors={['#6A11CB', '#2575FC']}
+            colors={['#4c669f', '#3b5998', '#192f6a']}
             style={{ paddingVertical: 15, paddingHorizontal: 50, borderRadius: 25 }}
           >
             <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold', textAlign: 'center' }}>Şirketi Değerlendir</Text>
@@ -142,11 +150,19 @@ export default function OtpUserScreen() {
             />
             <TouchableOpacity onPress={handleFeedbackSubmit}>
               <LinearGradient
-                colors={['#6A11CB', '#2575FC']}
+                colors={['#4c669f', '#3b5998', '#192f6a']}
                 style={{ padding: 15, borderRadius: 10 }}
               >
                 <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold', textAlign: 'center' }}>Gönder</Text>
               </LinearGradient>
+            </TouchableOpacity>
+            <TouchableOpacity className='mt-2' onPress={() => setModalVisible(false)}>
+            <LinearGradient
+                colors={['#be123c', '#4c0519',]}
+                style={{ padding: 15, borderRadius: 10 }}
+              >
+            <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold', textAlign: 'center' }}>İptal</Text>
+            </LinearGradient>
             </TouchableOpacity>
           </View>
         </View>

@@ -93,7 +93,8 @@ export default function UserApplyScreen() {
                 <Text className="text-xl font-bold text-center underline text-gray-50" >
                     Başvurularım
                 </Text>
-                <FlatList
+
+                {/* <FlatList
                     data={apply}
                     renderItem={({ item }) => (
                         <TouchableOpacity style={{ padding: hp(1.5), borderBottomWidth: 4, borderBottomColor: '#ccc' }}>
@@ -103,7 +104,28 @@ export default function UserApplyScreen() {
                         </TouchableOpacity>
                     )}
                     keyExtractor={(item, index) => index.toString()}
+                /> */}
+
+                <FlatList
+                    data={apply}
+                    renderItem={({ item }) => (
+                        <TouchableOpacity className=' space-y-2  mx-5  rounded-2xl ' style={{ padding: hp(1.5) }}>
+                            <LinearGradient
+                                colors={['#4c669f', '#3b5998', '#192f6a']}
+                                style={{ padding: 16, borderRadius: 8, shadowOpacity: 0.3, shadowRadius: 10, elevation: 10 }}
+                                start={{ x: 0, y: 0 }}
+                                end={{ x: 1, y: 0 }}
+                            >
+                                <Text style={{ color: '#ffffff', fontSize: hp(2.5), fontWeight: 'bold', marginBottom: hp(1) }}>{item.company_name}</Text>
+                                <Text>{item.title}</Text>
+                                <Text>{item.description}</Text>
+                            </LinearGradient>
+                        </TouchableOpacity>
+                    )}
+                    keyExtractor={(item, index) => index.toString()}
                 />
+
+
 
 
             </View>

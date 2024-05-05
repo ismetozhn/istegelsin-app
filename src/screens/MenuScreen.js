@@ -137,15 +137,15 @@ export default function MenuScreen() {
 
                 </View>
 
-                <View className=" mb-3">
-                    <TouchableOpacity
-                        onPress={handleLogout}
-                        className="py-3 bg-rose-950 mx-7 rounded-xl">
-                        <Text
-                            className="text-xl font-bold text-center text-gray-100"
+                <View className=" mb-2">
+                    <TouchableOpacity onPress={handleLogout} className="py-1  mx-7 rounded-xl">
+                        <LinearGradient
+                            colors={['#be123c', '#4c0519',]}
+                            style={{ padding: 15, borderRadius: 12 }}
                         >
-                            Çıkış Yap
-                        </Text>
+                            <Text className="text-xl font-bold text-center text-gray-100">
+                                Çıkış Yap</Text>
+                        </LinearGradient>
                     </TouchableOpacity>
 
                 </View>
