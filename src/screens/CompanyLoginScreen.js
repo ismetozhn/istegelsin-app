@@ -5,34 +5,33 @@ import { ChevronLeftIcon } from 'react-native-heroicons/outline'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useState } from 'react'
 import { saveData, readData, saveDataByKey, Keys } from '../helpers/storage';
-import { get } from '../api/apiHelperDeneme'
+import { get } from '../api/apiHelper'
 import { LinearGradient } from 'expo-linear-gradient';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 
 
-
-export default function LoginScreen() {
+export default function CompanyLoginScreen() {
   const fetchData = async (email, password) => {
     console.log(email, password)
     try {
       const headers = {
         'Content-Type': 'application/json-patch+json',
-
+        'Company': 'true'
       };
-      const response = await get(`User/Login?email=${email}&password=${password}`, headers);
+      const response = await get(`Company/Login?email=${email}&password=${password}`, headers);
       console.log('API yanıtı:', response);
 
-      // API yanıtını kontrol et
+      
       if (response) {
-        // API yanıtından gelen verileri kaydet
+        
         saveDataByKey(Keys.email, response.data.email);
         saveDataByKey(Keys.password, response.data.password);
-        saveDataByKey(Keys.userid, response.data.userid);
+        saveDataByKey(Keys.companyid, response.data.companyid);
         saveDataByKey(Keys.isLoggedIn, true);
         navigation.navigate('Home');
       } else {
-        // Yanıt boşsa veya hatalıysa uygun bir işlem yap
+        
         console.error('API yanıtı boş veya hatalı.');
       }
     } catch (error) {
@@ -126,7 +125,7 @@ export default function LoginScreen() {
               Hesabın yok mu?
             </Text>
             <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-              <Text className="font-bold text-indigo-800"> Kayıt Ol</Text>
+              <Text className="font-semibold text-indigo-800"> Kayıt Ol</Text>
             </TouchableOpacity>
           </View>
         </View>

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native'
 import { ChevronLeftIcon } from 'react-native-heroicons/outline'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { get, add, update } from '../api/apiHelperDeneme'; // apiHelper dosyasının bulunduğu yolu doğru olarak güncelleyin
+import { get, add, update } from '../api/apiHelper';
 import { readDataByKey, Keys, clearAllData } from '../helpers/storage';
 import * as ImagePicker from 'expo-image-picker';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -82,7 +82,7 @@ export default function EditCompanyScreen() {
 
   const handleUpdate = async () => {
     try {
-      const endpoint = 'Company'; // Güncellenecek kaydın endpoint'i
+      const endpoint = 'Company';
 
       const headers = {
         'Content-Type': 'multipart/form-data',
@@ -90,12 +90,12 @@ export default function EditCompanyScreen() {
       };
 
       const formData = new FormData();
-      // companyData'nın tüm alanlarını formData'ya ekleyelim
+
       for (const key in companyData) {
         formData.append(key, companyData[key]);
       }
 
-      // Eğer resim seçilmişse, formData'ya ekleyelim
+
       if (companyData.logo_file) {
         const uriParts = companyData.logo_file.split('.');
         const fileType = uriParts[uriParts.length - 1];
@@ -137,9 +137,6 @@ export default function EditCompanyScreen() {
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ flexGrow: 1, padding: 16, paddingBottom: 80 }} className="flex-1 bg-white px-8 pt-8"
           style={{ borderTopLeftRadius: 50, borderTopRightRadius: 50 }}
         >
-
-
-
 
           <Text className="text-lg text-center font-bold underline mb-4 text-indigo-800">Şirket Bilgilerini Düzenle</Text>
           <View className="from space-y-2">
@@ -189,16 +186,10 @@ export default function EditCompanyScreen() {
             </TouchableOpacity>
             {companyData.logo_file && <Image source={{ uri: companyData.logo_file }} style={{ width: 100, height: 100, marginBottom: 16 }} />}
 
-
-
             <TouchableOpacity onPress={handleUpdate} className="py-3 bg-indigo-800 rounded-xl">
               <Text className="font-xl font-bold text-center text-gray-100">Güncelle</Text>
             </TouchableOpacity>
-
-
           </View>
-
-
 
         </ScrollView>
       </View>

@@ -3,12 +3,12 @@ import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { ChevronLeftIcon } from 'react-native-heroicons/outline'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { add } from '../api/apiHelperDeneme'
+import { add } from '../api/apiHelper'
 import { LinearGradient } from 'expo-linear-gradient';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 
-export default function SignUpScreen() {
+export default function UserSignUp() {
 
   let newDate = new Date()
   const [formData, setFormData] = useState({

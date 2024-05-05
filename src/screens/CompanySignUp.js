@@ -3,11 +3,11 @@ import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { ChevronLeftIcon } from 'react-native-heroicons/outline'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { add } from '../api/apiHelperDeneme'
+import { add } from '../api/apiHelper'
 import { LinearGradient } from 'expo-linear-gradient';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-export default function SignUpScreen2() {
+export default function CompanySignUp() {
 
   let newDate = new Date()
   const [formData, setFormData] = useState({
@@ -24,10 +24,9 @@ export default function SignUpScreen2() {
     logo_file: '',
   });
 
-  const navigation = useNavigation(); // navigation objesini tanımlama
+  const navigation = useNavigation();
 
 
-  // TextInput değişikliklerini ele alacak genel bir handleChange fonksiyonu
   const handleChange = (name, value) => {
     setFormData({
       ...formData,
@@ -43,7 +42,7 @@ export default function SignUpScreen2() {
       };
       const response = await add('Company', formData, headers);
       console.log('API yanıtı:', response);
-      // response nesnesi ve data özelliği null değilse devam edin
+
       if (response.eventStatus === 1) {
         navigation.navigate('Home');
       } else {
@@ -110,16 +109,10 @@ export default function SignUpScreen2() {
               placeholder='Telefon Numaranızı Girin'
             />
 
-
-
-
             <TouchableOpacity onPress={handlePostButtonClick} className="py-3 bg-indigo-800 rounded-xl">
               <Text className="font-xl font-bold text-center text-gray-100">Kayıt Ol</Text>
             </TouchableOpacity>
-
-
           </View>
-
 
           <View className="flex-row justify-center mt-7">
             <Text className="text-gray-500 font-semibold">

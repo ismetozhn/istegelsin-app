@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { ChevronLeftIcon } from 'react-native-heroicons/outline'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { add } from '../api/apiHelperDeneme'
+import { add } from '../api/apiHelper'
 import { Picker } from '@react-native-picker/picker'
 import { readDataByKey } from '../helpers/storage'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';

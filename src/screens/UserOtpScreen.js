@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Alert, TextInput, Modal, Button, StyleSheet } from 'react-native';
-import { get, add } from '../api/apiHelperDeneme';
+import { get, add } from '../api/apiHelper';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient'
 import { ChevronLeftIcon } from 'react-native-heroicons/outline';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-export default function OtpUserScreen() {
+export default function UserOtpScreen() {
   const navigation = useNavigation();
   const route = useRoute();
   const activeJobData = route.params?.activeJobData;

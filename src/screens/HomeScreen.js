@@ -9,10 +9,10 @@ import Jobs from '../components/jobs';
 import { useNavigation } from '@react-navigation/native';
 
 export default function HomeScreen() {
-  const [activeCategory, setActiveCategory] = useState('Beef');
+  const [activeCategory, setActiveCategory] = useState('');
   const [categories, setCategories] = useState([]);
   const [meals, setMeals] = useState([]);
-  const [searchText, setSearchText] = useState(''); // Arama metni için state
+  const [searchText, setSearchText] = useState(''); 
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export default function HomeScreen() {
   };
 
   const getJobs = async (category = 0) => {
-    try { 
+    try {
       const response = await axios.get(`https://ig.colaksoft.online/api/v1/JobPosting/List?workModelId=${category}&pageNumber=1&pageSize=10`);
       if (response && response.data) {
         setMeals(response.data.data.items);
@@ -48,23 +48,23 @@ export default function HomeScreen() {
     }
   };
 
-  // Arama fonksiyonu
+  
   const handleSearch = () => {
     const filteredMeals = meals.filter(item => {
-      // Türkçe karakterleri İngilizce karakterlere dönüştür
+     
       const normalizedTitle = item.title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-      // Arama metnini de Türkçe karakterleri İngilizce karakterlere dönüştürerek normalize et
+      
       const normalizedSearchText = searchText.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
       return normalizedTitle.includes(normalizedSearchText);
     });
     setMeals(filteredMeals);
   };
   const handleChangeText = (text) => {
-  setSearchText(text);
-  handleSearch(); // Her karakter girişinde aramayı yap
-};
+    setSearchText(text);
+    handleSearch();
+  };
 
-  // İlan detay sayfasına gitme fonksiyonu
+  
   const handleJobDetail = (item) => {
     navigation.navigate('JobDetail', { ...item });
   };
@@ -100,16 +100,16 @@ export default function HomeScreen() {
             placeholderTextColor={'gray'}
             style={{ fontSize: hp(1.7) }}
             className="flex-1 text-base mb-1 pl-3 tracking-wider"
-            onChangeText={setSearchText} // Arama metni değiştiğinde tetiklenecek fonksiyon
+            onChangeText={setSearchText} 
           />
-         <Pressable onPress={handleSearch}>
-  {/* Arama butonuna tıklama */}
-  <View className="bg-white rounded-full p-3">
-    <Text>
-      <MagnifyingGlassIcon size={hp(2.5)} strokeWidth={3} color="gray" />
-    </Text>
-  </View>
-</Pressable>
+          <Pressable onPress={handleSearch}>
+           
+            <View className="bg-white rounded-full p-3">
+              <Text>
+                <MagnifyingGlassIcon size={hp(2.5)} strokeWidth={3} color="gray" />
+              </Text>
+            </View>
+          </Pressable>
         </View>
 
         <View>

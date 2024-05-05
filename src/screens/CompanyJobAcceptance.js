@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, FlatList, Image, TextInput, TouchableOpacity, Alert, Modal } from 'react-native';
-import { get, update ,add} from '../api/apiHelperDeneme';
-import { readDataByKey,Keys } from '../helpers/storage'
+import { get, update, add } from '../api/apiHelper';
+import { readDataByKey, Keys } from '../helpers/storage'
 import { LinearGradient } from 'expo-linear-gradient'
 
-
-
-
-export default function CompanyJobAcp() {
+export default function CompanyJobAcceptance() {
   const [userList, setUserList] = useState([]);
   const [otpInputs, setOtpInputs] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
@@ -80,24 +77,24 @@ export default function CompanyJobAcp() {
 
   const handleSubmitFeedback = async () => {
     try {
-      const companyId = await readDataByKey(Keys.companyid); // AsyncStorage'den companyid'yi al
-  
+      const companyId = await readDataByKey(Keys.companyid);
+
       const headers = {
         'Content-Type': 'application/json-patch+json',
         'Company': 'true'
       };
-  
+
       const feedbackData = {
         job_postingid: selectedJobPostingId,
         userid: selectedUserId,
-        companyid: companyId, // AsyncStorage'den alınan companyid
+        companyid: companyId,
         question_score: parseInt(questionScore),
         is_feedback_for_user: true,
         created_at: new Date().toISOString(),
       };
-  
+
       const response = await add('JobFeedback', feedbackData, headers, true);
-  
+
       if (response && response.isSuccess) {
         Alert.alert('Success', 'User successfully evaluated.');
         setModalVisible(false);
@@ -113,7 +110,7 @@ export default function CompanyJobAcp() {
     <TextInput
       style={styles.input}
       placeholder="Doğrulama Kodunu Giriniz"
-      onChangeText={(text) => setOtpInputs({...otpInputs, [userid]: text})}
+      onChangeText={(text) => setOtpInputs({ ...otpInputs, [userid]: text })}
       value={otpInputs[userid]}
     />
   );

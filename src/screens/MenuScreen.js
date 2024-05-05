@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, Alert } from 'react-native'
 import React, { useEffect } from 'react'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import Animated, { useSharedValue, withSpring } from 'react-native-reanimated';
 import { useNavigation } from '@react-navigation/core';
 import { ChevronLeftIcon } from 'react-native-heroicons/outline';
 import { clearAllData } from '../helpers/storage';
@@ -25,8 +24,8 @@ export default function MenuScreen() {
                 {
                     text: 'Evet',
                     onPress: () => {
-                        clearAllData(); // Verileri temizle
-                        navigation.navigate('Profile'); // Giriş yap sayfasına yönlendir
+                        clearAllData(); 
+                        navigation.navigate('Profile'); 
                     },
                 },
             ],
@@ -99,7 +98,7 @@ export default function MenuScreen() {
 
                 <View className=" mb-3">
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('Sil')}
+                        onPress={() => navigation.navigate('')}
                         className="py-3 bg-indigo-600 mx-7 rounded-xl">
                         <Text
                             className="text-xl font-bold text-center text-gray-100"

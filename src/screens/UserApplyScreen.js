@@ -4,7 +4,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import { useNavigation } from '@react-navigation/core';
 import { ChevronLeftIcon } from 'react-native-heroicons/outline';
 import { readDataByKey, Keys } from '../helpers/storage';
-import { get, add, update } from '../api/apiHelperDeneme'; // apiHelper dosyasının bulunduğu yolu doğru olarak güncelleyin
+import { get, add, update } from '../api/apiHelper'; // apiHelper dosyasının bulunduğu yolu doğru olarak güncelleyin
 import { LinearGradient } from 'expo-linear-gradient';
 
 export default function UserApplyScreen() {

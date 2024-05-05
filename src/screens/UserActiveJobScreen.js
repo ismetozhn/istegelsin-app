@@ -1,13 +1,13 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, Alert, FlatList } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { readDataByKey, Keys } from '../helpers/storage';
-import { get, add, update } from '../api/apiHelperDeneme'; // apiHelper dosyasının bulunduğu yolu doğru olarak güncelleyin
+import { get, add, update } from '../api/apiHelper'; 
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/core';
 import { ChevronLeftIcon } from 'react-native-heroicons/outline';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-export default function ActiveJobScreen() {
+export default function UserActiveJobScreen() {
   const [activeJob, setActiveJob] = useState(null);
   const navigation = useNavigation();
 
