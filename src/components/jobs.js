@@ -1,10 +1,14 @@
 import { Pressable, StyleSheet, Text, View, Image } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import MasonryList from '@react-native-seoul/masonry-list';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import Loading from './loading';
 import { useNavigation } from '@react-navigation/native';
+import { get } from '../api/apiHelperDeneme';
+
+import StarRating from 'react-native-star-rating';
+
 
 
 
@@ -42,13 +46,37 @@ export default function Jobs({ categories, meals }) {
 }
 
 const JobCard = ({ item, index, navigation }) => {
+
+  const [starCount, setStarCount] = useState(0);
+
+  useEffect(() => {
+    fetchJobScores(item.job_postingid, item.companyid);
+  }, [item.job_postingid, item.companyid]);
+
+  const fetchJobScores = async (jobPostingId, companyId) => {
+    try {
+      const headers = {
+
+        'Company': 'true'
+      };
+      const response = await get(`https://ig.colaksoft.online/api/v1/JobFeedback/ListJobScoresByCompany?job_postingid=${jobPostingId}&companyId=${companyId}`, { headers }, true);
+      if (response.data) {
+        const validFeedbacks = response.data.filter(feedback => !feedback.is_feedback_for_user);
+        const scores = validFeedbacks.map(feedback => feedback.question_score);
+        const averageScore = scores.reduce((acc, curr) => acc + curr, 0) / 2;
+        setStarCount(averageScore);
+      }
+    } catch (error) {
+      console.error('Error fetching job scores:', error);
+    }
+  };
   //let isEven = index % 2 == 0;
   let isEven = index % 1 == 0;
   return (
     <Animated.View entering={FadeInDown.delay(index * 100).duration(600).springify().damping(12)}>
       <Pressable
         //style={{ width: '50%', paddingLeft: isEven ? 0 : 8, paddingRight: isEven ? 8 : 0 }}
-        style={{ width: '100%'}}
+        style={{ width: '100%' }}
         className="flex justify-center mb-4 space-y-1 "
         onPress={() => navigation.navigate('JobDetail', { ...item })}
       >
@@ -91,8 +119,9 @@ const JobCard = ({ item, index, navigation }) => {
               <Text style={{ fontSize: hp(2.0), fontWeight: '600', color: '#666' }}>
                 {item.total_salary}
               </Text>
-            </View>
+              <StarRating disabled={false} maxStars={5} rating={starCount} starSize={hp(2)} fullStarColor={'gold'} />
 
+            </View>
 
 
 
