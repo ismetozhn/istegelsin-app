@@ -50,7 +50,7 @@ export default function CompanyJobAcceptance() {
       const otp = otpInputs[userid];
 
       if (!otp) {
-        Alert.alert('Error', 'Please enter an OTP.');
+        Alert.alert('Hata', 'Lütfen doğrulama kodunu giriniz.');
         return;
       }
 
@@ -59,9 +59,9 @@ export default function CompanyJobAcceptance() {
       const response = await update(verifyUrl, {}, headers, true);
 
       if (response && response.isSuccess) {
-        Alert.alert('Success', 'User successfully hired.');
+        Alert.alert('Onay', 'Kullanıcı doğrulaması başarılı!');
       } else {
-        Alert.alert('Error', 'OTP verification failed. Please enter a valid OTP.');
+        Alert.alert('Hata', 'Doğrulama kodu hatalı, lütfen kontrol ediniz.');
       }
     } catch (error) {
       console.error('An error occurred while hiring:', error);
@@ -96,7 +96,7 @@ export default function CompanyJobAcceptance() {
       const response = await add('JobFeedback', feedbackData, headers, true);
 
       if (response && response.isSuccess) {
-        Alert.alert('Success', 'User successfully evaluated.');
+        Alert.alert('Hata', 'Kullanıcı değerlendirmesi başarılı!');
         setModalVisible(false);
       } else {
         Alert.alert('Error', 'Evaluation could not be submitted.');

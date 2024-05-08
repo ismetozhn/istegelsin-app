@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, Alert } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { ChevronLeftIcon } from 'react-native-heroicons/outline'
@@ -31,9 +31,27 @@ export default function UserLoginScreen() {
         saveDataByKey(Keys.userid, response.data.userid);
         saveDataByKey(Keys.isLoggedIn, true);
         navigation.navigate('Home');
+
+        // Giriş başarılı olduğunda bildirim göster
+        Alert.alert(
+          'Kullanıcı Girişi Başarılı',
+          'Hoş geldiniz!',
+          [
+            { text: 'Tamam', onPress: () => console.log('OK Pressed') }
+          ],
+          { cancelable: false }
+        );
       } else {
-        // Yanıt boşsa veya hatalıysa uygun bir işlem yap
         console.error('API yanıtı boş veya hatalı.');
+        // Hata mesajını göster
+        Alert.alert(
+          'Hatalı email adresi veya şifre!',
+          'Bilgilerinizi tekrar kontrol ediniz.',
+          [
+            { text: 'Devam Et', onPress: () => console.log('OK Pressed') }
+          ],
+          { cancelable: false }
+        );
       }
     } catch (error) {
       console.error('Veri çekme hatası:', error);

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, Alert } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { ChevronLeftIcon } from 'react-native-heroicons/outline'
@@ -22,17 +22,34 @@ export default function CompanyLoginScreen() {
       const response = await get(`Company/Login?email=${email}&password=${password}`, headers);
       console.log('API yanıtı:', response);
 
-      
+
       if (response) {
-        
+
         saveDataByKey(Keys.email, response.data.email);
         saveDataByKey(Keys.password, response.data.password);
         saveDataByKey(Keys.companyid, response.data.companyid);
         saveDataByKey(Keys.isLoggedIn, true);
         navigation.navigate('Home');
+        // Giriş başarılı olduğunda bildirim göster
+        Alert.alert(
+          'Şirket Girişi Başarılı',
+          'Hoş geldiniz!',
+          [
+            { text: 'Tamam', onPress: () => console.log('OK Pressed') }
+          ],
+          { cancelable: false }
+        );
       } else {
-        
         console.error('API yanıtı boş veya hatalı.');
+        // Hata mesajını göster
+        Alert.alert(
+          'Hatalı email adresi veya şifre!',
+          'Bilgilerinizi tekrar kontrol ediniz.',
+          [
+            { text: 'Tamam', onPress: () => console.log('OK Pressed') }
+          ],
+          { cancelable: false }
+        );
       }
     } catch (error) {
       console.error('Veri çekme hatası:', error);

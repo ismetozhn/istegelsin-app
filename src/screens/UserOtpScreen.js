@@ -49,9 +49,9 @@ export default function UserOtpScreen() {
 
       if (response && response.isSuccess) {
         setIsOtpVerified(true);
-        Alert.alert('Başarılı', 'İstek başarıyla tamamlandı.');
+        Alert.alert('Başarılı', 'Doğrulama kodu gönderildi.');
       } else {
-        Alert.alert('Hata', 'İstek sırasında bir hata oluştu.');
+        Alert.alert('Hata', 'Bu bilgilere ait bir doğrulama bulundu!');
       }
     } catch (e) {
       console.error('Veri gönderme hatası:', e);
