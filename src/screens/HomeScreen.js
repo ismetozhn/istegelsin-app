@@ -7,17 +7,23 @@ import Categories from '../components/categories';
 import axios from 'axios';
 import Jobs from '../components/jobs';
 import { useNavigation } from '@react-navigation/native';
+import { readDataByKey } from '../helpers/storage';
+import { get } from '../api/apiHelper';
 
 export default function HomeScreen() {
   const [activeCategory, setActiveCategory] = useState('');
   const [categories, setCategories] = useState([]);
   const [meals, setMeals] = useState([]);
-  const [searchText, setSearchText] = useState(''); 
+  const [searchText, setSearchText] = useState('');
   const navigation = useNavigation();
+
+  const [logoPath, setLogoPath] = useState('');
+  const [isUser, setIsUser] = useState(false);
 
   useEffect(() => {
     getCategories();
     getJobs();
+    fetchData();
   }, []);
 
   const handleChangeCategory = category => {
@@ -25,6 +31,63 @@ export default function HomeScreen() {
     setActiveCategory(category);
     setMeals([]);
   };
+
+  const fetchData = async () => {
+    try {
+      const userId = await readDataByKey('@userid');
+      const companyId = await readDataByKey('@companyid');
+  
+      if (userId) {
+        // Kullanıcı verilerini al
+        const userData = await getUserData(userId);
+        setLogoPath(userData.logo_path);
+        setIsUser(true);
+      } else if (companyId) {
+        // Şirket verilerini al
+        const companyData = await getCompanyData(companyId);
+        setLogoPath(companyData.logo_path);
+        setIsUser(false);
+      } else {
+        // Ne kullanıcı ne de şirket bilgileri bulundu
+        console.error('No user or company data found');
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+  
+  
+  const getUserData = async (userId) => {
+    try {
+      const headers = {
+
+
+      };
+      const response = await get(`https://ig.colaksoft.online/api/v1/User`, headers, true);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
+
+  const getCompanyData = async (companyId) => {
+    try {
+      const headers = {
+        'Company': 'true'
+      };
+      const response = await get(`https://ig.colaksoft.online/api/v1/Company`, headers , true);
+      if (response && response.data) {
+        return response.data;
+      } else {
+        throw new Error('Company data not found');
+      }
+    } catch (error) {
+      console.error('Error fetching company data:', error);
+    }
+  };
+  
+
+
 
   const getCategories = async () => {
     try {
@@ -48,12 +111,12 @@ export default function HomeScreen() {
     }
   };
 
-  
+
   const handleSearch = () => {
     const filteredMeals = meals.filter(item => {
-     
+
       const normalizedTitle = item.title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-      
+
       const normalizedSearchText = searchText.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
       return normalizedTitle.includes(normalizedSearchText);
     });
@@ -64,7 +127,7 @@ export default function HomeScreen() {
     handleSearch();
   };
 
-  
+
   const handleJobDetail = (item) => {
     navigation.navigate('JobDetail', { ...item });
   };
@@ -79,13 +142,17 @@ export default function HomeScreen() {
       >
         <View className="mx-4 flex-row justify-between items-center mb-2">
           <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-            <Image source={require('../../assets/images/man.jpg')} style={{ height: hp(5), width: hp(5.5), borderRadius: 25 }} />
+            {logoPath ? (
+              <Image source={{ uri: 'https://cdn.colaksoft.online' + logoPath }} style={{ height: 60, width: 60, borderRadius: 25 }} />
+            ) : (
+              <Image source={require('../../assets/images/man.jpg')} style={{ height: 50, width: 50, borderRadius: 25 }} />
+            )}
           </TouchableOpacity>
-          <Bars3BottomRightIcon onPress={() => navigation.navigate('Menu')} size={hp(4)} color="gray" />
+          <Bars3BottomRightIcon  onPress={() => navigation.navigate('Menu')}  strokeWidth={2.5} size={hp(6)} color="gray" />
         </View>
 
         <View className="mx-4 space-y-2 mb-2">
-          <Text style={{ fontSize: hp(1.7) }} className="text-neutral-600"> Merhaba, Berkan!</Text>
+          <Text style={{ fontSize: hp(1.7) }} className="text-neutral-600"> Merhaba, İş Dünyasına Hoş Geldiniz!</Text>
           <View>
             <Text style={{ fontSize: hp(3.8) }} className="font-semibold text-neutral-600">Aradığın işi her an </Text>
           </View>
@@ -100,10 +167,10 @@ export default function HomeScreen() {
             placeholderTextColor={'gray'}
             style={{ fontSize: hp(1.7) }}
             className="flex-1 text-base mb-1 pl-3 tracking-wider"
-            onChangeText={setSearchText} 
+            onChangeText={setSearchText}
           />
           <Pressable onPress={handleSearch}>
-           
+
             <View className="bg-white rounded-full p-3">
               <Text>
                 <MagnifyingGlassIcon size={hp(2.5)} strokeWidth={3} color="gray" />

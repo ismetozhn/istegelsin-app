@@ -59,7 +59,7 @@ const JobCard = ({ item, index, navigation }) => {
 
         'Company': 'true'
       };
-      const response = await get(`https://ig.colaksoft.online/api/v1/JobFeedback/ListJobScoresByCompany?job_postingid=${jobPostingId}&companyId=${companyId}`, { headers }, true);
+      const response = await get(`https://ig.colaksoft.online/api/v1/JobFeedback/ListJobScoresByCompany?job_postingid=${jobPostingId}&companyId=${companyId}`, { headers } , true);
       if (response.data) {
         const validFeedbacks = response.data.filter(feedback => !feedback.is_feedback_for_user);
         const scores = validFeedbacks.map(feedback => feedback.question_score);
