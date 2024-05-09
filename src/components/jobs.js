@@ -6,6 +6,7 @@ import Animated, { FadeInDown } from 'react-native-reanimated';
 import Loading from './loading';
 import { useNavigation } from '@react-navigation/native';
 import { get } from '../api/apiHelper';
+import { readDataByKey, Keys } from '../helpers/storage';
 
 import StarRating from 'react-native-star-rating';
 
@@ -55,21 +56,35 @@ const JobCard = ({ item, index, navigation }) => {
 
   const fetchJobScores = async (jobPostingId, companyId) => {
     try {
-      const headers = {
+        let headers;
 
-        'Company': 'true'
-      };
-      const response = await get(`https://ig.colaksoft.online/api/v1/JobFeedback/ListJobScoresByCompany?job_postingid=${jobPostingId}&companyId=${companyId}`, { headers } , true);
-      if (response.data) {
-        const validFeedbacks = response.data.filter(feedback => !feedback.is_feedback_for_user);
-        const scores = validFeedbacks.map(feedback => feedback.question_score);
-        const averageScore = scores.reduce((acc, curr) => acc + curr, 0) / 2;
-        setStarCount(averageScore);
-      }
+        // userid'ye göre headers belirleme
+        const userId = await readDataByKey(Keys.userid);
+        if (userId) {
+            headers = { 'Company': 'true' };
+
+            const response = await get(`https://ig.colaksoft.online/api/v1/JobFeedback/ListJobScoresByCompany?job_postingid=${jobPostingId}&companyId=${companyId}`, {headers}, true);
+            if (response.data) {
+                const validFeedbacks = response.data.filter(feedback => !feedback.is_feedback_for_user);
+                const scores = validFeedbacks.map(feedback => feedback.question_score);
+                const averageScore = scores.reduce((acc, curr) => acc + curr, 0) / 2;
+                setStarCount(averageScore);
+            }
+        } else {
+            // companyid'ye göre headers belirleme
+            headers = { 'Company': 'true' };
+            const response = await get(`https://ig.colaksoft.online/api/v1/JobFeedback/ListJobScoresByCompany?job_postingid=${jobPostingId}&companyId=${companyId}`, headers, true);
+            if (response.data) {
+                const validFeedbacks = response.data.filter(feedback => !feedback.is_feedback_for_user);
+                const scores = validFeedbacks.map(feedback => feedback.question_score);
+                const averageScore = scores.reduce((acc, curr) => acc + curr, 0) / 2;
+                setStarCount(averageScore);
+            }
+        }
     } catch (error) {
-      console.error('Error fetching job scores:', error);
+        console.error('Hata oluştu:', error);
     }
-  };
+};
   //let isEven = index % 2 == 0;
   let isEven = index % 1 == 0;
   return (

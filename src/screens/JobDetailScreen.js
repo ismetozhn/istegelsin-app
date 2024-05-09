@@ -40,22 +40,37 @@ export default function JobDetailScreen(props) {
 
     const fetchJobScores = async (jobPostingId, companyId) => {
         try {
-            const headers = {
-
-                'Company': 'true'
-            };
-            const response = await get(`https://ig.colaksoft.online/api/v1/JobFeedback/ListJobScoresByCompany?job_postingid=${jobPostingId}&companyId=${companyId}`, { headers }, true);
-            if (response.data) {
-                const validFeedbacks = response.data.filter(feedback => !feedback.is_feedback_for_user);
-                const scores = validFeedbacks.map(feedback => feedback.question_score);
-                const averageScore = scores.reduce((acc, curr) => acc + curr, 0) / 2;
-                setStarCount(averageScore);
+            let headers;
+    
+            // userid'ye göre headers belirleme
+            const userId = await readDataByKey(Keys.userid);
+            if (userId) {
+                headers = { 'Company': 'true' };
+    
+                const response = await get(`https://ig.colaksoft.online/api/v1/JobFeedback/ListJobScoresByCompany?job_postingid=${jobPostingId}&companyId=${companyId}`, {headers}, true);
+                if (response.data) {
+                    const validFeedbacks = response.data.filter(feedback => !feedback.is_feedback_for_user);
+                    const scores = validFeedbacks.map(feedback => feedback.question_score);
+                    const averageScore = scores.reduce((acc, curr) => acc + curr, 0) / 2;
+                    setStarCount(averageScore);
+                }
+            } else {
+                // companyid'ye göre headers belirleme
+                headers = { 'Company': 'true' };
+                const response = await get(`https://ig.colaksoft.online/api/v1/JobFeedback/ListJobScoresByCompany?job_postingid=${jobPostingId}&companyId=${companyId}`, headers, true);
+                if (response.data) {
+                    const validFeedbacks = response.data.filter(feedback => !feedback.is_feedback_for_user);
+                    const scores = validFeedbacks.map(feedback => feedback.question_score);
+                    const averageScore = scores.reduce((acc, curr) => acc + curr, 0) / 2;
+                    setStarCount(averageScore);
+                }
             }
         } catch (error) {
-            console.error('Error fetching job scores:', error);
+            console.error('Hata oluştu:', error);
         }
     };
-
+            
+    
     const applyForJob = async () => {
         try {
             const userId = await readDataByKey(Keys.userid);
