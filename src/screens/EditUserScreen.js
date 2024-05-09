@@ -222,7 +222,7 @@ export default function EditUserScreen() {
           <Picker
             selectedValue={userData.working_with_bankid}
             onValueChange={(itemValue, itemIndex) => setUserData({ ...userData, working_with_bankid: itemValue })}
-            style={{ height: 50, width: '100%', backgroundColor: '#f0f0f0', borderRadius: 8 }}
+            style={{ flex:1, backgroundColor: '#f0f0f0' }}
           >
             <Picker.Item label="Fibabanka" value="1" />
             <Picker.Item label="Ziraat Bankası" value="2" />

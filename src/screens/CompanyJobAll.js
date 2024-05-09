@@ -12,6 +12,8 @@ export default function CompanyJob() {
     const navigateToApplications = (jobPostingId) => {
         navigation.navigate('Basvurular', { jobPostingId });
     }
+    const [logoPath, setLogoPath] = useState('');
+    const [isUser, setIsUser] = useState(false);
     const navigation = useNavigation();
     const [formData, setFormData] = useState({
         job_postingid: 2,
@@ -58,7 +60,39 @@ export default function CompanyJob() {
             }
         }
         fetchCompanyIdAndJobs();
+        fetchData();
     }, []);
+
+    const fetchData = async () => {
+        try {
+
+            const companyId = await readDataByKey('@companyid');
+            // Şirket verilerini al
+            const companyData = await getCompanyData(companyId);
+            setLogoPath(companyData.logo_path);
+            setIsUser(false);
+
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+    const getCompanyData = async (companyId) => {
+        try {
+            const headers = {
+                'Company': 'true'
+            };
+            const response = await get(`https://ig.colaksoft.online/api/v1/Company`, headers, true);
+            if (response && response.data) {
+                return response.data;
+            } else {
+                throw new Error('Company data not found');
+            }
+        } catch (error) {
+            console.error('Error fetching company data:', error);
+        }
+    };
     return (
         <LinearGradient
             colors={['#330867', '#075985']}
@@ -75,9 +109,15 @@ export default function CompanyJob() {
                 </View>
 
                 <View className=" items-center mb-5 ">
-                    <Image
+                    {/* <Image
                         source={require("../../assets/images/istegelsin.png")} style={{ width: hp(15), height: hp(15), borderRadius: 180, borderWidth: 3, borderColor: 'white' }}
-                    />
+                    /> */}
+
+                    {logoPath ? (
+                        <Image source={{ uri: 'https://cdn.colaksoft.online' + logoPath }} style={{ width: hp(15), height: hp(15), borderRadius: 180, borderWidth: 3, borderColor: '#12218e' }}/>
+                    ) : (
+                        <Image source={require('../../assets/images/man.jpg')} style={{ width: hp(15), height: hp(15), borderRadius: 180, borderWidth: 3, borderColor: 'white' }} />
+                    )}
                 </View>
 
                 <View className=" mb-3">
@@ -114,8 +154,9 @@ export default function CompanyJob() {
                                 end={{ x: 1, y: 0 }}
                             >
                                 <Text style={{ color: '#ffffff', fontSize: hp(2.5), fontWeight: 'bold', marginBottom: hp(1) }}>{item.title}</Text>
-                                <Text>{item.description}</Text>
-                                <Text>{item.total_salary}</Text>
+                                <Text className='text-slate-50 font-bold mb-2'>{item.adress}</Text>
+                                <Text className='text-slate-50'>{item.description}</Text>
+                                <Text className='text-slate-50 mt-2'>{item.total_salary}</Text>
                             </LinearGradient>
                         </TouchableOpacity>
                     )}

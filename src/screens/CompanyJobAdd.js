@@ -77,133 +77,140 @@ export default function CompanyJobAdd() {
 
   return (
     <LinearGradient
-    colors={['#330867', '#075985']}
-    style={{ flex: 1 }}
-    start={{ x: 0, y: 0 }}
-    end={{ x: 1, y: 1 }}
-  >
+      colors={['#330867', '#075985']}
+      style={{ flex: 1 }}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+    >
 
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false} className="flex-1 ">
-      <SafeAreaView className="flex">
-        <View className="flex-row justify-start mb-2">
-          <TouchableOpacity onPress={() => navigation.goBack()} className="bg-indigo-400 p-2 rounded-tr-2xl rounded-bl-2xl ml-4">
-            <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color="#330867" />
-          </TouchableOpacity>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false} className="flex-1 ">
+        <SafeAreaView className="flex">
+          <View className="flex-row justify-start mb-2">
+            <TouchableOpacity onPress={() => navigation.goBack()} className="bg-indigo-400 p-2 rounded-tr-2xl rounded-bl-2xl ml-4">
+              <ChevronLeftIcon size={hp(3.5)} strokeWidth={4.5} color="#330867" />
+            </TouchableOpacity>
+
+          </View>
+
+        </SafeAreaView>
+        <View className="flex-1 bg-white px-8 pt-8"
+          style={{ borderTopLeftRadius: 50, borderTopRightRadius: 50 }}
+        >
+          <View className="from space-y-2">
+            <Text className="text-gray-1000 ml-4">İlan Başlığı</Text>
+            <TextInput
+              className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
+              onChangeText={(value) => handleChange('title', value)}
+              value={formData.title}
+              placeholder='İlan Başlığını Girin'
+            />
+            <Text className="text-gray-1000 ml-4">Açıklama</Text>
+            <TextInput
+              className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
+              onChangeText={(value) => handleChange('description', value)}
+              value={formData.description}
+              placeholder='İlan Açıklaması Girin'
+            />
+            <Text className="text-gray-1000 ml-4">İlan Adresi</Text>
+            <TextInput
+              className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
+              onChangeText={(value) => handleChange('adress', value)}
+              value={formData.adress}
+              placeholder='İlan Adresini Girin'
+            />
+
+            <Text className="text-gray-1000 ml-4">Maaş</Text>
+            <TextInput
+              className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
+              onChangeText={(value) => handleChange('total_salary', value)}
+              value={formData.total_salary}
+              placeholder='Belirlediğiniz Maaşı Girin'
+            />
+
+            <Text className="text-gray-1000 ml-4">Çalışma Saati</Text>
+            <TextInput
+              className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
+              onChangeText={(value) => handleChange('work_per_hour', value)}
+              value={formData.work_per_hour}
+              placeholder='Çalışma Saatini Belirleyin'
+            />
+
+            <Text className="text-gray-1000 ml-4">Deneyim Yılı</Text>
+            <TextInput
+              className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
+              onChangeText={(value) => handleChange('experience_years', value)}
+              value={formData.experience_years}
+              placeholder='Deneyim Yılı Girin'
+            />
+
+            <Text className="text-gray-1000 ml-4">Çalışma Süresi</Text>
+            <Picker
+              selectedValue={formData.employment_type}
+              onValueChange={(itemValue, itemIndex) => {
+                console.log('Seçilen değer:', itemValue);
+                setFormData({ ...formData, employment_type: itemValue });
+              }}
+              style={{backgroundColor: '#f0f0f0', borderRadius: 8 }}
+            >
+              <Picker.Item label="Seçiniz" value="" />
+              <Picker.Item label="Tam Zamanlı" value={1} />
+              <Picker.Item label="Yarı Zamanlı" value={2} />
+              <Picker.Item label="Sözleşmeli" value={3} />
+              <Picker.Item label="Dönemlik" value={4} />
+              <Picker.Item label="Stajyer" value={5} />
+            </Picker>
+            <Text className="text-gray-1000 ml-4">Öğrenim Seviyesi</Text>
+            <Picker
+              selectedValue={formData.education_level}
+              onValueChange={(itemValue, itemIndex) => setFormData({ ...formData, education_level: itemValue })}
+              style={{backgroundColor: '#f0f0f0', borderRadius: 8 }}
+            >
+              <Picker.Item label="Seçiniz" value="" />
+              <Picker.Item label="Lise" value="1" />
+              <Picker.Item label="Ön Lisans" value="2" />
+              <Picker.Item label="Lisans" value="3" />
+              <Picker.Item label="Yüksek Lisans" value="4" />
+              <Picker.Item label="Doktora" value="5" />
+              <Picker.Item label="Post-Doktora" value="6" />
+              <Picker.Item label="Profesyonel Derece" value="7" />
+            </Picker>
+            <Text className="text-gray-1000 ml-4">Deneyim</Text>
+            <Picker
+              selectedValue={formData.experience_level}
+              onValueChange={(itemValue, itemIndex) => setFormData({ ...formData, experience_level: itemValue })}
+              style={{backgroundColor: '#f0f0f0', borderRadius: 8 }}
+            >
+              <Picker.Item label="Seçiniz" value="" />
+              <Picker.Item label="Giriş" value="1" />
+              <Picker.Item label="Orta" value="2" />
+              <Picker.Item label="Üst Düzey" value="3" />
+              <Picker.Item label="Uzman" value="4" />
+            </Picker>
+            <Text className="text-gray-1000 ml-4">Çalışma Şekli</Text>
+            <Picker
+              selectedValue={formData.work_model}
+              onValueChange={(itemValue, itemIndex) => setFormData({ ...formData, work_model: itemValue })}
+              style={{backgroundColor: '#f0f0f0', borderRadius: 8 }}
+            >
+              <Picker.Item label="Seçiniz" value="" />
+              <Picker.Item label="Uzaktan" value="1" />
+              <Picker.Item label="Hibrit" value="2" />
+              <Picker.Item label="Ofis" value="3" />
+
+            </Picker>
+
+
+
+            <TouchableOpacity onPress={handlePostButtonClick} className="py-3 mb-10 bg-indigo-800 rounded-xl">
+              <Text className="font-xl font-bold text-center text-gray-100">İlan Ekle</Text>
+            </TouchableOpacity>
+
+
+          </View>
+
 
         </View>
-
-      </SafeAreaView>
-      <View className="flex-1 bg-white px-8 pt-8"
-        style={{ borderTopLeftRadius: 50, borderTopRightRadius: 50 }}
-      >
-        <View className="from space-y-2">
-          <Text className="text-gray-1000 ml-4">İlan Başlığı</Text>
-          <TextInput
-            className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
-            onChangeText={(value) => handleChange('title', value)}
-            value={formData.title}
-            placeholder='İlan Başlığını Girin'
-          />
-          <Text className="text-gray-1000 ml-4">Açıklama</Text>
-          <TextInput
-            className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
-            onChangeText={(value) => handleChange('description', value)}
-            value={formData.description}
-            placeholder='İlan Açıklaması Girin'
-          />
-          <Text className="text-gray-1000 ml-4">İlan Adresi</Text>
-          <TextInput
-            className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
-            onChangeText={(value) => handleChange('adress', value)}
-            value={formData.adress}
-            placeholder='İlan Adresini Girin'
-          />
-
-          <Text className="text-gray-1000 ml-4">Maaş</Text>
-          <TextInput
-            className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
-            onChangeText={(value) => handleChange('total_salary', value)}
-            value={formData.total_salary}
-            placeholder='Belirlediğiniz Maaşı Girin'
-          />
-
-          <Text className="text-gray-1000 ml-4">Çalışma Saati</Text>
-          <TextInput
-            className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
-            onChangeText={(value) => handleChange('work_per_hour', value)}
-            value={formData.work_per_hour}
-            placeholder='Çalışma Saatini Belirleyin'
-          />
-
-          <Text className="text-gray-1000 ml-4">Deneyim Yılı</Text>
-          <TextInput
-            className="p-4 bg-gray-100 text-gray-700 rounded-2x1"
-            onChangeText={(value) => handleChange('experience_years', value)}
-            value={formData.experience_years}
-            placeholder='Deneyim Yılı Girin'
-          />
-
-          <Text className="text-gray-1000 ml-4">Çalışma Süresi</Text>
-          <Picker
-            selectedValue={formData.employment_type}
-            onValueChange={(itemValue, itemIndex) => setFormData({ ...formData, employment_type: itemValue })}
-            style={{ height: 50, width: '100%', backgroundColor: '#f0f0f0', borderRadius: 8 }}
-          >
-            <Picker.Item label="Tam zamanlı " value="1" />
-            <Picker.Item label="Yaarı zamanlı" value="2" />
-            <Picker.Item label="Sözleşmeli" value="3" />
-            <Picker.Item label="Dönemlik" value="4" />
-            <Picker.Item label="Stajyer" value="5" />
-          </Picker>
-          <Text className="text-gray-1000 ml-4">Öğrenim Seviyesi</Text>
-          <Picker
-            selectedValue={formData.education_level}
-            onValueChange={(itemValue, itemIndex) => setFormData({ ...formData, education_level: itemValue })}
-            style={{ height: 50, width: '100%', backgroundColor: '#f0f0f0', borderRadius: 8 }}
-          >
-            <Picker.Item label="Lise" value="1" />
-            <Picker.Item label="ÖnLisans" value="2" />
-            <Picker.Item label="Lisans" value="3" />
-            <Picker.Item label="Yüksek Lisans" value="4" />
-            <Picker.Item label="Doktora" value="5" />
-            <Picker.Item label="Post-Doktora" value="6" />
-            <Picker.Item label="Profesyonel Derece" value="7" />
-          </Picker>
-          <Text className="text-gray-1000 ml-4">Deneyim</Text>
-          <Picker
-            selectedValue={formData.experience_level}
-            onValueChange={(itemValue, itemIndex) => setFormData({ ...formData, experience_level: itemValue })}
-            style={{ height: 50, width: '100%', backgroundColor: '#f0f0f0', borderRadius: 8 }}
-          >
-            <Picker.Item label="Giriş Seviyesi" value="1" />
-            <Picker.Item label="Orta Seviyesi" value="2" />
-            <Picker.Item label="Üst Düzey Seviyesi" value="3" />
-            <Picker.Item label="Uzman Seviyesi" value="4" />
-          </Picker>
-          <Text className="text-gray-1000 ml-4">Çalışma Şekli</Text>
-          <Picker
-            selectedValue={formData.work_model}
-            onValueChange={(itemValue, itemIndex) => setFormData({ ...formData, work_model: itemValue })}
-            style={{ height: 50, width: '100%', backgroundColor: '#f0f0f0', borderRadius: 8 }}
-          >
-            <Picker.Item label="Uzaktan" value="1" />
-            <Picker.Item label="Hibrit" value="2" />
-            <Picker.Item label="Ofis" value="3" />
-
-          </Picker>
-
-
-
-          <TouchableOpacity onPress={handlePostButtonClick} className="py-3 mb-10 bg-indigo-800 rounded-xl">
-            <Text className="font-xl font-bold text-center text-gray-100">İlan Ekle</Text>
-          </TouchableOpacity>
-
-
-        </View>
-
-
-      </View>
-    </ScrollView>
+      </ScrollView>
     </LinearGradient>
   )
 }
