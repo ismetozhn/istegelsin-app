@@ -29,6 +29,8 @@ export default function HomeScreen() {
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     fetchData();
+    getCategories();
+    getJobs();
     setRefreshing(false);
   }, []);
   const handleChangeCategory = category => {

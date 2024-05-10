@@ -8,9 +8,15 @@ import { Picker } from '@react-native-picker/picker'
 import { readDataByKey } from '../helpers/storage'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { LinearGradient } from 'expo-linear-gradient'
-
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 export default function CompanyJobAdd() {
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [startMode, setStartMode] = useState('date');
+  const [endMode, setEndMode] = useState('date');
+  const [showStart, setShowStart] = useState(false);
+  const [showEnd, setShowEnd] = useState(false);
 
   let newDate = new Date()
   const [formData, setFormData] = useState({
@@ -28,12 +34,47 @@ export default function CompanyJobAdd() {
     logo_path: '1',
     adress: '',
     is_active: true,
-    start_at: '2024-04-20T15:56:22',
-    end_at: '2024-05-20T15:56:22'
+    start_at: '',
+    end_at: ''
   });
 
   const navigation = useNavigation();
 
+  const onChangeStart = (event, selectedDate) => {
+    const currentDate = selectedDate || startDate;
+    setShowStart(false);
+    setStartDate(currentDate);
+
+    const formattedDate = currentDate.toISOString().split('T')[0];
+    setFormData({ ...formData, start_at: formattedDate });
+  };
+
+  const onChangeEnd = (event, selectedDate) => {
+    const currentDate = selectedDate || endDate;
+    setShowEnd(false);
+    setEndDate(currentDate);
+
+    const formattedDate = currentDate.toISOString().split('T')[0];
+    setFormData({ ...formData, end_at: formattedDate });
+  };
+
+  const showStartMode = (currentMode) => {
+    setShowStart(true);
+    setStartMode(currentMode);
+  };
+
+  const showEndMode = (currentMode) => {
+    setShowEnd(true);
+    setEndMode(currentMode);
+  };
+
+  const showStartDatepicker = () => {
+    showStartMode('date');
+  };
+
+  const showEndDatepicker = () => {
+    showEndMode('date');
+  };
   useEffect(() => {
     // Component yüklendiğinde storage'dan companyid al
     async function fetchCompanyId() {
@@ -198,7 +239,38 @@ export default function CompanyJobAdd() {
               <Picker.Item label="Ofis" value="3" />
 
             </Picker>
+              
+            <SafeAreaView>
+              <Text className="text-gray-1000 ml-4">Başlangıç Tarihi</Text>
+              <TouchableOpacity onPress={showStartDatepicker} style={{ padding: 10, backgroundColor: 'lightgray', borderRadius: 5 }}>
+                <Text>Tarih Seç</Text>
+              </TouchableOpacity>
+              {showStart && (
+                <DateTimePicker
+                testID="dateTimePickerStart"
+                value={startDate}
+                mode={startMode}
+                is24Hour={true}
+                onChange={onChangeStart}
+              />
+              )}
+            </SafeAreaView>
 
+            <SafeAreaView>
+              <Text className="text-gray-1000 ml-4">Bitiş Tarihi</Text>
+              <TouchableOpacity onPress={showEndDatepicker} style={{ padding: 10, backgroundColor: 'lightgray', borderRadius: 5 }}>
+                <Text>Tarih Seç</Text>
+              </TouchableOpacity>
+              {showEnd && (
+                <DateTimePicker
+                testID="dateTimePickerEnd"
+                value={endDate}
+                mode={endMode}
+                is24Hour={true}
+                onChange={onChangeEnd}
+              />
+              )}
+            </SafeAreaView>
 
 
             <TouchableOpacity onPress={handlePostButtonClick} className="py-3 mb-10 bg-indigo-800 rounded-xl">
