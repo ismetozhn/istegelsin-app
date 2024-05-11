@@ -56,35 +56,39 @@ const JobCard = ({ item, index, navigation }) => {
 
   const fetchJobScores = async (jobPostingId, companyId) => {
     try {
-        let headers;
+      let headers;
 
-        // userid'ye göre headers belirleme
-        const userId = await readDataByKey(Keys.userid);
-        if (userId) {
-            headers = { 'Company': 'true' };
+      // userid'ye göre headers belirleme
+      const userId = await readDataByKey(Keys.userid);
+      if (userId) {
+        headers = { 'Company': 'true' };
 
-            const response = await get(`https://ig.colaksoft.online/api/v1/JobFeedback/ListScore?companyId=${companyId}`, {headers}, true);
-            if (response.data) {
-                const validFeedbacks = response.data.filter(feedback => !feedback.is_feedback_for_user);
-                const scores = validFeedbacks.map(feedback => feedback.question_score);
-                const averageScore = scores.reduce((acc, curr) => acc + curr, 0) / 2;
-                setStarCount(averageScore);
-            }
-        } else {
-            // companyid'ye göre headers belirleme
-            headers = { 'Company': 'true' };
-            const response = await get(`https://ig.colaksoft.online/api/v1/JobFeedback/ListScore?companyId=${companyId}`, headers, true);
-            if (response.data) {
-                const validFeedbacks = response.data.filter(feedback => !feedback.is_feedback_for_user);
-                const scores = validFeedbacks.map(feedback => feedback.question_score);
-                const averageScore = scores.reduce((acc, curr) => acc + curr, 0) / 2;
-                setStarCount(averageScore);
-            }
+        const response = await get(`https://ig.colaksoft.online/api/v1/JobFeedback/ListScore?companyId=${companyId}`, { headers }, true);
+        if (response.data) {
+          const validFeedbacks = response.data.filter(feedback => !feedback.is_feedback_for_user);
+          const scores = validFeedbacks.map(feedback => feedback.question_score);
+          const totalQuestions = scores.length; // Toplam question_score sayısı
+          const sumOfHalfScores = scores.reduce((acc, curr) => acc + curr / 2, 0); // Her bir question_score'un yarısının toplamı
+          const averageScore = sumOfHalfScores / totalQuestions;
+          setStarCount(averageScore);
         }
+      } else {
+        // companyid'ye göre headers belirleme
+        headers = { 'Company': 'true' };
+        const response = await get(`https://ig.colaksoft.online/api/v1/JobFeedback/ListScore?companyId=${companyId}`, headers, true);
+        if (response.data) {
+          const validFeedbacks = response.data.filter(feedback => !feedback.is_feedback_for_user);
+          const scores = validFeedbacks.map(feedback => feedback.question_score);
+          const totalQuestions = scores.length; // Toplam question_score sayısı
+          const sumOfHalfScores = scores.reduce((acc, curr) => acc + curr / 2, 0); // Her bir question_score'un yarısının toplamı
+          const averageScore = sumOfHalfScores / totalQuestions;
+          setStarCount(averageScore);
+        }
+      }
     } catch (error) {
-        console.error('Hata oluştu:', error);
+      console.error('Hata oluştu:', error);
     }
-};
+  };
   //let isEven = index % 2 == 0;
   let isEven = index % 1 == 0;
   return (
@@ -109,7 +113,7 @@ const JobCard = ({ item, index, navigation }) => {
           <View>
             <Text style={{ fontSize: hp(2.0) }} className=" font-bold ml-2 text-neutral-700">
               {
-                item.title.length > 20 ? item.title.slice(0, 20) + '...' : item.title
+                item.title.length > 20 ? item.title.slice(0, 20) + '...' : item.companyid
               }
             </Text>
 
@@ -131,9 +135,9 @@ const JobCard = ({ item, index, navigation }) => {
 
 
             <View style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginLeft: 7 }}>
-  <Text style={{ marginRight: 5, fontSize: hp(1.7), color: 'black' }}>Şirket Puanı:</Text>
-  <StarRating disabled={false} maxStars={5} rating={starCount} starSize={hp(2)} fullStarColor={'gold'} />
-</View>
+              <Text style={{ marginRight: 5, fontSize: hp(1.7), color: 'black' }}>Şirket Puanı:</Text>
+              <StarRating disabled={false} maxStars={5} rating={starCount} starSize={hp(2)} fullStarColor={'gold'} />
+            </View>
 
 
 
