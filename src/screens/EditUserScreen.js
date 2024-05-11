@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, ScrollView, Button } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, ScrollView, Button, Alert } from 'react-native'
 import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native'
 import { ChevronLeftIcon } from 'react-native-heroicons/outline'
@@ -150,8 +150,15 @@ export default function EditUserScreen() {
       }
 
       const response = await update(endpoint, formData, headers, true);
-      console.log('Güncelleme işlemi başarılı:', response);
+      if (response.success) {
+        alert(response.message || 'Güncelleme işlemi başarılı');
+        console.log('Güncelleme işlemi başarılı:', response);
+      } else {
+        alert(response.message || 'Güncelleme işlemi başarısız');
+        console.error('Güncelleme işlemi başarısız:', response.error);
+      }
     } catch (error) {
+      alert('Güncelleme işlemi sırasında bir hata oluştu');
       console.error('Güncelleme işlemi hatası:', error);
     }
   };
@@ -222,20 +229,20 @@ export default function EditUserScreen() {
             <Text className="text-gray-1000 ml-4">Cinsiyet</Text>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 4 }}>
               <TouchableOpacity
-                onPress={() => setUserData({ ...userData, gender_type: '1' })}
+                onPress={() => setUserData({ ...userData, gender_type: '2' })}
                 style={{ flexDirection: 'row', alignItems: 'center' }}
               >
                 <View style={{ height: 24, width: 24, borderRadius: 12, borderWidth: 2, borderColor: userData.gender_type === '1' ? 'blue' : 'lightgray', justifyContent: 'center', alignItems: 'center' }}>
-                  {userData.gender_type === '1' && <View style={{ height: 12, width: 12, borderRadius: 6, backgroundColor: 'blue' }} />}
+                  {userData.gender_type === '2' && <View style={{ height: 12, width: 12, borderRadius: 6, backgroundColor: 'blue' }} />}
                 </View>
                 <Text style={{ marginLeft: 8 }}>Erkek</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => setUserData({ ...userData, gender_type: '2' })}
+                onPress={() => setUserData({ ...userData, gender_type: '3' })}
                 style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 16 }}
               >
                 <View style={{ height: 24, width: 24, borderRadius: 12, borderWidth: 2, borderColor: userData.gender_type === '2' ? 'blue' : 'lightgray', justifyContent: 'center', alignItems: 'center' }}>
-                  {userData.gender_type === '2' && <View style={{ height: 12, width: 12, borderRadius: 6, backgroundColor: 'blue' }} />}
+                  {userData.gender_type === '3' && <View style={{ height: 12, width: 12, borderRadius: 6, backgroundColor: 'blue' }} />}
                 </View>
                 <Text style={{ marginLeft: 8 }}>Kadın</Text>
               </TouchableOpacity>

@@ -117,23 +117,26 @@ export default function CompanyJobAcceptance() {
 
   const renderItem = ({ item }) => (
     <View style={styles.item}>
-      <Text style={styles.title}>{item.name} {item.surname}</Text>
-      <Text>Email: {item.email}</Text>
-      <Text>GSM: {item.gsm}</Text>
-      <Text>Gender: {item.gender_name}</Text>
-      <Image style={styles.logo} source={{ uri: item.logo_path }} />
-      {renderOTPInput(item.userid)}
-      <TouchableOpacity
-        onPress={() => handleAcceptButtonPress(item.job_postingid, item.userid)}
-        style={styles.button}>
-        <Text style={styles.buttonText}>Doğrulama Kodunu Gönder</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => handleEvaluateButtonPress(item.userid, item.job_postingid, item.companyid)}
-        style={[styles.button, styles.evaluateButton]}>
-        <Text style={styles.buttonText}>Kullanıcıyı Değerlendir</Text>
-      </TouchableOpacity>
-    </View>
+  <View style={{ alignItems: 'center' }}>
+    <Image source={{ uri: 'https://cdn.colaksoft.online' + item.logo_path }} style={{ height: 120, width: 120, borderRadius: 60 }} />
+  </View>
+  <Text style={styles.title}>{item.name} {item.surname}</Text>
+  <Text>Email: {item.email}</Text>
+  <Text>Telefon Numarası: {item.gsm}</Text>
+  <Text>Cinsiyet: {item.gender_name}</Text>
+  <Text>JOBID: {item.job_postingid}</Text>
+  {renderOTPInput(item.userid)}
+  <TouchableOpacity
+    onPress={() => handleAcceptButtonPress(item.job_postingid, item.userid)}
+    style={styles.button}>
+    <Text style={styles.buttonText}>Doğrulama Kodunu Gönder</Text>
+  </TouchableOpacity>
+  <TouchableOpacity
+    onPress={() => handleEvaluateButtonPress(item.userid, item.job_postingid, item.companyid)}
+    style={[styles.button, styles.evaluateButton]}>
+    <Text style={styles.buttonText}>Kullanıcıyı Değerlendir</Text>
+  </TouchableOpacity>
+</View>
   );
 
   return (

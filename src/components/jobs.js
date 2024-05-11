@@ -63,7 +63,7 @@ const JobCard = ({ item, index, navigation }) => {
         if (userId) {
             headers = { 'Company': 'true' };
 
-            const response = await get(`https://ig.colaksoft.online/api/v1/JobFeedback/ListJobScoresByCompany?job_postingid=${jobPostingId}&companyId=${companyId}`, {headers}, true);
+            const response = await get(`https://ig.colaksoft.online/api/v1/JobFeedback/ListScore?companyId=${companyId}`, {headers}, true);
             if (response.data) {
                 const validFeedbacks = response.data.filter(feedback => !feedback.is_feedback_for_user);
                 const scores = validFeedbacks.map(feedback => feedback.question_score);
@@ -73,7 +73,7 @@ const JobCard = ({ item, index, navigation }) => {
         } else {
             // companyid'ye göre headers belirleme
             headers = { 'Company': 'true' };
-            const response = await get(`https://ig.colaksoft.online/api/v1/JobFeedback/ListJobScoresByCompany?job_postingid=${jobPostingId}&companyId=${companyId}`, headers, true);
+            const response = await get(`https://ig.colaksoft.online/api/v1/JobFeedback/ListScore?companyId=${companyId}`, headers, true);
             if (response.data) {
                 const validFeedbacks = response.data.filter(feedback => !feedback.is_feedback_for_user);
                 const scores = validFeedbacks.map(feedback => feedback.question_score);
@@ -124,19 +124,16 @@ const JobCard = ({ item, index, navigation }) => {
             <Text style={{ fontSize: hp(2.0) }} className=" 
             font-semibold ml-2 text-neutral-500">
               {
-                item.adress.length > 20 ? item.adress.slice(0, 20) + '...' : item.adress
+                item.adress.length > 20 ? item.adress.slice(0, 20) + '...' : item.companyid
               }
 
             </Text>
 
 
-            <View style={{ justifyContent: 'space-between', alignItems: 'flex-end' }}>
-              <Text style={{ fontSize: hp(2.0), fontWeight: '600', color: '#666' }}>
-                {item.total_salary}
-              </Text>
-              <StarRating disabled={false} maxStars={5} rating={starCount} starSize={hp(2)} fullStarColor={'gold'} />
-
-            </View>
+            <View style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', marginLeft: 7 }}>
+  <Text style={{ marginRight: 5, fontSize: hp(1.7), color: 'black' }}>Şirket Puanı:</Text>
+  <StarRating disabled={false} maxStars={5} rating={starCount} starSize={hp(2)} fullStarColor={'gold'} />
+</View>
 
 
 

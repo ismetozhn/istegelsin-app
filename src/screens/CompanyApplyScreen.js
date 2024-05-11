@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, Alert ,Image} from 'react-native';
 import { get, update } from '../api/apiHelper';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function CompanyApplyScreen({ route }) {
   const { jobPostingId } = route.params;
@@ -66,28 +67,73 @@ export default function CompanyApplyScreen({ route }) {
       console.error('Error rejecting application:', error);
     }
   };
-
   return (
-    <View>
-      <FlatList
-        data={applications}
-        renderItem={({ item }) => (
-          <TouchableOpacity style={{ marginTop: hp(5.0), padding: hp(1.5), borderBottomWidth: 4, borderBottomColor: '#ccc' }}>
-            <Text style={{ fontSize: hp(2.5), fontWeight: 'bold', marginBottom: hp(1) }}>{item.name}</Text>
-            <Text>{item.surname}</Text>
-            <Text>{item.email}</Text>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <TouchableOpacity onPress={() => handleAccept(item)} style={{ backgroundColor: 'green', padding: 10, borderRadius: 5 }}>
-                <Text style={{ color: 'white' }}>Onayla</Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => handleReject(item)} style={{ backgroundColor: 'red', padding: 10, borderRadius: 5 }}>
-                <Text style={{ color: 'white' }}>Reddet</Text>
-              </TouchableOpacity>
-            </View>
-          </TouchableOpacity>
-        )}
-        keyExtractor={(item, index) => index.toString()}
-      />
-    </View>
+    <LinearGradient
+      colors={['#330867', '#075985']}
+      style={{ flex: 1 }}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+    >
+      <View>
+        <FlatList
+          data={applications}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={{
+                marginTop: hp(5.0),
+                padding: hp(1.5),
+                borderBottomWidth: 4,
+                borderBottomColor: '#ccc',
+                opacity: 0.8,
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.3,
+                shadowRadius: 2,
+                elevation: 3,
+                backgroundColor: 'rgba(255, 255, 255, 0.1)', // Renkli arka plan
+                borderRadius: 10, // Kenar yuvarlatma
+              }}
+            >
+              <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+                <Image source={{ uri: 'https://cdn.colaksoft.online' + item.logo_path }} style={{ height: 120, width: 120, borderRadius: 60 }} />
+                <View style={{ marginTop: 10 }}>
+                  <Text style={{ fontSize: hp(2.5), fontWeight: 'bold', color: 'white' }}>{item.name} {item.surname}</Text>
+                  <Text style={{ color: 'white' }}>Email: {item.email}</Text>
+                  <Text style={{ color: 'white' }}>Telefon Numarası: {item.gsm}</Text>
+
+                  
+                </View>
+              </View>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                <TouchableOpacity
+                  onPress={() => handleAccept(item)}
+                  style={{
+                    marginTop: 10,
+                    backgroundColor: '#4CAF50', // Yeşil renk
+                    padding: 10,
+                    borderRadius: 5,
+                  }}
+                >
+                  <Text style={{ color: 'white' }}>Onayla</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => handleReject(item)}
+                  style={{
+                    marginTop: 10,
+                    backgroundColor: '#F44336', // Kırmızı renk
+                    padding: 10,
+                    borderRadius: 5,
+                  }}
+                >
+                  <Text style={{ color: 'white' }}>Reddet</Text>
+                </TouchableOpacity>
+              </View>
+            </TouchableOpacity>
+          )}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      </View>
+
+    </LinearGradient>
   );
 }

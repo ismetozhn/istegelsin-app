@@ -109,7 +109,7 @@ export default function HomeScreen() {
 
   const getJobs = async (category = 0) => {
     try {
-      const response = await axios.get(`https://ig.colaksoft.online/api/v1/JobPosting/List?workModelId=${category}&pageNumber=1&pageSize=10`);
+      const response = await axios.get(`https://ig.colaksoft.online/api/v1/JobPosting/List?workModelId=${category}&pageNumber=1&pageSize=100`);
       if (response && response.data) {
         setMeals(response.data.data.items);
       }
@@ -187,9 +187,10 @@ export default function HomeScreen() {
           </Pressable>
         </View>
 
-        <View>
-          {categories.length > 0 && <Categories jobPostings={categories} activeCategory={activeCategory} handleChangeCategory={handleChangeCategory} />}
-        </View>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+  {categories.length > 0 && <Categories jobPostings={categories} activeCategory={activeCategory} handleChangeCategory={handleChangeCategory} />}
+</View>
+
 
         <View>
           <Jobs meals={meals} categories={categories} handleJobDetail={handleJobDetail} />

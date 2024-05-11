@@ -8,6 +8,7 @@ export default function Categories({ jobPostings, activeCategory, handleChangeCa
   return (
     <Animated.View entering={FadeInDown.duration(500).springify()}>
       <ScrollView
+      
         horizontal
         showsVerticalScrollIndicator={false}
         className="space-x-4"

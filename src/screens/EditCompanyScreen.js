@@ -108,8 +108,15 @@ export default function EditCompanyScreen() {
       }
 
       const response = await update(endpoint, formData, headers, true);
-      console.log('Güncelleme işlemi başarılı:', response);
+      if (response.success) {
+        alert(response.message || 'Güncelleme işlemi başarılı');
+        console.log('Güncelleme işlemi başarılı:', response);
+      } else {
+        alert(response.message || 'Güncelleme işlemi başarısız');
+        console.error('Güncelleme işlemi başarısız:', response.error);
+      }
     } catch (error) {
+      alert('Güncelleme işlemi sırasında bir hata oluştu');
       console.error('Güncelleme işlemi hatası:', error);
     }
   };
