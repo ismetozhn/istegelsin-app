@@ -34,7 +34,7 @@ export default function Categories({ jobPostings, activeCategory, handleChangeCa
                   }
 
                 </View>
-                <Text className="text-neutral-600" style={{ fontSize: hp(1.6) }}>
+                <Text className="text-violet-950 font-bold" style={{ fontSize: hp(1.6) }}>
                   {item.header}
 
                 </Text>

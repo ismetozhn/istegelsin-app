@@ -113,7 +113,7 @@ const JobCard = ({ item, index, navigation }) => {
           <View>
             <Text style={{ fontSize: hp(2.0) }} className=" font-bold ml-2 text-neutral-700">
               {
-                item.title.length > 20 ? item.title.slice(0, 20) + '...' : item.companyid
+                item.title.length > 20 ? item.title.slice(0, 20) + '...' : item.title
               }
             </Text>
 

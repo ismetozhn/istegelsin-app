@@ -160,7 +160,7 @@ export default function HomeScreen() {
         </View>
 
         <View className="mx-4 space-y-2 mb-2">
-          <Text style={{ fontSize: hp(1.7) }} className="text-neutral-600"> Merhaba, İş Dünyasına Hoş Geldiniz!</Text>
+          <Text style={{ fontSize: hp(1.7) }} className="text-sky-600"> Merhaba, İş Dünyasına Hoş Geldiniz!</Text>
           <View>
             <Text style={{ fontSize: hp(3.8) }} className="font-semibold text-neutral-600">Aradığın işi her an </Text>
           </View>

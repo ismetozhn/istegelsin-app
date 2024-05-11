@@ -116,9 +116,9 @@ export default function UserApplyScreen() {
                                 start={{ x: 0, y: 0 }}
                                 end={{ x: 1, y: 0 }}
                             >
-                                <Text style={{ color: '#ffffff', fontSize: hp(2.5), fontWeight: 'bold', marginBottom: hp(1) }}>{item.company_name}</Text>
-                                <Text>{item.title}</Text>
-                                <Text>{item.description}</Text>
+                                <Text style={{ color: '#ffffff', fontSize: hp(2.5), fontWeight: '800', marginBottom: hp(1) }}>{item.company_name}</Text>
+                                <Text className='text-white mb-2 font-extrabold'>{item.title}</Text>
+                                <Text className='text-white'>{item.description}</Text>
                             </LinearGradient>
                         </TouchableOpacity>
                     )}

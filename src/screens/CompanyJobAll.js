@@ -153,10 +153,10 @@ export default function CompanyJob() {
                                 start={{ x: 0, y: 0 }}
                                 end={{ x: 1, y: 0 }}
                             >
-                                <Text style={{ color: '#ffffff', fontSize: hp(2.5), fontWeight: 'bold', marginBottom: hp(1) }}>{item.title}</Text>
-                                <Text className='text-slate-50 font-bold mb-2'>{item.adress}</Text>
-                                <Text className='text-slate-50'>{item.description}</Text>
-                                <Text className='text-slate-50 mt-2'>{item.total_salary}</Text>
+                                <Text style={{ color: '#ffffff', fontSize: hp(2.5), fontWeight: '800', marginBottom: hp(1) }}>{item.title}</Text>
+                                <Text className='text-white font-extrabold mb-2'>{item.adress}</Text>
+                                <Text className='text-white'>{item.description}</Text>
+                                <Text className='text-white font-bold mt-2'>{item.total_salary} ₺</Text>
                             </LinearGradient>
                         </TouchableOpacity>
                     )}
